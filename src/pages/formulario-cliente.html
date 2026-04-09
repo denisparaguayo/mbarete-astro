@@ -1168,15 +1168,6 @@
 				</div>
 				<div class="template-grid" id="templateGrid"></div>
 
-				<div class="card" style="margin-top: 0.5rem">
-					<div class="field" style="margin: 0">
-						<label>Fuente para títulos</label>
-						<select id="c_font_titulo">
-							<option value="system-ui">System UI — rápido y nativo</option>
-						</select>
-					</div>
-				</div>
-
 				<div class="btn-nav">
 					<button class="btn-back" onclick="prevStep(2)">← Atrás</button>
 					<button class="btn-next" onclick="nextStep(2)">
@@ -1246,7 +1237,7 @@
 						</button>
 					</div>
 					<div class="logo-size-warning" id="logoSizeWarning">
-						⚠️ Logo muy pesado. Intentá con uno menor a 500 KB para que el sitio
+						⚠️ Logo muy pesado. Intentá con uno menor a 10 MB para que el sitio
 						cargue rápido.
 					</div>
 					<input
@@ -1270,7 +1261,7 @@
 						Fotos de tu negocio
 					</div>
 					<div class="img-size-tip">
-						<strong>📐 Límite de tamaño por imagen: 1 MB</strong>
+						<strong>📐 Límite de tamaño por imagen: 10 MB</strong>
 						Fotos más pesadas se rechazan automáticamente. Si necesitás reducir
 						el tamaño, usá <strong>squoosh.app</strong> o enviálas por WhatsApp
 						después.
@@ -1282,10 +1273,10 @@
 								color: var(--text-muted);
 								font-weight: 600;
 							"
-							>Hasta 5 fotos</span
+							>Hasta 20 fotos</span
 						>
 						<span class="fotos-counter"
-							><span id="fotosCount">0</span> / 5</span
+							><span id="fotosCount">0</span> / 20</span
 						>
 					</div>
 					<div class="fotos-grid" id="fotosGrid"></div>
@@ -1493,23 +1484,9 @@
 
 				<div class="card">
 					<div class="maps-tip">
-						<strong>📍 ¿Cómo obtengo el código del mapa?</strong>
-						1. Abrí <strong>maps.google.com</strong> en la PC<br />
-						2. Buscá tu negocio o dirección<br />
-						3. Clic en <strong>Compartir → Insertar mapa</strong><br />
-						4. Clic en <strong>Copiar HTML</strong> y pegalo abajo
-					</div>
-					<div class="field" style="margin: 0">
-						<label>Código de Google Maps (opcional)</label>
-						<textarea
-							id="c_maps"
-							placeholder='<iframe src="https://www.google.com/maps/embed?pb=!1m18...'
-							style="
-								font-size: 0.73rem;
-								font-family: monospace;
-								min-height: 60px;
-							"
-							rows="3"></textarea>
+						<strong>⚡ Ubicación por WhatsApp</strong>
+						Si compartir el link de ubicación se complica, pasale tu ubicación
+						directamente al vendedor por WhatsApp y él lo carga por vos.
 					</div>
 				</div>
 
@@ -1557,7 +1534,6 @@
 					<input type="hidden" name="descripcion" id="fn_descripcion" />
 					<input type="hidden" name="paleta" id="fn_paleta" />
 					<input type="hidden" name="template" id="fn_template" />
-					<input type="hidden" name="font_titulo" id="fn_font_titulo" />
 					<input type="hidden" name="telefono" id="fn_telefono" />
 					<input type="hidden" name="whatsapp" id="fn_whatsapp" />
 					<input type="hidden" name="email" id="fn_email" />
@@ -1601,7 +1577,7 @@
 						<path
 							d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
 					</svg>
-					También enviame por WhatsApp
+					⚡ También enviame por WhatsApp
 				</a>
 				<p style="margin-top: 1rem; font-size: 0.78rem">
 					Si querés, podés enviar el resumen por WhatsApp como respaldo
@@ -2029,9 +2005,9 @@
 			// ═══════════════════════════════════════════════
 			const TOTAL_STEPS = 6;
 			const MAX_SERVICIOS = 6;
-			const MAX_FOTOS = 5;
-			const MAX_FOTO_SIZE_MB = 2;
-			const MAX_LOGO_SIZE_KB = 2000;
+			const MAX_FOTOS = 20;
+			const MAX_FOTO_SIZE_MB = 10;
+			const MAX_LOGO_SIZE_KB = 10240;
 
 			let currentStep = 1;
 			let selectedRubro = null;
@@ -2676,7 +2652,7 @@
 					],
 					['Fotos', fotos.length > 0 ? `${fotos.length} foto(s)` : 'Sin fotos'],
 					['Instagram', v('c_instagram') || '-'],
-					['Mapa', v('c_maps') ? '✅ Código cargado' : 'Sin mapa'],
+					['Ubicación', '⚡ Pasar por WhatsApp al vendedor'],
 					['Notas', v('c_notas') || '-'],
 				];
 
@@ -2711,7 +2687,6 @@
 				set('fn_descripcion', v('c_descripcion'));
 				set('fn_paleta', paleta ? `${paleta.name}` : '');
 				set('fn_template', tmpl ? `${tmpl.name} (${selectedTemplate})` : '');
-				set('fn_font_titulo', v('c_font_titulo'));
 				set('fn_whatsapp', v('c_whatsapp'));
 				set('fn_telefono', v('c_telefono'));
 				set('fn_email', v('c_email'));
@@ -2723,10 +2698,7 @@
 				set('fn_hor3', v('c_hor3'));
 				set('fn_instagram', v('c_instagram'));
 				set('fn_facebook', v('c_facebook'));
-				set(
-					'fn_maps',
-					v('c_maps') ? '(código adjunto en notas WA)' : 'Sin mapa'
-				);
+				set('fn_maps', 'Ubicación a coordinar por WhatsApp con vendedor');
 				set(
 					'fn_servicios',
 					svFilled
@@ -2782,12 +2754,11 @@
 					``,
 					`🎨 *Paleta:* ${paleta?.name} (${paleta?.desc})`,
 					`📐 *Template:* ${tmpl?.icon} ${tmpl?.name}`,
-					`🔤 *Fuente títulos:* ${v('c_font_titulo') || 'system-ui'}`,
 					logoData
 						? `🏷️ *Logo:* ✅ ${logoData.name} (${logoData.sizeKB} KB)`
 						: `🏷️ *Logo:* Sin logo`,
 					``,
-					`📞 *WhatsApp:* ${v('c_whatsapp')}`,
+					`⚡ *WhatsApp:* ${v('c_whatsapp')}`,
 					v('c_telefono') ? `☎️ *Teléfono:* ${v('c_telefono')}` : null,
 					v('c_email') ? `📧 *Email:* ${v('c_email')}` : null,
 					`📍 *Dirección:* ${v('c_direccion')}, ${v('c_ciudad')}`,
@@ -2795,7 +2766,7 @@
 					`🕐 *Horarios:* Lun-Vie ${v('c_hor1') || '-'} | Sáb ${v('c_hor2') || '-'} | Dom ${v('c_hor3') || 'Cerrado'}`,
 					v('c_instagram') ? `📱 *Instagram:* ${v('c_instagram')}` : null,
 					v('c_facebook') ? `📘 *Facebook:* ${v('c_facebook')}` : null,
-					v('c_maps') ? `🗺️ *Mapa:* ✅ Código incluido` : null,
+					`⚡ *Ubicación:* Coordinar por WhatsApp con vendedor`,
 					``,
 					svFilled.length > 0
 						? `🛠 *Servicios (${svFilled.length}/${MAX_SERVICIOS}):*\n${svFilled.map((s) => `  ${s.emoji || '•'} ${s.nombre}${s.precio ? ' — ' + s.precio : ''}${s.desc ? ' · ' + s.desc : ''}`).join('\n')}`
