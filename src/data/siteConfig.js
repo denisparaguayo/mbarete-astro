@@ -3,9 +3,9 @@ export const siteConfig = {
 	url: 'https://mbarete.online/',
 
 	// CONTACTO
-	email: 'hola@mbarete.online',
-	phone: '0986 550 235',
-	whatsapp: '595986550235',
+	email: 'mbarete.digital01@gmail.com',
+	phone: '0987129446',
+	whatsapp: '595987129446',
 
 	// MENSAJES CENTRALIZADOS
 	messages: {
