@@ -67,7 +67,7 @@ export const services: ServiceItem[] = [
 		icon: '📋',
 		summary:
 			'Listado visual de productos o platos con imagen, precio y boton para pedir por WhatsApp.',
-		price: 'Gs. 400.000',
+		price: 'Desde Gs. 400.000',
 		benefits: [
 			'Mas claridad para el cliente al momento de elegir',
 			'Mejor presentacion visual de productos',
