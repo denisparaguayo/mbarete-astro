@@ -6,6 +6,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "sync:webs-muestras-assets": "node scripts/sync-webs-muestras-assets.mjs",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

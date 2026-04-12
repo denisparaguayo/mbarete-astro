@@ -15,6 +15,7 @@ interface Props {
 	schema?: object | object[];
 	lang?: string;
 	navbarSolid?: boolean;
+	keepTitleAsIs?: boolean;
 }
 
 const {
@@ -27,13 +28,16 @@ const {
 	schema,
 	lang = 'es-PY',
 	navbarSolid = false,
+	keepTitleAsIs = false,
 } = Astro.props;
 
-const fullTitle = title.includes(siteConfig.name)
+const fullTitle = keepTitleAsIs
+	? title
+	: title.includes(siteConfig.name)
 	? title
 	: `${title} | ${siteConfig.name}`;
 
-const robots = noindex ? 'noindex, nofollow' : 'index, follow';
+const robots = noindex ? 'noindex,nofollow' : 'index,follow';
 
 const professionalServiceSchema = {
 	'@context': 'https://schema.org',

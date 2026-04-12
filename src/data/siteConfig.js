@@ -1,4 +1,4 @@
-export const siteConfig = {
+﻿export const siteConfig = {
 	name: 'Mbarete Digital',
 	url: 'https://mbarete.online/',
 
@@ -10,50 +10,54 @@ export const siteConfig = {
 	// MENSAJES CENTRALIZADOS
 	messages: {
 		default:
-			'Hola Mbarete Digital! Quiero consultar sobre una página web para mi negocio 👋',
+			'Hola Mbarete Digital! Quiero consultar sobre una pagina web para mi negocio 👋',
 
-		faq: 'Hola Mbarete Digital! Estuve viendo la página de preguntas frecuentes y quiero hacer una consulta 👋',
+		faq: 'Hola Mbarete Digital! Estuve viendo la pagina de preguntas frecuentes y quiero hacer una consulta 👋',
 
 		plan: (plan) =>
 			`Hola Mbarete Digital! Quiero consultar sobre el Plan ${plan} para mi negocio 👋`,
 
 		rubro: (rubro) =>
-			`Hola Mbarete Digital! Quiero una página web para mi negocio de ${rubro} 👋`,
+			`Hola Mbarete Digital! Quiero una pagina web para mi negocio de ${rubro} 👋`,
 	},
 
-	// UBICACIÓN
+	// UBICACION
 	address: {
-		city: 'Asunción',
+		city: 'Asuncion',
 		country: 'Paraguay',
 	},
 
 	// HORARIOS
 	hours: {
 		days: 'Lunes a Viernes',
-		time: '08:00–18:00',
+		time: '08:00-18:00',
 	},
 
 	// REDES
 	socials: {
-		instagram: '#',
-		facebook: '#',
+		instagram: 'https://www.instagram.com/digitalmbarete',
+		facebook: 'https://www.facebook.com/mbarete.digital/',
 	},
 
 	// SEO GLOBAL
 	seo: {
 		defaultTitle:
-			'Diseño Web en Paraguay | Páginas Web Profesionales — Mbarete Digital',
+			'Diseno Web en Paraguay | Paginas Web Profesionales - Mbarete Digital',
 
 		defaultDescription:
-			'Diseño web en Paraguay desde Gs. 800.000. Creamos páginas web profesionales para negocios en Asunción y todo el país. SEO, WhatsApp y entrega en 1-2 días.',
+			'Diseno web en Paraguay desde Gs. 800.000. Creamos paginas web profesionales para negocios en Asuncion y todo el pais. SEO, WhatsApp y entrega en 1-2 dias.',
 
 		ogImage: 'https://mbarete.online/og-image.jpg',
+		localCities: [
+			'Asuncion',
+			'San Lorenzo',
+			'Capiata',
+			'Luque',
+			'Fernando de la Mora',
+			'Lambare',
+		],
 	},
 };
-
-// ════════════════════════════════════════
-// HELPERS
-// ════════════════════════════════════════
 
 // Generador de URL WhatsApp (global)
 export function getWhatsAppUrl(message) {
@@ -61,7 +65,7 @@ export function getWhatsAppUrl(message) {
 	return `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 
-// Helpers específicos (opcional pero PRO)
+// Helpers especificos
 export function getPlanWhatsApp(plan) {
 	return getWhatsAppUrl(siteConfig.messages.plan(plan));
 }

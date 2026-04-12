@@ -1,0 +1,693 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getRubrosItems } from '../../data/rubros';
+import { siteConfig, getRubroWhatsApp } from '../../data/siteConfig';
+import { getRubroLiveUrl } from '../../data/websMuestras';
+import type { RubroItem } from '../../types/rubros';
+
+export function getStaticPaths() {
+	return getRubrosItems().map((item) => ({
+		params: { slug: item.slug },
+		props: { item },
+	}));
+}
+
+const { item } = Astro.props as { item: RubroItem };
+
+const canonical = new URL(item.seo.canonicalPath, Astro.site).toString();
+const liveUrl =
+	getRubroLiveUrl(item.slug) ??
+	`/muestras/webs-muestras/${item.slug.replace(/-/g, '_')}.html`;
+const ctaHref = getRubroWhatsApp(item.business.rubro);
+const contactPhone = siteConfig.phone || item.business.telefono || '';
+const contactEmail = siteConfig.email || item.business.email || '';
+const configuredCities = Array.isArray(siteConfig.seo?.localCities)
+	? siteConfig.seo.localCities
+	: [];
+const localCities = Array.from(
+	new Set([item.business.ciudad, ...configuredCities].filter(Boolean))
+);
+const searchPhrases = localCities.map(
+	(city) => `pagina web para ${item.business.rubro.toLowerCase()} en ${city}`
+);
+const primarySearchPhrase = searchPhrases[0];
+const topSeoCities = localCities.slice(0, 4).join(', ');
+const seoCitiesShort = localCities.slice(0, 3).join(', ');
+const headerSeoTerms = [
+	`diseno web para ${item.business.rubro.toLowerCase()}`,
+	`landing page para ${item.business.rubro.toLowerCase()}`,
+	`web profesional para ${item.business.rubro.toLowerCase()}`,
+];
+
+function toHashtag(term: string) {
+	return `#${term.trim().toLowerCase().replace(/\s+/g, '-')}`;
+}
+
+const previewImageModules = import.meta.glob(
+	'/src/pages/muestras/images/*.{jpg,jpeg,png,webp,avif,gif,svg}',
+	{
+		eager: true,
+		query: '?url',
+		import: 'default',
+	}
+) as Record<string, string>;
+
+const previewImageUrl =
+	Object.entries(previewImageModules).find(([path]) =>
+		path.endsWith(`/${item.slug}.jpg`) ||
+		path.endsWith(`/${item.slug}.jpeg`) ||
+		path.endsWith(`/${item.slug}.png`) ||
+		path.endsWith(`/${item.slug}.webp`) ||
+		path.endsWith(`/${item.slug}.avif`) ||
+		path.endsWith(`/${item.slug}.gif`) ||
+		path.endsWith(`/${item.slug}.svg`)
+	)?.[1] ?? null;
+
+function getSocialUrl(
+	value: string | undefined,
+	platform: 'instagram' | 'facebook'
+) {
+	if (!value) return null;
+	if (value.startsWith('http')) return value;
+
+	if (platform === 'instagram') {
+		const username = value.replace('@', '').trim();
+		return username ? `https://instagram.com/${username}` : null;
+	}
+
+	const page = value.replace('/', '').trim();
+	return page ? `https://facebook.com/${page}` : null;
+}
+
+const sameAs = [
+	item.business.web,
+	getSocialUrl(item.business.instagram, 'instagram'),
+	getSocialUrl(item.business.facebook, 'facebook'),
+].filter(Boolean);
+
+const localBusinessSchema = {
+	'@context': 'https://schema.org',
+	'@type': item.schemaType,
+	name: item.business.nombre,
+	description: item.seo.description,
+	url: canonical,
+	telephone: contactPhone,
+	email: contactEmail,
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: item.business.direccion,
+		addressLocality: item.business.ciudad,
+		addressCountry: 'PY',
+	},
+	areaServed: localCities.map((city) => ({
+		'@type': 'City',
+		name: city,
+	})),
+	openingHours: [
+		`Mo-Fr ${item.horarios.lunesViernes}`,
+		`Sa ${item.horarios.sabado}`,
+		`Su ${item.horarios.domingo}`,
+	],
+	sameAs,
+};
+
+const faqItems = [
+	{
+		question: `¿Cuánto tarda en crearse una ${primarySearchPhrase}?`,
+		answer:
+			'La versión base puede estar lista en 1-2 días, dependiendo de tu contenido y los ajustes finales.',
+	},
+	{
+		// "Aparecer en mi zona" o "Cerca de mí" es como busca el usuario real
+		question: `¿Mi web de ${item.business.rubro.toLowerCase()} aparecerá cuando busquen ${item.business.rubro.toLowerCase()} cerca de mi zona?`,
+		answer:
+			'Sí. Configuramos SEO Local (títulos, descripciones y datos estructurados) para que Google te priorice en las búsquedas de tu barrio o ciudad y mejores tu visibilidad en los mapas.',
+	},
+	{
+		question: '¿Puedo pedir cambios después de ver la demo en vivo?',
+		answer:
+			'Sí. La demo sirve como estructura base y luego la personalizamos completamente con tus textos, servicios, branding y llamadas a la acción (CTA).',
+	},
+];
+
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqItems.map((itemFaq) => ({
+		'@type': 'Question',
+		name: itemFaq.question,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: itemFaq.answer,
+		},
+	})),
+};
+---
+
+<BaseLayout
+	title={item.seo.title}
+	description={item.seo.description}
+	canonical={canonical}
+	schema={[localBusinessSchema, faqSchema]}
+	keepTitleAsIs={true}
+	navbarSolid={true}>
+	<section class="template-detail">
+		<div class="container">
+			<div class="template-detail__layout">
+				<header class="template-detail__header">
+					<p class="template-detail__path">
+						Muestras / {item.business.rubro}
+					</p>
+					<h1>
+						Pagina web para {item.business.rubro.toLowerCase()}
+					</h1>
+					<p class="template-detail__meta">
+						{item.business.rubro}
+					</p>
+					<p class="template-detail__desc">
+						Estructura base de sitio web pensada para negocios de{' '}
+						{item.business.rubro.toLowerCase()}, optimizada para SEO local y
+						conversiones.
+					</p>
+					<ul
+						class="template-detail__keywords"
+						role="list"
+						aria-label="Hashtags SEO">
+						{headerSeoTerms.map((term) => <li>{toHashtag(term)}</li>)}
+					</ul>
+
+					<section class="detail-block">
+						<h2>Que incluye esta web para posicionar y convertir</h2>
+						<ul role="list">
+							<li>
+								Hero con propuesta de valor para {
+									item.business.rubro.toLowerCase()
+								}
+							</li>
+							<li>
+								Seccion de servicios con keywords transaccionales por rubro
+							</li>
+							<li>Bloque de confianza con stats y prueba social</li>
+							<li>Horarios, ubicacion y contacto visibles en primer scroll</li>
+							<li>
+								SEO local con schema {item.schemaType} y estructura indexable
+							</li>
+						</ul>
+					</section>
+
+					<section class="detail-block">
+						<h2>Para quien sirve esta plantilla</h2>
+						<p class="detail-paragraph">
+							Si queres captar clientes que buscan en Google terminos como
+							<strong> {primarySearchPhrase} </strong>, esta estructura esta
+							pensada para aparecer con contenido relevante y convertir visitas
+							en consultas.
+						</p>
+						<ul role="list">
+							<li>Negocios que quieren generar consultas por WhatsApp</li>
+							<li>Emprendimientos que necesitan presencia local profesional</li>
+							<li>Rubros que compiten por busquedas de ciudad + servicio</li>
+						</ul>
+					</section>
+
+					<section class="detail-block">
+						<h2>Ciudades objetivo para este rubro</h2>
+						<p class="detail-paragraph">
+							Esta ficha tambien apunta a busquedas locales en Gran Asuncion.
+						</p>
+						<ul role="list">
+							{searchPhrases.slice(0, 6).map((phrase) => <li>{phrase}</li>)}
+						</ul>
+					</section>
+
+					<section class="detail-block">
+						<h2>Servicios cargados</h2>
+						<ul class="detail-services" role="list">
+							{
+								item.servicios.map((servicio) => (
+									<li>
+										<div>
+											<strong>
+												{servicio.emoji ? `${servicio.emoji} ` : ''}
+												{servicio.nombre}
+											</strong>
+											<p>{servicio.desc}</p>
+										</div>
+										{servicio.precio && <span>{servicio.precio}</span>}
+									</li>
+								))
+							}
+						</ul>
+					</section>
+
+					<section class="detail-block">
+						<h2>Horarios y métricas</h2>
+						<div class="detail-mixed">
+							<div>
+								<h3>Horarios</h3>
+								<ul role="list">
+									<li>Lunes a Viernes: {item.horarios.lunesViernes}</li>
+									<li>Sábado: {item.horarios.sabado}</li>
+									<li>Domingo: {item.horarios.domingo}</li>
+								</ul>
+							</div>
+							<div>
+								<h3>Stats</h3>
+								{
+									item.stats.length > 0 ? (
+										<ul role="list">
+											{item.stats.map((stat) => (
+												<li>
+													<strong>{stat.numero}</strong> · {stat.label}
+												</li>
+											))}
+										</ul>
+									) : (
+										<p>Este rubro no tiene stats predefinidos.</p>
+									)
+								}
+							</div>
+						</div>
+					</section>
+
+					<section class="detail-block detail-block--cta">
+						<h2>¿Querés esta misma base para tu rubro?</h2>
+						<p>
+							Usamos esta plantilla como punto de partida y la personalizamos
+							con tu marca, tus servicios y tus datos.
+						</p>
+						<a
+							class="btn btn--primary"
+							href={ctaHref}
+							target="_blank"
+							rel="noopener noreferrer">
+							Solicitar este tipo de web
+						</a>
+					</section>
+
+					<section class="detail-block">
+						<h2>Preguntas frecuentes</h2>
+						<div class="faq-list">
+							{
+								faqItems.map((faq) => (
+									<article class="faq-item">
+										<h3>{faq.question}</h3>
+										<p>{faq.answer}</p>
+									</article>
+								))
+							}
+						</div>
+					</section>
+				</header>
+
+				<aside class="template-sidebar">
+						<div class="template-preview">
+							{
+								previewImageUrl ? (
+									<a
+										class="template-preview__shot template-preview__shot--image"
+										href={previewImageUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label={`Abrir imagen completa de la vista previa de ${item.business.rubro}`}>
+										<img
+											src={previewImageUrl}
+											alt={`Vista previa del template para ${item.business.rubro}`}
+											loading="lazy"
+											decoding="async"
+										/>
+										<small>Abrir imagen completa</small>
+									</a>
+								) : (
+									<div
+										class="template-preview__shot"
+										style={`background:linear-gradient(135deg,${item.colores?.oscuro ?? '#1e293b'},${item.colores?.claro ?? '#3b82f6'})`}>
+										<span>{item.business.logoEmoji ?? '🌐'}</span>
+										<small>Vista previa de template</small>
+									</div>
+								)
+							}
+
+						<div class="template-preview__actions">
+							<a
+								class="btn btn--primary btn--full"
+								href={liveUrl}
+								target="_blank"
+								rel="noopener noreferrer">
+								Ver en vivo
+							</a>
+							<a
+								class="btn btn--outline btn--full"
+								href={ctaHref}
+								target="_blank"
+								rel="noopener noreferrer">
+								{item.cta.label}
+							</a>
+						</div>
+
+						<div class="template-preview__cta-note">
+							<p>¿Te gustó esta estructura? Te la adaptamos a tu negocio.</p>
+							<a
+								class="btn btn--primary btn--full"
+								href={ctaHref}
+								target="_blank"
+								rel="noopener noreferrer">
+								Solicitar este tipo de web
+							</a>
+						</div>
+					</div>
+
+					<div class="template-sidebar__info">
+						<h3>Datos del negocio</h3>
+						<ul role="list">
+							<li>
+								<strong>Dirección:</strong>
+								{item.business.direccion ?? `${item.business.ciudad}, Paraguay`}
+							</li>
+							{
+								contactPhone && (
+									<li>
+										<strong>Teléfono:</strong> {contactPhone}
+									</li>
+								)
+							}
+							{
+								contactEmail && (
+									<li>
+										<strong>Email:</strong> {contactEmail}
+									</li>
+								)
+							}
+							{
+								item.business.instagram && (
+									<li>
+										<strong>Instagram:</strong> {item.business.instagram}
+									</li>
+								)
+							}
+							{
+								item.business.facebook && (
+									<li>
+										<strong>Facebook:</strong> {item.business.facebook}
+									</li>
+								)
+							}
+						</ul>
+					</div>
+				</aside>
+			</div>
+		</div>
+	</section>
+
+	<style>
+		.template-detail {
+			padding: 7rem 0 5rem;
+			background: #f7f9fc;
+		}
+
+		.template-detail__layout {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+
+		.template-detail__layout > .template-sidebar {
+			order: -1;
+		}
+
+		.template-detail__header {
+			background: var(--blanco);
+			border: 1px solid rgba(10, 22, 40, 0.08);
+			border-radius: var(--radius-lg);
+			padding: 1.2rem;
+		}
+
+		.template-detail__path {
+			font-size: 0.78rem;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			color: var(--texto-muted);
+			margin-bottom: 0.6rem;
+		}
+
+		.template-detail__header h1 {
+			font-size: clamp(1.8rem, 4vw, 2.6rem);
+			line-height: 1.15;
+		}
+
+		.template-detail__meta {
+			margin: 0.45rem 0 0.75rem;
+			color: var(--verde);
+			font-weight: 700;
+		}
+
+		.template-detail__desc {
+			color: var(--texto-muted);
+			line-height: 1.75;
+		}
+
+		.template-detail__seo-line {
+			margin-top: 0.65rem;
+			color: var(--azul-oscuro);
+			font-size: 0.95rem;
+		}
+
+		.template-detail__intent {
+			margin-top: 0.55rem;
+			color: var(--texto);
+			font-size: 0.95rem;
+			line-height: 1.7;
+		}
+
+		.template-detail__keywords {
+			margin-top: 0.85rem;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			list-style: none;
+			padding: 0;
+		}
+
+		.template-detail__keywords li {
+			padding: 0.3rem 0.7rem;
+			border-radius: 999px;
+			border: 1px solid #a7f3d0;
+			background: #f0fdf4;
+			color: #047857;
+			font-size: 0.8rem;
+			font-weight: 700;
+			line-height: 1.1;
+			letter-spacing: 0.01em;
+		}
+
+		.detail-block {
+			margin-top: 1rem;
+			background: var(--blanco);
+			border: 1px solid rgba(10, 22, 40, 0.08);
+			border-radius: var(--radius-lg);
+			padding: 1.1rem;
+		}
+
+		.detail-block h2 {
+			font-size: 1.3rem;
+			margin-bottom: 0.65rem;
+		}
+
+		.detail-block ul {
+			list-style: none;
+			display: grid;
+			gap: 0.45rem;
+		}
+
+		.detail-block li {
+			color: var(--texto-muted);
+			line-height: 1.65;
+		}
+
+		.detail-paragraph {
+			color: var(--texto-muted);
+			line-height: 1.75;
+			margin-bottom: 0.6rem;
+		}
+
+		.detail-services li {
+			display: flex;
+			justify-content: space-between;
+			gap: 0.8rem;
+			padding: 0.55rem 0;
+			border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+		}
+
+		.detail-services li:last-child {
+			border-bottom: 0;
+		}
+
+		.detail-services strong {
+			display: block;
+			color: var(--texto);
+		}
+
+		.detail-services p {
+			color: var(--texto-muted);
+		}
+
+		.detail-services span {
+			white-space: nowrap;
+			font-weight: 700;
+			color: var(--verde);
+		}
+
+		.detail-mixed {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 0.8rem;
+		}
+
+		.detail-mixed h3 {
+			margin-bottom: 0.4rem;
+		}
+
+		.detail-block--cta {
+			background: linear-gradient(135deg, #f0fdf8 0%, #ecfeff 100%);
+		}
+
+		.detail-block--cta p {
+			color: var(--texto-muted);
+			line-height: 1.7;
+			margin-bottom: 0.75rem;
+		}
+
+		.template-sidebar {
+			display: grid;
+			gap: 1rem;
+			align-content: start;
+		}
+
+		.template-preview,
+		.template-sidebar__info {
+			background: var(--blanco);
+			border: 1px solid rgba(10, 22, 40, 0.08);
+			border-radius: var(--radius-lg);
+			padding: 1rem;
+		}
+
+		.template-preview__shot {
+			min-height: 210px;
+			border-radius: 14px;
+			color: white;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 0.45rem;
+		}
+
+		.template-preview__shot--image {
+			position: relative;
+			overflow: hidden;
+			background: #0f172a;
+			text-decoration: none;
+		}
+
+		.template-preview__shot--image img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			display: block;
+			background: #0f172a;
+		}
+
+		.template-preview__shot--image small {
+			position: absolute;
+			left: 0.6rem;
+			bottom: 0.6rem;
+			background: rgba(2, 6, 23, 0.68);
+			padding: 0.2rem 0.45rem;
+			border-radius: 0.45rem;
+			font-size: 0.7rem;
+			letter-spacing: 0.03em;
+		}
+
+		.template-preview__shot span {
+			font-size: 3.2rem;
+		}
+
+		.template-preview__shot small {
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			font-weight: 700;
+		}
+
+		.template-preview__actions {
+			display: grid;
+			gap: 0.55rem;
+			margin-top: 0.9rem;
+		}
+
+		.template-preview__cta-note {
+			margin-top: 0.85rem;
+			padding-top: 0.85rem;
+			border-top: 1px solid rgba(10, 22, 40, 0.08);
+		}
+
+		.template-preview__cta-note p {
+			color: var(--texto-muted);
+			line-height: 1.65;
+			font-size: 0.9rem;
+			margin-bottom: 0.55rem;
+		}
+
+		.template-sidebar__info h3 {
+			margin-bottom: 0.6rem;
+		}
+
+		.template-sidebar__info ul {
+			list-style: none;
+			display: grid;
+			gap: 0.45rem;
+		}
+
+		.template-sidebar__info li {
+			line-height: 1.55;
+			color: var(--texto-muted);
+		}
+
+		.faq-list {
+			display: grid;
+			gap: 0.65rem;
+		}
+
+		.faq-item {
+			padding: 0.75rem;
+			background: #f8fafc;
+			border-radius: 12px;
+		}
+
+		.faq-item h3 {
+			font-size: 1rem;
+			margin-bottom: 0.25rem;
+		}
+
+		.faq-item p {
+			color: var(--texto-muted);
+			line-height: 1.65;
+			font-size: 0.94rem;
+		}
+
+		@media (min-width: 1020px) {
+			.template-detail__layout {
+				grid-template-columns: minmax(0, 1fr) 350px;
+				gap: 1.2rem;
+			}
+
+			.template-detail__layout > .template-sidebar {
+				order: 0;
+			}
+
+			.detail-mixed {
+				grid-template-columns: 1fr 1fr;
+				gap: 1rem;
+			}
+		}
+	</style>
+</BaseLayout>
