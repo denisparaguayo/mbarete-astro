@@ -1,0 +1,382 @@
+---
+import { siteConfig } from '../data/siteConfig';
+import { services, servicePlans } from '../data/services';
+import { getRubrosItems } from '../data/rubros';
+import { getRubroLiveUrl } from '../data/websMuestras';
+import '../styles/global.css';
+
+const canonical = `${siteConfig.url}/helper-vendedor/`;
+
+const rubros = [...getRubrosItems()].sort((a, b) =>
+	a.business.rubro.localeCompare(b.business.rubro, 'es')
+);
+
+function getSocialUrl(
+	value: string | undefined,
+	platform: 'instagram' | 'facebook'
+) {
+	if (!value) return null;
+	if (value.startsWith('http://') || value.startsWith('https://')) return value;
+
+	if (platform === 'instagram') {
+		const username = value.replace('@', '').trim();
+		return username ? `https://instagram.com/${username}` : null;
+	}
+
+	const page = value.replace('/', '').trim();
+	return page ? `https://facebook.com/${page}` : null;
+}
+---
+
+<!doctype html>
+<html lang="es-PY">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Helper (ayuda rápida) para vendedor | {siteConfig.name}</title>
+		<meta
+			name="description"
+			content="Guia rapida para ventas: precios, servicios y links de rubros con demo."
+		/>
+		<meta name="robots" content="noindex,nofollow" />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" href="/favicon.ico" />
+	</head>
+	<body>
+		<section class="helper-page">
+			<div class="container">
+				<header class="helper-page__hero">
+					<span class="helper-badge">Uso interno</span>
+					<h1>Helper (ayuda rápida) para vendedor</h1>
+					<p>
+						Referencia rapida para compartir precios y abrir links de servicios
+						o rubros en segundos.
+					</p>
+				</header>
+
+				<section class="helper-block" aria-labelledby="servicios-precios-title">
+					<div class="helper-block__head">
+						<h2 id="servicios-precios-title">Servicios y precios</h2>
+						<a class="btn btn--outline" href="/servicios/"
+							>Ver indice de servicios</a
+						>
+					</div>
+
+					<ul class="helper-list" role="list">
+						{
+							services.map((service) => (
+								<li class="helper-item">
+									<a
+										class="helper-item__main-link"
+										href={`/servicios/${service.slug}/`}
+										target="_blank">
+										<span class="helper-item__title">{service.name}</span>
+										<span class="helper-item__price">{service.price}</span>
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</section>
+
+				<section class="helper-block" aria-labelledby="planes-title">
+					<div class="helper-block__head">
+						<h2 id="planes-title">Planes web</h2>
+						<a class="btn btn--outline" href="/#precios">Ver seccion precios</a>
+					</div>
+
+					<ul class="plans-list" role="list">
+						{
+							servicePlans.map((plan) => (
+								<li>
+									<strong>{plan.name}</strong>
+									<span>{plan.price}</span>
+								</li>
+							))
+						}
+					</ul>
+				</section>
+
+				<section class="helper-block" aria-labelledby="redes-title">
+					<div class="helper-block__head">
+						<h2 id="redes-title">Redes sociales (Mbarete)</h2>
+					</div>
+
+					<ul class="helper-list" role="list">
+						{
+							siteConfig.socials?.instagram && (
+								<li class="helper-item">
+									<a
+										class="helper-item__main-link"
+										href={siteConfig.socials.instagram}
+										target="_blank"
+										rel="noopener noreferrer">
+										<span class="helper-item__title">Instagram</span>
+										<span class="helper-item__subtitle">
+											{siteConfig.socials.instagram}
+										</span>
+									</a>
+								</li>
+							)
+						}
+						{
+							siteConfig.socials?.facebook && (
+								<li class="helper-item">
+									<a
+										class="helper-item__main-link"
+										href={siteConfig.socials.facebook}
+										target="_blank"
+										rel="noopener noreferrer">
+										<span class="helper-item__title">Facebook</span>
+										<span class="helper-item__subtitle">
+											{siteConfig.socials.facebook}
+										</span>
+									</a>
+								</li>
+							)
+						}
+					</ul>
+				</section>
+
+				<section class="helper-block" aria-labelledby="rubros-links-title">
+					<div class="helper-block__head">
+						<h2 id="rubros-links-title">Rubros y links</h2>
+						<a class="btn btn--outline" href="/muestras/"
+							>Ver todas las muestras</a
+						>
+					</div>
+
+					<ul class="helper-list" role="list">
+						{
+							rubros.map((item) => {
+								const liveUrl =
+									getRubroLiveUrl(item.slug) ??
+									`/muestras/webs-muestras/${item.slug.replace(/-/g, '_')}.html`;
+								const instagramUrl = getSocialUrl(
+									item.business.instagram,
+									'instagram'
+								);
+								const facebookUrl = getSocialUrl(
+									item.business.facebook,
+									'facebook'
+								);
+
+								return (
+									<li class="helper-item">
+										<a
+											class="helper-item__main-link"
+											href={`/muestras/${item.slug}/`}
+											target="_blank">
+											<span class="helper-item__title">
+												{item.business.rubro}
+											</span>
+											<span class="helper-item__subtitle">
+												{item.business.nombre}
+											</span>
+										</a>
+										<a
+											class="helper-item__raw-link"
+											href={liveUrl}
+											target="_blank"
+											rel="noopener noreferrer">
+											demo: {liveUrl}
+										</a>
+										{instagramUrl && (
+											<a
+												class="helper-item__meta-link"
+												href={instagramUrl}
+												target="_blank"
+												rel="noopener noreferrer">
+												instagram: {instagramUrl}
+											</a>
+										)}
+										{facebookUrl && (
+											<a
+												class="helper-item__meta-link"
+												href={facebookUrl}
+												target="_blank"
+												rel="noopener noreferrer">
+												facebook: {facebookUrl}
+											</a>
+										)}
+									</li>
+								);
+							})
+						}
+					</ul>
+				</section>
+			</div>
+		</section>
+	</body>
+</html>
+
+<style>
+	.helper-page {
+		padding: 7rem 0 5rem;
+		background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+	}
+
+	.helper-page__hero {
+		max-width: 780px;
+		margin-bottom: 1.6rem;
+	}
+
+	.helper-badge {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.35rem 0.75rem;
+		background: #e2e8f0;
+		color: #0f172a;
+		border-radius: 999px;
+		font-size: 0.8rem;
+		font-weight: 700;
+	}
+
+	.helper-page__hero h1 {
+		margin-top: 0.7rem;
+		margin-bottom: 0.5rem;
+		font-size: clamp(2rem, 4vw, 2.8rem);
+		line-height: 1.1;
+	}
+
+	.helper-page__hero p {
+		color: var(--texto-muted);
+	}
+
+	.helper-block {
+		background: #ffffff;
+		border: 1px solid rgba(10, 22, 40, 0.1);
+		border-radius: 1rem;
+		padding: 1rem;
+		margin-bottom: 1rem;
+		box-shadow: 0 8px 22px rgba(10, 22, 40, 0.06);
+	}
+
+	.helper-block__head {
+		display: flex;
+		gap: 0.8rem;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		margin-bottom: 0.9rem;
+	}
+
+	.helper-block__head h2 {
+		font-size: 1.2rem;
+		line-height: 1.2;
+	}
+
+	.helper-list {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.65rem;
+		padding: 0;
+		margin: 0;
+	}
+
+	.helper-item {
+		border: 1px solid rgba(10, 22, 40, 0.08);
+		border-radius: 0.8rem;
+		background: #f8fafc;
+		padding: 0.75rem;
+	}
+
+	.helper-item__main-link {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+		padding: 0.35rem 0.4rem;
+		border-radius: 0.55rem;
+		text-decoration: none;
+	}
+
+	.helper-item__main-link:hover,
+	.helper-item__main-link:focus-visible {
+		background: rgba(5, 150, 105, 0.08);
+		outline: none;
+	}
+
+	.helper-item__title {
+		font-size: 1rem;
+		font-weight: 800;
+		color: #0f172a;
+		line-height: 1.2;
+	}
+
+	.helper-item__subtitle {
+		font-size: 0.92rem;
+		color: var(--texto-muted);
+	}
+
+	.helper-item__price {
+		font-size: 0.92rem;
+		font-weight: 700;
+		color: #1e293b;
+	}
+
+	.helper-item__raw-link {
+		display: block;
+		margin-top: 0.45rem;
+		padding: 0 0.4rem;
+		word-break: break-word;
+		color: var(--verde-btn);
+		font-size: 0.85rem;
+		font-weight: 700;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 2px;
+	}
+
+	.helper-item__meta-link {
+		display: block;
+		margin-top: 0.25rem;
+		padding: 0 0.4rem;
+		word-break: break-word;
+		color: #1e293b;
+		font-size: 0.82rem;
+		font-weight: 600;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 2px;
+	}
+
+	.plans-list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+		gap: 0.6rem;
+		padding: 0;
+		margin: 0;
+	}
+
+	.plans-list li {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.8rem;
+		border: 1px solid rgba(10, 22, 40, 0.08);
+		border-radius: 0.7rem;
+		background: #f8fafc;
+	}
+
+	.plans-list span {
+		font-weight: 800;
+		color: #0f172a;
+	}
+
+	@media (max-width: 720px) {
+		.helper-page {
+			padding-top: 6rem;
+		}
+
+		.helper-block {
+			padding: 0.8rem;
+		}
+	}
+
+	@media (min-width: 860px) {
+		.helper-list {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+</style>
