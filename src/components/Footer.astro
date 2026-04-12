@@ -3,7 +3,10 @@ import { siteConfig, getWhatsAppUrl } from '../data/siteConfig';
 import { getServiceBySlugOrThrow } from '../data/services';
 
 const creacionWebService = getServiceBySlugOrThrow('creacion-paginas-web');
-const creacionWebPriceInline = creacionWebService.price.replace(/^Desde/i, 'desde');
+const creacionWebPriceInline = creacionWebService.price.replace(
+	/^Desde/i,
+	'desde'
+);
 ---
 
 <footer class="footer" id="footer" role="contentinfo">
@@ -17,7 +20,7 @@ const creacionWebPriceInline = creacionWebService.price.replace(/^Desde/i, 'desd
 				<p class="footer__slogan">Tu negocio, visible en internet.</p>
 				<p class="footer__desc">
 					Agencia de diseño web para PyMEs paraguayas. Páginas web profesionales
-						{creacionWebPriceInline}.
+					{creacionWebPriceInline}.
 				</p>
 			</div>
 
@@ -94,7 +97,7 @@ const creacionWebPriceInline = creacionWebService.price.replace(/^Desde/i, 'desd
 
 		<div class="footer__bottom">
 			<p>
-				© 2025 {siteConfig.name} · {siteConfig.address.city}, {
+				© 2025 ⚡{siteConfig.name} · {siteConfig.address.city}, {
 					siteConfig.address.country
 				}
 				· Diseñado con ❤️ en Paraguay 🇵🇾

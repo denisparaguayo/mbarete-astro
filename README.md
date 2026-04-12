@@ -1,46 +1,91 @@
-# Astro Starter Kit: Basics
+# Mbarete Astro
 
-```sh
-npm create astro@latest -- --template basics
+Sitio web de **Mbarete Digital** construido con [Astro](https://astro.build/).
+Incluye landing principal, paginas de servicios, seccion de muestras y blog SEO.
+
+## Requisitos
+
+- Node.js `>= 22.12.0`
+- npm (incluido con Node)
+
+## Inicio rapido
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+El entorno local queda en `http://localhost:4321`.
 
-## 🚀 Project Structure
+## Scripts
 
-Inside of your Astro project, you'll see the following folders and files:
+- `npm run dev`: levanta el entorno de desarrollo.
+- `npm run build`: genera `dist/` y luego crea `dist/sitemap.xml` como alias de `dist/sitemap-index.xml`.
+- `npm run preview`: sirve el build local para validación.
+- `npm run sync:webs-muestras-assets`: sincroniza assets desde `src/pages/muestras/webs-muestras` hacia `public/muestras/webs-muestras` y ajusta `<base href>` de los `index.html` de cada muestra.
+- `npm run astro -- --help`: ayuda del CLI de Astro.
+
+## Estructura del proyecto
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+.
+|-- public/                         # assets publicos (incluye muestras sincronizadas)
+|-- scripts/                        # utilidades de build/sync
+|-- src/
+|   |-- components/                 # componentes UI
+|   |-- content/blog/               # articulos markdown del blog
+|   |-- data/                       # configuraciones y datos del sitio
+|   |-- layouts/                    # layouts Astro
+|   |-- pages/                      # rutas del sitio
+|   `-- styles/                     # estilos globales
+|-- astro.config.mjs
+`-- package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Donde editar cada cosa
 
-## 🧞 Commands
+- Configuracion global (nombre, contacto, SEO, redes): `src/data/siteConfig.js`
+- Home y paginas principales: `src/pages/index.astro`, `src/pages/faq.astro`, `src/pages/servicios/*`
+- Blog:
+  - entradas: `src/content/blog/*.md`
+  - schema/frontmatter: `src/content.config.ts`
+  - rutas: `src/pages/blog/*`
+- Rubros y servicios:
+  - datos: `src/data/rubros.ts`, `src/data/services.ts`
+  - vistas: `src/pages/muestras/*`, `src/pages/servicios/*`
 
-All commands are run from the root of the project, from a terminal:
+## Crear un nuevo post del blog
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Crear un archivo `.md` en `src/content/blog/` con frontmatter compatible con el schema actual:
 
-## 👀 Want to learn more?
+```md
+---
+title: 'Titulo del post'
+description: 'Resumen corto'
+pubDate: 2026-04-12
+updatedDate: 2026-04-12
+draft: false
+featured: false
+category: 'SEO'
+categorySlug: 'seo'
+tags: ['seo', 'paraguay']
+heroImage: '/blog/mi-imagen.jpg'
+---
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Contenido del articulo...
+```
+
+Campos obligatorios: `title`, `description`, `pubDate`.
+
+## Build y deploy
+
+1. Ejecutar `npm run build`.
+2. Verificar salida en `dist/`.
+3. Validar localmente con `npm run preview`.
+
+`astro.config.mjs` usa `siteConfig.url` (`https://mbarete.online/`) para sitemap y URLs absolutas.
+
+## Notas operativas
+
+- El script `sync:webs-muestras-assets` elimina y vuelve a crear `public/muestras/webs-muestras` en cada corrida.
+- Si agregas nuevas muestras HTML, corre ese script antes de probar o publicar.

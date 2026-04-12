@@ -29,7 +29,7 @@
 
 	// HORARIOS
 	hours: {
-		days: 'Lunes a Viernes',
+		days: 'Lunes a Sábado',
 		time: '08:00-18:00',
 	},
 

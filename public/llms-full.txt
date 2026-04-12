@@ -1,227 +1,103 @@
-# Mbarete Digital — Contexto Completo
+# Mbarete Digital - Contexto Completo
 
-## Descripción general
+## Descripcion general
 
-Mbarete Digital es una agencia de diseño web en Paraguay especializada en crear páginas web profesionales para negocios locales. El enfoque principal es ayudar a pequeñas y medianas empresas a conseguir clientes a través de internet mediante sitios optimizados para conversión, SEO y contacto directo por WhatsApp.
+Mbarete Digital es una agencia de diseño web en Paraguay enfocada en ayudar a negocios locales a conseguir clientes por internet.
+El sitio combina paginas de servicios, blog educativo, muestras por rubro y contacto directo por WhatsApp.
 
-La empresa opera principalmente en Asunción y Gran Asunción, pero brinda servicios a todo Paraguay.
+## Dominio y marca
 
----
+- Nombre: Mbarete Digital
+- Dominio principal: https://mbarete.online/
+- Pais objetivo: Paraguay
+- Ciudad principal: Asuncion (con alcance nacional)
 
 ## Propuesta de valor
 
-- Páginas web desde Gs. 800.000
-- Entrega rápida (1 a 2 días en plan básico)
-- SEO básico incluido en todos los planes
-- Integración directa con WhatsApp
-- Diseño optimizado para celulares
-- Enfoque en generar clientes, no solo presencia
+- Paginas web para negocios con enfoque comercial
+- SEO base incluido en implementaciones web
+- Integracion directa con WhatsApp
+- Versiones optimizadas para celular
+- Oferta de servicios complementarios (SEO local, redes, mantenimiento)
 
----
+## Arquitectura del sitio (rutas activas)
 
-## Servicios principales
+### Paginas principales
 
-### Diseño web
-Creación de páginas web profesionales adaptadas a negocios en Paraguay, con enfoque en conversión y captación de clientes.
+- Inicio: https://mbarete.online/
+- Servicios: https://mbarete.online/servicios/
+- FAQ: https://mbarete.online/faq/
+- Blog: https://mbarete.online/blog/
+- Muestras: https://mbarete.online/muestras/
+- Formulario de cliente: https://mbarete.online/formulario-cliente.html
 
-### Desarrollo web
-Desarrollo de sitios web estructurados, rápidos y optimizados técnicamente.
+### Rutas dinamicas
 
-### SEO local
-Optimización para aparecer en Google y Google Maps en Paraguay.
+- Servicio por slug: `https://mbarete.online/servicios/{slug}/`
+- Articulo de blog por slug: `https://mbarete.online/blog/{slug}/`
+- Categoria de blog por slug: `https://mbarete.online/blog/categoria/{slug}/`
+- Muestra por rubro por slug: `https://mbarete.online/muestras/{slug}/`
 
-### Landing pages
-Páginas diseñadas específicamente para convertir visitas en consultas o ventas.
+## Servicios publicados (slugs reales)
 
----
+- Creacion de paginas web: https://mbarete.online/servicios/creacion-paginas-web/
+- Desarrollo web a medida: https://mbarete.online/servicios/desarrollo-web/
+- Catalogo digital o menu: https://mbarete.online/servicios/catalogo-digital-menu/
+- SEO local Google Maps: https://mbarete.online/servicios/seo-local-google-maps/
+- Manejo de redes sociales: https://mbarete.online/servicios/manejo-redes-sociales/
+- Mantenimiento mensual web: https://mbarete.online/servicios/mantenimiento-mensual-web/
+- Email profesional: https://mbarete.online/servicios/email-profesional/
 
-## Planes
+## Blog
 
-### Plan Básico
-- 1 página (landing page)
-- SEO básico
-- Botón de WhatsApp integrado
-- Hosting + dominio incluido
-- 1 cambio mensual
-- Entrega: 1–2 días
+### Categorias publicadas
 
-### Plan Estándar
-- Hasta 4 secciones
-- SEO avanzado
-- Integración con Google Maps
-- Formulario de contacto
-- 3 cambios mensuales
-- Entrega: 4–8 días
+- SEO: https://mbarete.online/blog/categoria/seo/
+- Estrategia: https://mbarete.online/blog/categoria/estrategia/
+- Marketing: https://mbarete.online/blog/categoria/marketing/
+- Diseno Web: https://mbarete.online/blog/categoria/diseno-web/
+- Guias: https://mbarete.online/blog/categoria/guias/
+- Precios: https://mbarete.online/blog/categoria/precios/
 
-### Plan Pro
-- Páginas internas por servicio
-- Blog incluido
-- Galería avanzada
-- Cambios ilimitados
-- Configuración completa de Google
-- Entrega: 7–15 días
+### Articulos publicados
 
----
+- Que necesita tu empresa para aparecer en Google Paraguay: https://mbarete.online/blog/aparecer-en-google-paraguay/
+- Como crear una pagina web profesional para tu negocio en Paraguay: https://mbarete.online/blog/como-crear-pagina-web-profesional/
+- Como conseguir clientes con una pagina web en Paraguay: https://mbarete.online/blog/conseguir-clientes-pagina-web/
+- Cuanto cuesta una pagina web en Paraguay: https://mbarete.online/blog/cuanto-cuesta-pagina-web-paraguay/
+- Diseno web en Paraguay: como elegir la mejor opcion para tu negocio: https://mbarete.online/blog/diseno-web-paraguay/
+- Landing page vs pagina web: cual necesita tu negocio en Paraguay: https://mbarete.online/blog/landing-page-vs-pagina-web/
+
+## Muestras por rubro
+
+La seccion `/muestras/` lista demos por rubro y cada item publica una ficha individual en `/muestras/{slug}/`.
+Estas fichas estan orientadas a busquedas locales y conversion via WhatsApp.
 
 ## Audiencia objetivo
 
 - dueños de negocios en Paraguay
-- pymes
-- emprendedores
+- Pymes
 - profesionales independientes
-- negocios sin presencia digital
-- negocios que quieren conseguir clientes desde Google
+- emprendimientos que necesitan presencia online
+- negocios locales que buscan consultas por Google y WhatsApp
 
----
-
-## Rubros principales atendidos
-
-Mbarete Digital crea páginas web para una amplia variedad de negocios en Paraguay, incluyendo:
-
-- veterinarias
-- restaurantes
-- salones de belleza
-- nail spa
-- talleres mecánicos
-- talleres de motos
-- casas de repuestos
-- consultorios médicos
-- odontologías
-- gimnasios
-- inmobiliarias
-- panaderías
-- carnicerías
-- farmacias
-- ópticas
-- estudios contables
-- empresas de tecnología
-- hoteles y hospedajes
-- peluquerías masculinas
-- ferreterías
-- dietéticas y naturistas
-- escuelas de manejo
-- fotografía y estudios
-- ropa y boutiques
-- cerrajerías
-- escribanías
-- bodegas
-- herrerías
-- copetines
-- ropa usada
-- canchas sintéticas
-- despensas y mini mercados
-- gomerías
-- mueblerías
-- reparación de celulares
-- vidrierías
-- recicladoras
-- reparación de electrodomésticos
-- electricidad del automóvil
-- refrigeración del automóvil
-- marmolerías
-
----
-
-## Tipos de negocios
-
-Los servicios están orientados a:
-
-- negocios locales físicos
-- negocios con atención al público
-- servicios profesionales
-- comercios minoristas
-- empresas de servicios técnicos
-- emprendimientos en crecimiento
-- negocios que necesitan visibilidad en Google
-
----
-
-## Estrategia digital
-
-El sistema de captación de clientes de Mbarete Digital funciona de la siguiente manera:
-
-1. Usuarios buscan en Google
-2. Llegan al blog del sitio
-3. Consumen contenido educativo
-4. Ven llamados a la acción (CTA)
-5. Completan formulario o hacen clic en WhatsApp
-6. Se inicia una conversación de venta
-7. Se convierte en cliente
-
----
-
-## Blog
-
-El blog contiene artículos enfocados en:
+## Temas principales del sitio
 
 - diseño web en Paraguay
-- SEO local en Paraguay
-- cómo conseguir clientes online
-- precios de páginas web
-- marketing digital para negocios
-- comparativas (landing page vs página web)
+- paginas web para negocios
+- SEO local y presencia en Google Maps
+- conversion de visitas a consultas
+- integracion comercial con WhatsApp
+- contenido educativo para captacion (blog)
 
-Cada artículo incluye:
+## Tono de comunicacion
 
-- contenido educativo
-- llamados a la acción hacia WhatsApp
-- formulario de captación (LeadBox)
-- artículos relacionados
-
----
-
-## Categorías del blog
-
-- SEO
-- Guías
-- Marketing
-- Precios
-- Diseño Web
-- Estrategia
-
----
-
-## Objetivo del sitio
-
-El objetivo principal del sitio es convertir visitantes en clientes mediante:
-
-- contenido optimizado para SEO
-- diseño enfocado en conversión
-- contacto inmediato por WhatsApp
-- mensajes claros, directos y orientados a resultados
-
----
-
-## Diferenciadores
-
-- enfoque en resultados (clientes reales, no solo diseño)
-- velocidad de entrega
-- simplicidad para el cliente (sin conocimientos técnicos)
-- comunicación directa por WhatsApp
-- adaptación a negocios locales en Paraguay
-
----
-
-## Tono y estilo
-
-- directo
-- claro
-- sin tecnicismos innecesarios
+- claro y directo
 - orientado a resultados
-- enfocado en negocios reales
-
----
-
-## Sitio web
-
-https://mbarete.digital/
-
----
+- enfocado en negocio real, no en tecnicismos
 
 ## Contacto
 
-WhatsApp:
-https://wa.me/595986550235
-
-Email:
-hola@mbarete.digital
+- WhatsApp: https://wa.me/595987129446
+- Email: mailto:mbarete.digital01@gmail.com
+- Web: https://mbarete.online/
