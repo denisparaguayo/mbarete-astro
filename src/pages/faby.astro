@@ -10,22 +10,6 @@ const canonical = `${siteConfig.url}/helper-vendedor/`;
 const rubros = [...getRubrosItems()].sort((a, b) =>
 	a.business.rubro.localeCompare(b.business.rubro, 'es')
 );
-
-function getSocialUrl(
-	value: string | undefined,
-	platform: 'instagram' | 'facebook'
-) {
-	if (!value) return null;
-	if (value.startsWith('http://') || value.startsWith('https://')) return value;
-
-	if (platform === 'instagram') {
-		const username = value.replace('@', '').trim();
-		return username ? `https://instagram.com/${username}` : null;
-	}
-
-	const page = value.replace('/', '').trim();
-	return page ? `https://facebook.com/${page}` : null;
-}
 ---
 
 <!doctype html>
@@ -138,6 +122,26 @@ function getSocialUrl(
 					</ul>
 				</section>
 
+				<section class="helper-block" aria-labelledby="formulario-title">
+					<div class="helper-block__head">
+						<h2 id="formulario-title">
+							Formulario cliente para clientes nuevos
+						</h2>
+					</div>
+
+					<ul class="helper-list" role="list">
+						<li class="helper-item">
+							<a
+								class="helper-item__main-link"
+								href="/formulario-cliente/"
+								target="_blank">
+								<span class="helper-item__title">Formulario de cliente</span>
+								<span class="helper-item__subtitle">/formulario-cliente/</span>
+							</a>
+						</li>
+					</ul>
+				</section>
+
 				<section class="helper-block" aria-labelledby="rubros-links-title">
 					<div class="helper-block__head">
 						<h2 id="rubros-links-title">Rubros y links</h2>
@@ -152,14 +156,6 @@ function getSocialUrl(
 								const liveUrl =
 									getRubroLiveUrl(item.slug) ??
 									`/muestras/webs-muestras/${item.slug.replace(/-/g, '_')}.html`;
-								const instagramUrl = getSocialUrl(
-									item.business.instagram,
-									'instagram'
-								);
-								const facebookUrl = getSocialUrl(
-									item.business.facebook,
-									'facebook'
-								);
 
 								return (
 									<li class="helper-item">
@@ -181,24 +177,6 @@ function getSocialUrl(
 											rel="noopener noreferrer">
 											demo: {liveUrl}
 										</a>
-										{instagramUrl && (
-											<a
-												class="helper-item__meta-link"
-												href={instagramUrl}
-												target="_blank"
-												rel="noopener noreferrer">
-												instagram: {instagramUrl}
-											</a>
-										)}
-										{facebookUrl && (
-											<a
-												class="helper-item__meta-link"
-												href={facebookUrl}
-												target="_blank"
-												rel="noopener noreferrer">
-												facebook: {facebookUrl}
-											</a>
-										)}
 									</li>
 								);
 							})
@@ -322,19 +300,6 @@ function getSocialUrl(
 		color: var(--verde-btn);
 		font-size: 0.85rem;
 		font-weight: 700;
-		text-decoration: underline;
-		text-decoration-thickness: 1px;
-		text-underline-offset: 2px;
-	}
-
-	.helper-item__meta-link {
-		display: block;
-		margin-top: 0.25rem;
-		padding: 0 0.4rem;
-		word-break: break-word;
-		color: #1e293b;
-		font-size: 0.82rem;
-		font-weight: 600;
 		text-decoration: underline;
 		text-decoration-thickness: 1px;
 		text-underline-offset: 2px;
