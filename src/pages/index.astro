@@ -1,9 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../data/siteConfig';
+import {
+	getGsAmount,
+	getServiceBySlugOrThrow,
+	getServicePlanBySlugOrThrow,
+} from '../data/services';
 import Rubros from '../components/Rubros.astro';
 import Serviadicional from '../components/Serviadicional.astro';
+import Testimonials from '../components/Testimonials.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+
+const creacionWebService = getServiceBySlugOrThrow('creacion-paginas-web');
+const seoLocalService = getServiceBySlugOrThrow('seo-local-google-maps');
+const planBasico = getServicePlanBySlugOrThrow('basico');
+const planEstandar = getServicePlanBySlugOrThrow('estandar');
+const planPro = getServicePlanBySlugOrThrow('pro');
+
+const creacionWebPrice = creacionWebService.price;
+const seoLocalPrice = seoLocalService.price;
+const creacionWebPriceInline = creacionWebPrice.replace(/^Desde/i, 'desde');
+const basicPlanAmount = getGsAmount(planBasico.price);
+const standardPlanAmount = getGsAmount(planEstandar.price);
+const proPlanAmount = getGsAmount(planPro.price);
 
 const faqSchema = {
 	'@context': 'https://schema.org',
@@ -38,7 +57,7 @@ const faqSchema = {
 			name: '¿La página va a aparecer en Google?',
 			acceptedAnswer: {
 				'@type': 'Answer',
-				text: 'Sí. Cada página que entregamos viene con SEO básico configurado para que Google la encuentre. Si querés aparecer en los primeros resultados cuando alguien busca tu rubro en tu ciudad, tenemos el servicio de SEO local por Gs. 320.000/mes.',
+				text: `Sí. Cada página que entregamos viene con SEO básico configurado para que Google la encuentre. Si querés aparecer en los primeros resultados cuando alguien busca tu rubro en tu ciudad, tenemos el servicio de SEO local por ${seoLocalPrice}.`,
 			},
 		},
 		{
@@ -55,7 +74,7 @@ const faqSchema = {
 
 <BaseLayout
 	title="Diseño Web en Paraguay | Páginas Web Profesionales"
-	description="Diseño web en Paraguay desde Gs. 800.000. Creamos páginas web profesionales para negocios en Asunción y todo el país. SEO, WhatsApp y entrega en 1-2 días."
+	description={`Diseño web en Paraguay ${creacionWebPriceInline}. Creamos páginas web profesionales para negocios en Asunción y todo el país. SEO, WhatsApp y entrega en 1-2 días.`}
 	canonical={siteConfig.url}
 	schema={faqSchema}>
 	<header
@@ -81,12 +100,12 @@ const faqSchema = {
 			<p class="hero__desc fade-up">
 				Creamos páginas web profesionales para negocios en Asunción y todo
 				Paraguay. Diseño web con SEO incluido, botón WhatsApp y entrega en 1 a 2
-				días desde Gs. 800.000.
+				días {creacionWebPriceInline}.
 			</p>
 
 			<div class="hero__ctas fade-up">
 				<a href="#" class="btn btn--primary btn--lg" id="hero-wa"
-					>💬 Consultá por WhatsApp</a
+					>Consultá por WhatsApp</a
 				>
 				<a href="#precios" class="btn btn--outline btn--lg"
 					>Ver planes y precios</a
@@ -294,7 +313,7 @@ const faqSchema = {
 						<h3 class="plan-card__name">Plan Básico</h3>
 						<div class="plan-card__price">
 							<span class="plan-card__currency">Gs.</span>
-							<span class="plan-card__amount">800.000</span>
+							<span class="plan-card__amount">{basicPlanAmount}</span>
 						</div>
 						<p class="plan-card__ideal">
 							Ideal para: Veterinarias, salones de belleza, nail spa,
@@ -320,7 +339,7 @@ const faqSchema = {
 							href="#"
 							class="btn btn--primary btn--full"
 							data-plan="Básico"
-							aria-label="Quiero el Plan Básico — Gs. 800.000"
+							aria-label={`Quiero el Plan Básico — ${planBasico.price}`}
 							>💬 Quiero este plan</a
 						>
 					</div>
@@ -334,7 +353,7 @@ const faqSchema = {
 						<h3 class="plan-card__name">Plan Estándar</h3>
 						<div class="plan-card__price">
 							<span class="plan-card__currency">Gs.</span>
-							<span class="plan-card__amount">1.400.000</span>
+							<span class="plan-card__amount">{standardPlanAmount}</span>
 						</div>
 						<p class="plan-card__ideal">
 							Ideal para: Restaurantes, farmacias, gimnasios, estudios
@@ -359,7 +378,7 @@ const faqSchema = {
 							href="#"
 							class="btn btn--primary btn--full"
 							data-plan="Estándar"
-							aria-label="Quiero el Plan Estándar — Gs. 1.400.000"
+							aria-label={`Quiero el Plan Estándar — ${planEstandar.price}`}
 							>💬 Quiero este plan</a
 						>
 					</div>
@@ -370,7 +389,7 @@ const faqSchema = {
 						<h3 class="plan-card__name">Plan Pro</h3>
 						<div class="plan-card__price">
 							<span class="plan-card__currency">Gs.</span>
-							<span class="plan-card__amount">3.800.000</span>
+							<span class="plan-card__amount">{proPlanAmount}</span>
 						</div>
 						<p class="plan-card__ideal">
 							Ideal para: Consultorios, odontologías, inmobiliarias, empresas de
@@ -397,7 +416,7 @@ const faqSchema = {
 							href="#"
 							class="btn btn--primary btn--full"
 							data-plan="Pro"
-							aria-label="Quiero el Plan Pro — Gs. 3.800.000"
+							aria-label={`Quiero el Plan Pro — ${planPro.price}`}
 							>💬 Quiero este plan</a
 						>
 					</div>
@@ -407,78 +426,7 @@ const faqSchema = {
 			<Serviadicional />
 		</div>
 	</section>
-
-	<section
-		class="section section--testimonios"
-		id="testimonios"
-		aria-labelledby="h2-testimonios">
-		<div class="container">
-			<h2
-				class="section__title section__title--light fade-up"
-				id="h2-testimonios">
-				Lo que dicen nuestros clientes
-			</h2>
-
-			<div class="testimonios-grid">
-				<article class="testimonio-card fade-up" style="--delay:0">
-					<div class="testimonio-card__stars" aria-label="5 estrellas">
-						★★★★★
-					</div>
-					<blockquote class="testimonio-card__quote">
-						"En 2 días ya tenía mi página lista. Mis clientas me preguntan cómo
-						la hice y yo les recomiendo Mbarete Digital a todas."
-					</blockquote>
-					<div class="testimonio-card__author">
-						<span class="testimonio-card__avatar" aria-hidden="true">👩</span>
-						<div>
-							<strong class="testimonio-card__name">Laura M.</strong>
-							<span class="testimonio-card__biz"
-								>Nail Spa Glamour, Asunción</span
-							>
-						</div>
-					</div>
-				</article>
-
-				<article class="testimonio-card fade-up" style="--delay:1">
-					<div class="testimonio-card__stars" aria-label="5 estrellas">
-						★★★★★
-					</div>
-					<blockquote class="testimonio-card__quote">
-						"Antes nadie me encontraba en Google. Ahora me llaman clientes
-						nuevos cada semana. Vale cada guaraní."
-					</blockquote>
-					<div class="testimonio-card__author">
-						<span class="testimonio-card__avatar" aria-hidden="true">👨</span>
-						<div>
-							<strong class="testimonio-card__name">Carlos R.</strong>
-							<span class="testimonio-card__biz"
-								>Taller Mecánico Don Carlos, Luque</span
-							>
-						</div>
-					</div>
-				</article>
-
-				<article class="testimonio-card fade-up" style="--delay:2">
-					<div class="testimonio-card__stars" aria-label="5 estrellas">
-						★★★★★
-					</div>
-					<blockquote class="testimonio-card__quote">
-						"El menú digital fue lo mejor. La gente ve los platos y ya me
-						escribe con el pedido hecho. Recomendado."
-					</blockquote>
-					<div class="testimonio-card__author">
-						<span class="testimonio-card__avatar" aria-hidden="true">👩</span>
-						<div>
-							<strong class="testimonio-card__name">Patricia V.</strong>
-							<span class="testimonio-card__biz"
-								>Restaurante El Fogón, Fernando de la Mora</span
-							>
-						</div>
-					</div>
-				</article>
-			</div>
-		</div>
-	</section>
+	<Testimonials />
 
 	<section
 		class="section section--muestras"
@@ -606,8 +554,7 @@ const faqSchema = {
 							Sí. Cada página que entregamos viene con SEO básico configurado
 							para que Google la encuentre. Si querés aparecer en los primeros
 							resultados cuando alguien busca tu rubro en tu ciudad, tenemos el
-							servicio de SEO local por Gs. 320.000/mes que trabaja eso
-							específicamente.
+							servicio de SEO local por {seoLocalPrice} que trabaja eso específicamente.
 						</p>
 					</div>
 				</div>
@@ -642,7 +589,7 @@ const faqSchema = {
 				Escribinos hoy y en 48 horas tu negocio ya tiene presencia en internet.
 			</p>
 			<a href="#" class="btn btn--white btn--xl" id="cta-wa"
-				>💬 Escribir a WhatsApp ahora</a
+				>Escribir a WhatsApp ahora</a
 			>
 			<p class="cta__trust">
 				Respondemos en menos de 2 horas · Lunes a Viernes 08:00–18:00

@@ -1,14 +1,30 @@
+---
+import { getServiceBySlugOrThrow } from '../data/services';
+
+const catalogoService = getServiceBySlugOrThrow('catalogo-digital-menu');
+const seoLocalService = getServiceBySlugOrThrow('seo-local-google-maps');
+const redesService = getServiceBySlugOrThrow('manejo-redes-sociales');
+const mantenimientoService = getServiceBySlugOrThrow('mantenimiento-mensual-web');
+const emailService = getServiceBySlugOrThrow('email-profesional');
+
+const catalogoPrice = catalogoService.price;
+const seoLocalPrice = seoLocalService.price;
+const redesPrice = redesService.price;
+const mantenimientoPrice = mantenimientoService.price;
+const emailPrice = emailService.price;
+---
+
 <div class="extra-card fade-up">
-	<div class="extra-card__icon" aria-hidden="true">📋</div>
+	<div class="extra-card__icon" aria-hidden="true">&#128203;</div>
 	<div class="extra-card__content">
-		<h3 class="extra-card__title">Extra Opcional — Catálogo digital o menú</h3>
+		<h3 class="extra-card__title">Extra Opcional - Catalogo digital o menu</h3>
 		<p class="extra-card__desc">
-			Para restaurantes, panaderías, carnicerías, ferreterías, ropa. Lista
-			visual de productos con foto, precio y botón "Pedir por WhatsApp". Sin
+			Para restaurantes, panaderias, carnicerias, ferreterias, ropa. Lista
+			visual de productos con foto, precio y boton "Pedir por WhatsApp". Sin
 			carrito ni pagos online.
 		</p>
 	</div>
-	<div class="extra-card__price">Gs. 500.000</div>
+	<div class="extra-card__price">{catalogoPrice}</div>
 </div>
 
 <div class="extras-table-wrap fade-up">
@@ -21,14 +37,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr><td>Catálogo digital / menú</td><td>Gs. 500.000</td></tr>
-			<tr><td>SEO local (Google Maps)</td><td>Gs. 420.000/mes</td></tr>
-			<tr><td>Manejo de redes sociales</td><td>Desde Gs. 450.000/mes</td></tr>
-			<tr><td>Mantenimiento mensual</td><td>Gs. 170.000/mes</td></tr>
-			<tr
-				><td>Email profesional (info@tunegocio.com)</td><td>Gs. 140.000/año</td
-				></tr
-			>
+			<tr><td>Catalogo digital / menu</td><td>{catalogoPrice}</td></tr>
+			<tr><td>SEO local (Google Maps)</td><td>{seoLocalPrice}</td></tr>
+			<tr><td>Manejo de redes sociales</td><td>{redesPrice}</td></tr>
+			<tr><td>Mantenimiento mensual</td><td>{mantenimientoPrice}</td></tr>
+			<tr><td>Email profesional (info@tunegocio.com)</td><td>{emailPrice}</td></tr>
 		</tbody>
 	</table>
 	<p class="extras-table__note">
@@ -36,3 +49,4 @@
 		acepta efectivo, transferencia bancaria o billetera digital.
 	</p>
 </div>
+

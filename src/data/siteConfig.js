@@ -45,7 +45,7 @@
 			'Diseno Web en Paraguay | Paginas Web Profesionales - Mbarete Digital',
 
 		defaultDescription:
-			'Diseno web en Paraguay desde Gs. 800.000. Creamos paginas web profesionales para negocios en Asuncion y todo el pais. SEO, WhatsApp y entrega en 1-2 dias.',
+			'Diseno web en Paraguay para negocios en Asuncion y todo el pais. SEO, WhatsApp y entrega rapida.',
 
 		ogImage: 'https://mbarete.online/og-image.jpg',
 		localCities: [

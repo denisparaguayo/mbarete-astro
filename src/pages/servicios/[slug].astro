@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/siteConfig';
+import {
+	services,
+	getServiceBySlug,
+	getServiceWhatsAppUrl,
+} from '../../data/services';
+
+export function getStaticPaths() {
+	return services.map((service) => ({
+		params: { slug: service.slug },
+	}));
+}
+
+const { slug } = Astro.params;
+const service = getServiceBySlug(slug ?? '');
+
+if (!service) {
+	return Astro.redirect('/servicios/');
+}
+---
+
+<BaseLayout
+	title={service.seoTitle}
+	description={service.seoDescription}
+	canonical={`${siteConfig.url}/servicios/${service.slug}/`}
+	navbarSolid={true}>
+	<section class="section section--white service-detail" aria-labelledby="service-title">
+		<div class="container container--narrow">
+			<a class="service-detail__back" href="/servicios/">← Volver al indice de servicios</a>
+			<h1 class="section__title" id="service-title">{service.name}</h1>
+			<p class="section__subtitle service-detail__summary">{service.summary}</p>
+			<p class="service-detail__price">{service.price}</p>
+
+			<div class="service-detail__columns">
+				<div class="service-detail__card">
+					<h2>Beneficios</h2>
+					<ul>
+						{service.benefits.map((benefit) => <li>{benefit}</li>)}
+					</ul>
+				</div>
+
+				<div class="service-detail__card">
+					<h2>Que incluye</h2>
+					<ul>
+						{service.deliverables.map((item) => <li>{item}</li>)}
+					</ul>
+				</div>
+			</div>
+
+			<div class="service-detail__cta">
+				<a
+					href={getServiceWhatsAppUrl(service.name)}
+					class="btn btn--primary btn--lg"
+					target="_blank"
+					rel="noopener noreferrer">
+					Consultar por WhatsApp
+				</a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

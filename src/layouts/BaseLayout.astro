@@ -2,6 +2,7 @@
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { siteConfig } from '../data/siteConfig';
+import { getServicePlanBySlugOrThrow } from '../data/services';
 import '../styles/global.css';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 
@@ -38,6 +39,8 @@ const fullTitle = keepTitleAsIs
 	: `${title} | ${siteConfig.name}`;
 
 const robots = noindex ? 'noindex,nofollow' : 'index,follow';
+const planBasico = getServicePlanBySlugOrThrow('basico');
+const planPro = getServicePlanBySlugOrThrow('pro');
 
 const professionalServiceSchema = {
 	'@context': 'https://schema.org',
@@ -47,7 +50,7 @@ const professionalServiceSchema = {
 	description: siteConfig.seo.defaultDescription,
 	telephone: `+${siteConfig.whatsapp}`,
 	email: siteConfig.email,
-	priceRange: 'Gs. 800.000 – Gs. 3.800.000',
+	priceRange: `${planBasico.price} - ${planPro.price}`,
 	address: {
 		'@type': 'PostalAddress',
 		addressLocality: siteConfig.address.city,

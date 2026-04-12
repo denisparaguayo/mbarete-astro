@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../data/siteConfig';
+import { services } from '../../data/services';
+---
+
+<BaseLayout
+	title="Servicios de Mbarete Digital"
+	description="Conoce todos los servicios de Mbarete Digital: web, SEO local, redes, mantenimiento y mas."
+	canonical={`${siteConfig.url}/servicios/`}
+	navbarSolid={true}>
+	<section class="section section--white services-index" aria-labelledby="services-title">
+		<div class="container">
+			<div class="services-index__hero fade-up">
+				<h1 class="section__title" id="services-title">Servicios</h1>
+				<p class="section__subtitle">
+					Este es el indice de servicios. Entra a cada pagina para ver detalles y alcance.
+				</p>
+			</div>
+
+			<div class="services-index__grid">
+				{
+					services.map((service, index) => (
+						<article class="services-index__card fade-up" style={`--delay:${index % 6}`}>
+							<div class="services-index__card-inner">
+								<div class="services-index__icon-wrap" aria-hidden="true">
+									<span class="services-index__icon">{service.icon}</span>
+								</div>
+								<h2 class="services-index__name">
+									<span class="services-index__counter">{String(index + 1).padStart(2, '0')}</span>
+									{service.name}
+								</h2>
+								<p class="services-index__summary">{service.summary}</p>
+								<p class="services-index__price">{service.price}</p>
+								<a href={`/servicios/${service.slug}/`} class="services-index__link">
+									Ver detalle
+								</a>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+</BaseLayout>

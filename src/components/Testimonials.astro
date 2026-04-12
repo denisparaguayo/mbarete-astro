@@ -1,0 +1,175 @@
+﻿---
+import testimonios from '../data/testimonios-google.json';
+
+const starsFromRating = (rating: number) =>
+	String.fromCharCode(9733).repeat(Math.max(0, Math.min(5, rating)));
+
+const getInitials = (name: string) => {
+	const cleanName = name.replace(/\(.*?\)/g, '').trim();
+	const parts = cleanName.split(/\s+/).filter(Boolean).slice(0, 2);
+	return parts.map((part) => part[0]?.toUpperCase() ?? '').join('') || 'CL';
+};
+---
+
+<section
+	class="section section--testimonios"
+	id="testimonios"
+	aria-labelledby="h2-testimonios">
+	<div class="container">
+		<h2
+			class="section__title section__title--light fade-up"
+			id="h2-testimonios">
+			Lo que dicen nuestros clientes en Google
+		</h2>
+		<p class="section__subtitle section__subtitle--light fade-up">
+			Opiniones verificadas de {testimonios.businessName}.
+		</p>
+
+		<div class="testimonios-slider fade-up" data-testimonials-slider>
+			<ul class="testimonios-slider__track" role="list" data-testimonials-track>
+				{
+					testimonios.reviews.map((review, index) => (
+						<li class="testimonios-slider__slide">
+							<article
+								class="testimonio-card fade-up"
+								style={`--delay:${index % 6}`}
+								data-review-id={review.id}>
+								<div class="testimonio-card__head">
+									<div
+										class="testimonio-card__stars"
+										aria-label={`${review.rating} estrellas`}>
+										{starsFromRating(review.rating)}
+									</div>
+									{/* <div class="testimonio-card__meta">
+										<span class="testimonio-card__source">
+											{testimonios.source}
+										</span>
+										<span>{review.relativeTime}</span>
+										{review.isNew ? (
+											<span class="testimonio-card__tag">Nuevo</span>
+										) : null}
+									</div> */}
+								</div>
+
+								{review.comment ? (
+									<blockquote class="testimonio-card__quote">
+										{review.comment}
+									</blockquote>
+								) : (
+									<p class="testimonio-card__quote testimonio-card__quote--empty">
+										Esta opinion no incluye comentario escrito.
+									</p>
+								)}
+
+								<div class="testimonio-card__author">
+									<span class="testimonio-card__avatar" aria-hidden="true">
+										{getInitials(review.authorName)}
+									</span>
+									<div>
+										<strong class="testimonio-card__name">
+											{review.authorName}
+										</strong>
+										<span class="testimonio-card__biz">
+											{review.authorMeta}
+										</span>
+									</div>
+								</div>
+
+								{/* {review.ownerReply ? (
+									<div class="testimonio-card__reply">
+										<p class="testimonio-card__reply-head">
+											{review.ownerReply.author} •{' '}
+											{review.ownerReply.relativeTime}
+										</p>
+										<p class="testimonio-card__reply-text">
+											{review.ownerReply.message}
+										</p>
+									</div>
+								) : null} */}
+							</article>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+</section>
+
+<script>
+	const sliders = document.querySelectorAll('[data-testimonials-slider]');
+	const AUTOPLAY_DELAY_MS = 3000;
+
+	sliders.forEach((slider) => {
+		const track = slider.querySelector('[data-testimonials-track]');
+		if (!track) return;
+
+		const getStep = () => {
+			const firstSlide = track.querySelector('.testimonios-slider__slide');
+			const styles = window.getComputedStyle(track);
+			const gap = Number.parseFloat(styles.columnGap || styles.gap || '0') || 0;
+
+			if (!firstSlide) return track.clientWidth;
+			return Math.ceil(firstSlide.getBoundingClientRect().width + gap);
+		};
+
+		let autoplayTimer = null;
+
+		const goNext = () => {
+			const maxScrollLeft = track.scrollWidth - track.clientWidth;
+			const step = getStep();
+			const nextLeft = track.scrollLeft + step;
+
+			if (nextLeft >= maxScrollLeft - 8) {
+				track.scrollTo({ left: 0, behavior: 'smooth' });
+				return;
+			}
+
+			track.scrollTo({ left: nextLeft, behavior: 'smooth' });
+		};
+
+		const stopAutoplay = () => {
+			if (!autoplayTimer) return;
+			window.clearInterval(autoplayTimer);
+			autoplayTimer = null;
+		};
+
+		const startAutoplay = () => {
+			if (autoplayTimer) return;
+			autoplayTimer = window.setInterval(goNext, AUTOPLAY_DELAY_MS);
+		};
+
+		const handleViewportVisibility = (isVisible) => {
+			if (isVisible) {
+				startAutoplay();
+				return;
+			}
+			stopAutoplay();
+		};
+
+		window.addEventListener('resize', () => {
+			stopAutoplay();
+			startAutoplay();
+		});
+		slider.addEventListener('mouseenter', stopAutoplay);
+		slider.addEventListener('mouseleave', startAutoplay);
+		slider.addEventListener('focusin', stopAutoplay);
+		slider.addEventListener('focusout', startAutoplay);
+		slider.addEventListener('touchstart', stopAutoplay, { passive: true });
+		slider.addEventListener('touchend', startAutoplay);
+
+		if ('IntersectionObserver' in window) {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					const entry = entries[0];
+					handleViewportVisibility(entry?.isIntersecting ?? true);
+				},
+				{
+					threshold: 0.2,
+				}
+			);
+			observer.observe(slider);
+		}
+
+		startAutoplay();
+	});
+</script>

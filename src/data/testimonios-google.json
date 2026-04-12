@@ -1,0 +1,90 @@
+{
+	"source": "google-business-profile",
+	"businessName": "Mbarete Digital",
+	"summary": {
+		"rating": 5,
+		"totalReviews": 6,
+		"label": "6 opiniones"
+	},
+	"reviews": [
+		{
+			"id": "faby-aquino-2026-04-12-1",
+			"authorName": "Faby Aquino",
+			"authorMeta": "3 opiniones • 0 fotos",
+			"rating": 5,
+			"relativeTime": "Hace 2 minutos",
+			"isNew": true,
+			"comment": "Excelente experiencia de principio a fin. La pagina es super intuitiva, rapida y confiable. Todo funciona perfecto y la atencion es de primera. Se nota el compromiso y la calidad del servicio. Totalmente recomendada.",
+			"ownerReply": {
+				"author": "Mbarete Digital",
+				"relativeTime": "Hace 1 hora",
+				"message": "⚡a las Ordenes"
+			}
+		},
+		{
+			"id": "soporte-unpar-2026-04-12-1",
+			"authorName": "Soporte Unpar",
+			"authorMeta": "0 opiniones • 0 fotos",
+			"rating": 5,
+			"relativeTime": "Hace 34 minutos",
+			"isNew": true,
+			"comment": ""
+		},
+		{
+			"id": "francisca-martinez-2026-04-12-1",
+			"authorName": "Francisca Martinez",
+			"authorMeta": "0 opiniones • 0 fotos",
+			"rating": 5,
+			"relativeTime": "Hace 1 hora",
+			"isNew": true,
+			"comment": "Buena atencion recomendado.",
+			"ownerReply": {
+				"author": "Mbarete Digital",
+				"relativeTime": "Hace 1 hora",
+				"message": "⚡a las Ordenes"
+			}
+		},
+		{
+			"id": "thiago-adam-duarte-aquino-2026-04-12-1",
+			"authorName": "Thiago Adam Duarte Aquino",
+			"authorMeta": "0 opiniones • 0 fotos",
+			"rating": 5,
+			"relativeTime": "Hace 2 horas",
+			"isNew": true,
+			"comment": "Excelente servicio, rapida atencion",
+			"ownerReply": {
+				"author": "Mbarete Digital",
+				"relativeTime": "Hace 1 hora",
+				"message": "⚡a las Ordenes"
+			}
+		},
+		{
+			"id": "naomi-aquino-2026-04-12-1",
+			"authorName": "Naomi Aquino",
+			"authorMeta": "0 opiniones • 0 fotos",
+			"rating": 5,
+			"relativeTime": "Hace 2 horas",
+			"isNew": true,
+			"comment": "Excelente servicio, super responsables",
+			"ownerReply": {
+				"author": "Mbarete Digital",
+				"relativeTime": "Hace 1 hora",
+				"message": "⚡a las Ordenes"
+			}
+		},
+		{
+			"id": "denis-ricardo-2026-04-12-1",
+			"authorName": "Denis Prieto",
+			"authorMeta": "Local Guide • 34 opiniones • 116 fotos",
+			"rating": 5,
+			"relativeTime": "Hace 5 horas",
+			"isNew": true,
+			"comment": "Rapidos y dan buena solucion",
+			"ownerReply": {
+				"author": "Mbarete Digital",
+				"relativeTime": "Hace 3 horas",
+				"message": "⚡a las Ordenes"
+			}
+		}
+	]
+}

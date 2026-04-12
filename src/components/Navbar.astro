@@ -26,22 +26,26 @@ const { solid = false } = Astro.props;
 			aria-label="Abrir menú"
 			aria-expanded="false"
 			aria-controls="nav-links">
-			<span class="hamburger__bar"></span>
-			<span class="hamburger__bar"></span>
-			<span class="hamburger__bar"></span>
+			<span class="hamburger__icon" aria-hidden="true">
+				<span class="hamburger__bar"></span>
+				<span class="hamburger__bar"></span>
+				<span class="hamburger__bar"></span>
+			</span>
+			<span class="hamburger__label" aria-hidden="true">Menu</span>
 		</button>
 
 		<ul class="navbar__links" id="nav-links" role="list">
-			<li><a href="/#servicios" class="navbar__link">Servicios</a></li>
-			<li><a href="/#precios" class="navbar__link">Precios</a></li>
-			<li><a href="/#rubros" class="navbar__link">Rubros</a></li>
+			<li><a href="/servicios/" class="navbar__link">🛠️ Servicios</a></li>
+			<li><a href="/#precios" class="navbar__link">💵 Precios</a></li>
+			<li><a href="/#rubros" class="navbar__link">🏪 Rubros</a></li>
 			<li>
 				<a href="/muestras/" class="navbar__link navbar__link--highlight"
-					>✨ Muestras</a>
+					>✨ Muestras</a
+				>
 			</li>
-			<li><a href="/blog/" class="navbar__link">Blog</a></li>
-			<li><a href="/faq/" class="navbar__link">FAQ</a></li>
-			<li><a href="/#contacto" class="navbar__link">Contacto</a></li>
+			<li><a href="/blog/" class="navbar__link">📝 Blog</a></li>
+			<li><a href="/faq/" class="navbar__link">❓ Preguntas</a></li>
+			<li><a href="/#contacto" class="navbar__link">📩 Contacto</a></li>
 		</ul>
 
 		<a
@@ -49,7 +53,7 @@ const { solid = false } = Astro.props;
 			class="btn btn--whatsapp navbar__cta"
 			id="navbar-wa"
 			aria-label="Contactar por WhatsApp">
-			<span aria-hidden="true">💬</span> WhatsApp
+			WhatsApp
 		</a>
 	</div>
 </nav>
