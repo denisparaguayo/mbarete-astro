@@ -1,8 +1,8 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import SEO from '../components/SEO.astro';
 import { siteConfig } from '../data/siteConfig';
-import { getServicePlanBySlugOrThrow } from '../data/services';
 import '../styles/global.css';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 
@@ -39,43 +39,6 @@ const fullTitle = keepTitleAsIs
 	: `${title} | ${siteConfig.name}`;
 
 const robots = noindex ? 'noindex,nofollow' : 'index,follow';
-const planBasico = getServicePlanBySlugOrThrow('basico');
-const planPro = getServicePlanBySlugOrThrow('pro');
-
-const professionalServiceSchema = {
-	'@context': 'https://schema.org',
-	'@type': 'ProfessionalService',
-	name: siteConfig.name,
-	url: siteConfig.url,
-	description: siteConfig.seo.defaultDescription,
-	telephone: `+${siteConfig.whatsapp}`,
-	email: siteConfig.email,
-	priceRange: `${planBasico.price} - ${planPro.price}`,
-	address: {
-		'@type': 'PostalAddress',
-		addressLocality: siteConfig.address.city,
-		addressCountry: 'PY',
-	},
-	areaServed: {
-		'@type': 'Country',
-		name: 'Paraguay',
-	},
-	openingHoursSpecification: {
-		'@type': 'OpeningHoursSpecification',
-		dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-		opens: '08:00',
-		closes: '18:00',
-	},
-	sameAs: [siteConfig.socials?.instagram, siteConfig.socials?.facebook].filter(
-		Boolean
-	),
-};
-
-const schemas = schema
-	? Array.isArray(schema)
-		? [professionalServiceSchema, ...schema]
-		: [professionalServiceSchema, schema]
-	: [professionalServiceSchema];
 ---
 
 <!doctype html>
@@ -109,11 +72,7 @@ const schemas = schema
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 
-		{
-			schemas.map((item) => (
-				<script type="application/ld+json" set:html={JSON.stringify(item)} />
-			))
-		}
+		<SEO schema={schema} />
 	</head>
 
 	<body

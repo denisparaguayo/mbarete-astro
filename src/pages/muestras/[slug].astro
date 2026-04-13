@@ -31,8 +31,6 @@ const searchPhrases = localCities.map(
 	(city) => `pagina web para ${item.business.rubro.toLowerCase()} en ${city}`
 );
 const primarySearchPhrase = searchPhrases[0];
-const topSeoCities = localCities.slice(0, 4).join(', ');
-const seoCitiesShort = localCities.slice(0, 3).join(', ');
 const headerSeoTerms = [
 	`diseno web para ${item.business.rubro.toLowerCase()}`,
 	`landing page para ${item.business.rubro.toLowerCase()}`,
@@ -53,14 +51,15 @@ const previewImageModules = import.meta.glob(
 ) as Record<string, string>;
 
 const previewImageUrl =
-	Object.entries(previewImageModules).find(([path]) =>
-		path.endsWith(`/${item.slug}.jpg`) ||
-		path.endsWith(`/${item.slug}.jpeg`) ||
-		path.endsWith(`/${item.slug}.png`) ||
-		path.endsWith(`/${item.slug}.webp`) ||
-		path.endsWith(`/${item.slug}.avif`) ||
-		path.endsWith(`/${item.slug}.gif`) ||
-		path.endsWith(`/${item.slug}.svg`)
+	Object.entries(previewImageModules).find(
+		([path]) =>
+			path.endsWith(`/${item.slug}.jpg`) ||
+			path.endsWith(`/${item.slug}.jpeg`) ||
+			path.endsWith(`/${item.slug}.png`) ||
+			path.endsWith(`/${item.slug}.webp`) ||
+			path.endsWith(`/${item.slug}.avif`) ||
+			path.endsWith(`/${item.slug}.gif`) ||
+			path.endsWith(`/${item.slug}.svg`)
 	)?.[1] ?? null;
 
 function getSocialUrl(
@@ -113,20 +112,25 @@ const localBusinessSchema = {
 
 const faqItems = [
 	{
-		question: `¿Cuánto tarda en crearse una ${primarySearchPhrase}?`,
+		question: '¿Que incluye exactamente este sitio web basico?',
 		answer:
-			'La versión base puede estar lista en 1-2 días, dependiendo de tu contenido y los ajustes finales.',
+			'Incluye estructura comercial completa: portada de conversion, secciones de servicios, bloque de confianza, contacto visible y base SEO local para tu rubro.',
 	},
 	{
-		// "Aparecer en mi zona" o "Cerca de mí" es como busca el usuario real
-		question: `¿Mi web de ${item.business.rubro.toLowerCase()} aparecerá cuando busquen ${item.business.rubro.toLowerCase()} cerca de mi zona?`,
+		question: `¿Esta web me ayuda a aparecer en busquedas como ${primarySearchPhrase}?`,
 		answer:
-			'Sí. Configuramos SEO Local (títulos, descripciones y datos estructurados) para que Google te priorice en las búsquedas de tu barrio o ciudad y mejores tu visibilidad en los mapas.',
+			'Si. Trabajamos titulos, contenido y datos estructurados para mejorar tu visibilidad local y aumentar consultas desde Google en tu ciudad.',
 	},
 	{
-		question: '¿Puedo pedir cambios después de ver la demo en vivo?',
+		question:
+			'¿Puedo personalizar este sitio web con mi marca y mis servicios?',
 		answer:
-			'Sí. La demo sirve como estructura base y luego la personalizamos completamente con tus textos, servicios, branding y llamadas a la acción (CTA).',
+			'Si. Este sitio web basico es el punto de partida: adaptamos colores, textos, servicios, datos de contacto y llamados a la accion para tu negocio.',
+	},
+	{
+		question: '¿En cuanto tiempo puedo tener lista mi web?',
+		answer:
+			'La version inicial puede quedar lista en 1 a 2 dias habiles, segun el material que nos compartas y los ajustes finales que quieras.',
 	},
 ];
 
@@ -159,15 +163,15 @@ const faqSchema = {
 						Muestras / {item.business.rubro}
 					</p>
 					<h1>
-						Pagina web para {item.business.rubro.toLowerCase()}
+						Sitio web básico para {item.business.rubro.toLowerCase()}
 					</h1>
 					<p class="template-detail__meta">
 						{item.business.rubro}
 					</p>
 					<p class="template-detail__desc">
-						Estructura base de sitio web pensada para negocios de{' '}
-						{item.business.rubro.toLowerCase()}, optimizada para SEO local y
-						conversiones.
+						Este ejemplo te muestra como quedaria tu sitio web basico: una
+						estructura profesional para {item.business.rubro.toLowerCase()},
+						pensada para darte presencia digital y generar consultas.
 					</p>
 					<ul
 						class="template-detail__keywords"
@@ -177,51 +181,73 @@ const faqSchema = {
 					</ul>
 
 					<section class="detail-block">
-						<h2>Que incluye esta web para posicionar y convertir</h2>
+						<h2>Lo que incluye este sitio web basico</h2>
 						<ul role="list">
 							<li>
-								Hero con propuesta de valor para {
+								Portada comercial con propuesta de valor clara para {
 									item.business.rubro.toLowerCase()
 								}
 							</li>
 							<li>
-								Seccion de servicios con keywords transaccionales por rubro
+								Seccion de servicios lista para explicar que ofreces y por que
+								elegirte
 							</li>
-							<li>Bloque de confianza con stats y prueba social</li>
-							<li>Horarios, ubicacion y contacto visibles en primer scroll</li>
 							<li>
-								SEO local con schema {item.schemaType} y estructura indexable
+								Bloque de confianza con indicadores, prueba social y
+								diferenciales
+							</li>
+							<li>
+								Contacto, horarios y Ubicacion visibles para facilitar consultas
+								inmediatas
+							</li>
+							<li>
+								Base SEO local con schema {item.schemaType} y estructura indexable
+								en Google
 							</li>
 						</ul>
 					</section>
 
 					<section class="detail-block">
-						<h2>Para quien sirve esta plantilla</h2>
+						<h2>Que contiene este sitio web y por que te puede servir</h2>
 						<p class="detail-paragraph">
-							Si queres captar clientes que buscan en Google terminos como
-							<strong> {primarySearchPhrase} </strong>, esta estructura esta
-							pensada para aparecer con contenido relevante y convertir visitas
-							en consultas.
+							Vas a ver exactamente que recibís: diseño profesional, contenido
+							orientado a conversion y una estructura pensada para que tu
+							negocio tenga presencia digital y reciba consultas.
 						</p>
 						<ul role="list">
-							<li>Negocios que quieren generar consultas por WhatsApp</li>
-							<li>Emprendimientos que necesitan presencia local profesional</li>
-							<li>Rubros que compiten por busquedas de ciudad + servicio</li>
+							<li>
+								Diseño enfocado en convertir visitas en mensajes por WhatsApp
+							</li>
+							<li>
+								Bloques listos para mostrar servicios, precios y beneficios
+							</li>
+							<li>
+								Base optimizada para SEO local en búsquedas como <strong
+									>{primarySearchPhrase}</strong
+								>
+							</li>
+							<li>
+								Implementacion final con tu marca, tus datos y tu propuesta
+								comercial
+							</li>
 						</ul>
 					</section>
 
 					<section class="detail-block">
-						<h2>Ciudades objetivo para este rubro</h2>
+						<h2>Presencia digital en tu zona de atencion</h2>
 						<p class="detail-paragraph">
-							Esta ficha tambien apunta a busquedas locales en Gran Asuncion.
+							Este sitio web basico esta enfocado en que tus potenciales
+							clientes encuentren tu negocio en su ciudad y te contacten rapido.
 						</p>
 						<ul role="list">
-							{searchPhrases.slice(0, 6).map((phrase) => <li>{phrase}</li>)}
+							<li>Visibilidad local con informacion clara de contacto y ubicacion</li>
+							<li>Contenido orientado a consultas reales, no solo a visitas</li>
+							<li>Base lista para fortalecer posicionamiento local mes a mes</li>
 						</ul>
 					</section>
 
 					<section class="detail-block">
-						<h2>Servicios cargados</h2>
+						<h2>Ejemplo de servicios que podes mostrar</h2>
 						<ul class="detail-services" role="list">
 							{
 								item.servicios.map((servicio) => (
@@ -241,7 +267,7 @@ const faqSchema = {
 					</section>
 
 					<section class="detail-block">
-						<h2>Horarios y métricas</h2>
+						<h2>Informacion comercial lista para publicar</h2>
 						<div class="detail-mixed">
 							<div>
 								<h3>Horarios</h3>
@@ -252,7 +278,7 @@ const faqSchema = {
 								</ul>
 							</div>
 							<div>
-								<h3>Stats</h3>
+								<h3>Credenciales</h3>
 								{
 									item.stats.length > 0 ? (
 										<ul role="list">
@@ -271,17 +297,17 @@ const faqSchema = {
 					</section>
 
 					<section class="detail-block detail-block--cta">
-						<h2>¿Querés esta misma base para tu rubro?</h2>
+						<h2>Queres este sitio web básico para tu negocio?</h2>
 						<p>
-							Usamos esta plantilla como punto de partida y la personalizamos
-							con tu marca, tus servicios y tus datos.
+							Desarrollamos tu sitio web básico con tu marca, tus servicios y
+							tus datos para que tengas presencia digital profesional.
 						</p>
 						<a
 							class="btn btn--primary"
 							href={ctaHref}
 							target="_blank"
 							rel="noopener noreferrer">
-							Solicitar este tipo de web
+							Quiero mi sitio web básico
 						</a>
 					</section>
 
@@ -301,32 +327,32 @@ const faqSchema = {
 				</header>
 
 				<aside class="template-sidebar">
-						<div class="template-preview">
-							{
-								previewImageUrl ? (
-									<a
-										class="template-preview__shot template-preview__shot--image"
-										href={previewImageUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-										aria-label={`Abrir imagen completa de la vista previa de ${item.business.rubro}`}>
-										<img
-											src={previewImageUrl}
-											alt={`Vista previa del template para ${item.business.rubro}`}
-											loading="lazy"
-											decoding="async"
-										/>
-										<small>Abrir imagen completa</small>
-									</a>
-								) : (
-									<div
-										class="template-preview__shot"
-										style={`background:linear-gradient(135deg,${item.colores?.oscuro ?? '#1e293b'},${item.colores?.claro ?? '#3b82f6'})`}>
-										<span>{item.business.logoEmoji ?? '🌐'}</span>
-										<small>Vista previa de template</small>
-									</div>
-								)
-							}
+					<div class="template-preview">
+						{
+							previewImageUrl ? (
+								<a
+									class="template-preview__shot template-preview__shot--image"
+									href={previewImageUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={`Abrir imagen completa de la vista previa de ${item.business.rubro}`}>
+									<img
+										src={previewImageUrl}
+										alt={`Vista previa del sitio web para ${item.business.rubro}`}
+										loading="lazy"
+										decoding="async"
+									/>
+									<small>Abrir imagen completa</small>
+								</a>
+							) : (
+								<div
+									class="template-preview__shot"
+									style={`background:linear-gradient(135deg,${item.colores?.oscuro ?? '#1e293b'},${item.colores?.claro ?? '#3b82f6'})`}>
+									<span>{item.business.logoEmoji ?? '🌐'}</span>
+									<small>Vista previa del sitio web</small>
+								</div>
+							)
+						}
 
 						<div class="template-preview__actions">
 							<a
@@ -334,7 +360,7 @@ const faqSchema = {
 								href={liveUrl}
 								target="_blank"
 								rel="noopener noreferrer">
-								Ver en vivo
+								Ver demo en vivo
 							</a>
 							<a
 								class="btn btn--outline btn--full"
@@ -346,19 +372,22 @@ const faqSchema = {
 						</div>
 
 						<div class="template-preview__cta-note">
-							<p>¿Te gustó esta estructura? Te la adaptamos a tu negocio.</p>
+							<p>
+								Si te gusta este enfoque, creamos tu sitio web básico para tu
+								negocio.
+							</p>
 							<a
 								class="btn btn--primary btn--full"
 								href={ctaHref}
 								target="_blank"
 								rel="noopener noreferrer">
-								Solicitar este tipo de web
+								Solicitar mi web básica
 							</a>
 						</div>
 					</div>
 
 					<div class="template-sidebar__info">
-						<h3>Datos del negocio</h3>
+						<h3>Datos que cargamos en tu web</h3>
 						<ul role="list">
 							<li>
 								<strong>Dirección:</strong>
