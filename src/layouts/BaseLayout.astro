@@ -1,10 +1,10 @@
 ---
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import SEO from '../components/SEO.astro';
+import Navbar from '../components/layout/Navbar.astro';
+import Footer from '../components/layout/Footer.astro';
+import SEO from '../components/ui/SEO.astro';
 import { siteConfig } from '../data/siteConfig';
 import '../styles/global.css';
-import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import WhatsAppFloat from '../components/ui/WhatsAppFloat.astro';
 
 interface Props {
 	title?: string;
@@ -89,6 +89,30 @@ const robots = noindex ? 'noindex,nofollow' : 'index,follow';
 		<Footer />
 		<WhatsAppFloat />
 
-		<script src="/main.js" defer></script>
+		<script>
+			function initFadeUp() {
+				const elements = document.querySelectorAll('.fade-up');
+				if (!elements.length) return;
+
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (!entry.isIntersecting) return;
+							entry.target.classList.add('visible');
+							observer.unobserve(entry.target);
+						});
+					},
+					{
+						threshold: 0.12,
+						rootMargin: '0px 0px -40px 0px',
+					}
+				);
+
+				elements.forEach((el) => observer.observe(el));
+			}
+			
+			// Init globally
+			initFadeUp();
+		</script>
 	</body>
 </html>

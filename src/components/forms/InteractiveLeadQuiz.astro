@@ -1,0 +1,274 @@
+---
+const {
+	title = '¿Querés una auditoría gratis para tu negocio?',
+	desc = 'Decinos qué necesitás y te orientamos por WhatsApp sobre tu mejor opción.',
+	buttonText = 'Empezar ahora',
+	source = 'blog',
+} = Astro.props;
+---
+
+<section class="lead-quiz" data-source={source}>
+	<div class="lead-quiz__inner">
+		<!-- Progress Bar -->
+		<div class="quiz-progress" aria-hidden="true">
+			<div class="quiz-progress__bar" style="width: 25%"></div>
+		</div>
+
+		<!-- Step 1: Intro -->
+		<div class="quiz-step active" data-step="1">
+			<span class="badge badge--blog">🚀 Auditoría gratis</span>
+			<h3 class="lead-quiz__title">{title}</h3>
+			<p class="lead-quiz__desc">{desc}</p>
+			<button type="button" class="btn btn--primary btn--lg btn--full next-step">
+				{buttonText}
+			</button>
+		</div>
+
+		<!-- Step 2: Need -->
+		<div class="quiz-step" data-step="2">
+			<h3 class="lead-quiz__title">¿Qué necesitás para tu negocio?</h3>
+			<div class="quiz-options">
+				<button type="button" class="quiz-option" data-value="Landing page">Landing Page (1 página)</button>
+				<button type="button" class="quiz-option" data-value="Página web completa">Web Completa (Varias páginas)</button>
+				<button type="button" class="quiz-option" data-value="SEO / aparecer en Google">SEO y Google Maps</button>
+				<button type="button" class="quiz-option" data-value="No estoy seguro todavía">No estoy seguro todavía</button>
+			</div>
+		</div>
+
+		<!-- Step 3: Business -->
+		<div class="quiz-step" data-step="3">
+			<h3 class="lead-quiz__title">¿Cuál es tu rubro?</h3>
+			<p class="lead-quiz__desc">Ej: Veterinaria, Abogado, Restaurante</p>
+			<div class="quiz-input-group">
+				<input type="text" id="quiz-business" class="quiz-input" placeholder="Escribí acá tu rubro..." required />
+				<button type="button" class="btn btn--primary btn--full next-step" disabled id="btn-step-3">Siguiente</button>
+			</div>
+		</div>
+
+		<!-- Step 4: Contact -->
+		<div class="quiz-step" data-step="4">
+			<h3 class="lead-quiz__title">¡Último paso!</h3>
+			<p class="lead-quiz__desc">Déjanos tu nombre y WhatsApp para enviarte la propuesta.</p>
+			<div class="quiz-input-group">
+				<input type="text" id="quiz-name" class="quiz-input" placeholder="Tu nombre" required />
+				<input type="tel" id="quiz-phone" class="quiz-input" placeholder="WhatsApp (Ej: 0981 123 456)" required />
+				<button type="button" class="btn btn--whatsapp btn--full" id="quiz-submit">
+					<span aria-hidden="true">💬</span> Solicitar Auditoría
+				</button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.lead-quiz {
+		background: var(--blanco);
+		border-radius: var(--radius-xl);
+		padding: 32px 24px;
+		margin: 40px 0;
+		box-shadow: var(--shadow-lg);
+		border: 1px solid rgba(5, 150, 105, 0.1);
+		text-align: center;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.lead-quiz__inner {
+		max-width: 400px;
+		margin: 0 auto;
+	}
+
+	.quiz-progress {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 4px;
+		background: var(--gris-medio);
+	}
+
+	.quiz-progress__bar {
+		height: 100%;
+		background: var(--verde);
+		transition: width 0.4s ease;
+	}
+
+	.quiz-step {
+		display: none;
+		animation: fadeIn 0.4s ease;
+	}
+
+	.quiz-step.active {
+		display: block;
+	}
+
+	.lead-quiz__title {
+		font-family: var(--font-titulo);
+		font-size: 1.4rem;
+		font-weight: 700;
+		margin: 16px 0 12px;
+		color: var(--texto);
+		line-height: 1.3;
+	}
+
+	.lead-quiz__desc {
+		color: var(--texto-muted);
+		font-size: 0.95rem;
+		margin-bottom: 24px;
+	}
+
+	.quiz-options {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.quiz-option {
+		background: var(--gris-claro);
+		border: 2px solid transparent;
+		padding: 16px;
+		border-radius: var(--radius-md);
+		font-family: var(--font-cuerpo);
+		font-weight: 600;
+		color: var(--texto);
+		transition: all 0.2s ease;
+		cursor: pointer;
+	}
+
+	.quiz-option:hover, .quiz-option:focus-visible {
+		background: #f0fdf8;
+		border-color: var(--verde-claro);
+		transform: translateY(-2px);
+	}
+
+	.quiz-input-group {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.quiz-input {
+		width: 100%;
+		padding: 16px;
+		background: var(--gris-claro);
+		border: 2px solid var(--gris-medio);
+		border-radius: var(--radius-md);
+		font-family: var(--font-cuerpo);
+		font-size: 1rem;
+		color: var(--texto);
+		transition: border-color 0.2s ease;
+	}
+
+	.quiz-input:focus {
+		outline: none;
+		border-color: var(--verde);
+		background: var(--blanco);
+	}
+
+	button:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; transform: translateY(10px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+</style>
+
+<script>
+	class LeadQuiz {
+		constructor(el) {
+			this.el = el;
+			this.currentStep = 1;
+			this.totalSteps = 4;
+			this.data = {
+				need: '',
+				business: '',
+				source: el.dataset.source || 'web'
+			};
+			
+			this.progressBar = el.querySelector('.quiz-progress__bar');
+			this.steps = el.querySelectorAll('.quiz-step');
+			
+			this.initEvents();
+		}
+
+		initEvents() {
+			// Start btn
+			this.el.querySelector('[data-step="1"] .next-step').addEventListener('click', () => this.goToStep(2));
+			
+			// Options Step 2
+			this.el.querySelectorAll('.quiz-option').forEach(btn => {
+				btn.addEventListener('click', (e) => {
+					this.data.need = e.target.dataset.value;
+					this.goToStep(3);
+				});
+			});
+
+			// Business Input Step 3
+			const inputBusiness = this.el.querySelector('#quiz-business');
+			const btnStep3 = this.el.querySelector('#btn-step-3');
+			
+			inputBusiness.addEventListener('input', (e) => {
+				const val = e.target.value.trim();
+				btnStep3.disabled = val.length < 2;
+				this.data.business = val;
+			});
+
+			btnStep3.addEventListener('click', () => {
+				if(this.data.business.length >= 2) this.goToStep(4);
+			});
+
+			inputBusiness.addEventListener('keypress', (e) => {
+				if(e.key === 'Enter' && this.data.business.length >= 2) {
+					e.preventDefault();
+					this.goToStep(4);
+				}
+			});
+
+			// Submit Step 4
+			this.el.querySelector('#quiz-submit').addEventListener('click', () => this.submit());
+		}
+
+		goToStep(step) {
+			this.steps.forEach(s => s.classList.remove('active'));
+			this.el.querySelector(`[data-step="${step}"]`).classList.add('active');
+			this.currentStep = step;
+			this.progressBar.style.width = `${(step / this.totalSteps) * 100}%`;
+
+			// Autofocus logic
+			if(step === 3) setTimeout(() => this.el.querySelector('#quiz-business').focus(), 100);
+			if(step === 4) setTimeout(() => this.el.querySelector('#quiz-name').focus(), 100);
+		}
+
+		submit() {
+			const name = this.el.querySelector('#quiz-name').value.trim();
+			const phone = this.el.querySelector('#quiz-phone').value.trim();
+
+			if(!name || !phone) {
+				alert("Por favor completa tu nombre y número para contactarte.");
+				return;
+			}
+
+			// Format WhatsApp Message
+			const msg = `Hola Mbarete Digital! 👋\n\n` +
+				`Vengo del quiz en su sitio web y quiero una auditoría.\n\n` +
+				`👸 Nombre: ${name}\n` +
+				`📲 WhatsApp: ${phone}\n` +
+				`🏪 Negocio: ${this.data.business}\n` +
+				`🎯 Necesito: ${this.data.need}\n` +
+				`📍 Fuente: ${this.data.source}`;
+			
+			const whatsappNumber = document.body.dataset.whatsapp || '595987129446';
+			const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+			
+			window.open(waUrl, '_blank', 'noopener,noreferrer');
+		}
+	}
+
+	// Initialize all quizzes on the page
+	document.addEventListener('DOMContentLoaded', () => {
+		document.querySelectorAll('.lead-quiz').forEach(quiz => new LeadQuiz(quiz));
+	});
+</script>

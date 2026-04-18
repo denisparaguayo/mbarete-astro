@@ -1,12 +1,12 @@
 ---
-title: 'Cómo conseguir clientes con una página web en Paraguay'
-description: '5 estrategias para convertir tu página web en una máquina de clientes en Paraguay.'
+title: "Cómo conseguir clientes con una página web en Paraguay"
+description: "5 estrategias para convertir tu página web en una máquina de clientes en Paraguay."
 pubDate: 2025-01-01
-category: 'Marketing'
-categorySlug: 'marketing'
-tags: ['clientes', 'marketing', 'web']
+category: "Marketing"
+categorySlug: "marketing"
+tags: ["clientes", "marketing", "web"]
 featured: false
-heroImage: '/og-image.jpg'
+heroImage: "/og-image.jpg"
 ---
 
 Tener una página web no sirve si no genera clientes.
@@ -49,7 +49,3 @@ Si tu web es confusa → perdés clientes.
 Tu web tiene que trabajar para vos 24/7.
 
 ---
-
-## CTA
-
-¿Querés más clientes? Hacemos páginas web que venden 💰

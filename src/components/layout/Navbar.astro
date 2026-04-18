@@ -1,0 +1,380 @@
+---
+import { getWhatsAppUrl } from '../../data/siteConfig';
+
+interface Props {
+	solid?: boolean;
+}
+
+const { solid = false } = Astro.props;
+---
+
+<nav
+	class={`navbar ${solid ? 'navbar--solid scrolled' : ''}`}
+	id="navbar"
+	role="navigation"
+	aria-label="Menú principal">
+	<div class="navbar__container">
+		<a
+			href="/#inicio"
+			class="navbar__logo"
+			aria-label="Mbarete Digital - Inicio">
+			<span class="navbar__logo-icon" aria-hidden="true">⚡</span>
+			<span class="navbar__logo-text">Mbarete Digital</span>
+		</a>
+
+		<button
+			class="navbar__hamburger"
+			id="hamburger"
+			aria-label="Abrir menú"
+			aria-expanded="false"
+			aria-controls="nav-links">
+			<span class="hamburger__icon" aria-hidden="true">
+				<span class="hamburger__bar"></span>
+				<span class="hamburger__bar"></span>
+				<span class="hamburger__bar"></span>
+			</span>
+			<span class="hamburger__label" aria-hidden="true">Menu</span>
+		</button>
+
+		<ul class="navbar__links" id="nav-links" role="list">
+			<li><a href="/servicios/" class="navbar__link">🛠️ Servicios</a></li>
+			<li><a href="/#precios" class="navbar__link">💵 Precios</a></li>
+			<li><a href="/#rubros" class="navbar__link">🏪 Rubros</a></li>
+			<li>
+				<a href="/muestras/" class="navbar__link navbar__link--highlight"
+					>✨ Muestras</a
+				>
+			</li>
+			<li><a href="/blog/" class="navbar__link">📝 Blog</a></li>
+			<li><a href="/faq/" class="navbar__link">❓ Preguntas</a></li>
+			<li><a href="/#contacto" class="navbar__link">📩 Contacto</a></li>
+		</ul>
+
+		<a
+			href={getWhatsAppUrl('Hola Mbarete Digital! Me gustaría consultar por el estado de mi página web o solicitar un presupuesto 👋')}
+			class="btn btn--whatsapp navbar__cta"
+			target="_blank"
+			rel="noopener noreferrer"
+			id="navbar-wa"
+			aria-label="Contactar por WhatsApp">
+			WhatsApp
+		</a>
+	</div>
+</nav>
+
+<script>
+	function initNavbar() {
+		const navbar = document.getElementById('navbar');
+		if (!navbar) return;
+		const isSolid = navbar.classList.contains('navbar--solid');
+
+		function updateNavbar() {
+			if (isSolid) {
+				navbar.classList.add('scrolled');
+				return;
+			}
+			navbar.classList.toggle('scrolled', window.scrollY > 50);
+		}
+		
+		updateNavbar();
+		document.addEventListener('scroll', updateNavbar, { passive: true });
+	}
+
+	function initHamburger() {
+		const hamburger = document.getElementById('hamburger');
+		const navLinks = document.getElementById('nav-links');
+		if (!hamburger || !navLinks) return;
+
+		function toggleMenu(open) {
+			hamburger.classList.toggle('open', open);
+			navLinks.classList.toggle('open', open);
+			hamburger.setAttribute('aria-expanded', String(open));
+			document.body.style.overflow = open ? 'hidden' : '';
+		}
+
+		hamburger.addEventListener('click', () => {
+			const isOpen = navLinks.classList.contains('open');
+			toggleMenu(!isOpen);
+		});
+
+		navLinks.querySelectorAll('a').forEach((link) => {
+			link.addEventListener('click', () => toggleMenu(false));
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+				toggleMenu(false);
+			}
+		});
+
+		window.addEventListener(
+			'resize',
+			() => {
+				if (window.innerWidth >= 768) toggleMenu(false);
+			},
+			{ passive: true }
+		);
+	}
+
+	// Ejecutar las funciones cuando Astro cargue el componente
+	initNavbar();
+	initHamburger();
+</script>
+
+<style>
+	.navbar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 100;
+		padding: 16px 0;
+		background: transparent;
+		transition:
+			background var(--transition),
+			box-shadow var(--transition),
+			padding var(--transition);
+	}
+
+	.navbar.scrolled {
+		background: rgba(255, 255, 255, 0.85);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		box-shadow: 0 4px 24px rgba(10, 22, 40, 0.08);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+		padding: 10px 0;
+	}
+
+	.navbar__container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		max-width: var(--container-max);
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.navbar__logo {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-family: var(--font-titulo);
+		font-weight: 700;
+		font-size: 1.25rem;
+		color: var(--blanco);
+		transition: color var(--transition);
+		flex-shrink: 0;
+	}
+
+	.navbar.scrolled .navbar__logo {
+		color: var(--azul-oscuro);
+	}
+
+	.navbar__logo-icon {
+		font-size: 1.3rem;
+	}
+
+	.navbar__links {
+		display: none;
+		align-items: center;
+		gap: 4px;
+		list-style: none;
+	}
+
+	.navbar__link {
+		font-family: var(--font-cuerpo);
+		font-weight: 600;
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.85);
+		padding: 8px 14px;
+		border-radius: var(--radius-pill);
+		transition: all var(--transition);
+	}
+
+	.navbar__link:hover {
+		color: var(--verde-claro);
+		background: rgba(255, 255, 255, 0.08);
+	}
+
+	.navbar.scrolled .navbar__link {
+		color: var(--texto);
+	}
+
+	.navbar.scrolled .navbar__link:hover {
+		color: var(--verde);
+		background: rgba(5, 150, 105, 0.08);
+	}
+
+	.navbar__hamburger {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		min-width: 38px;
+		height: 40px;
+		padding: 6px 10px;
+		border-radius: var(--radius-sm);
+		transition:
+			background var(--transition),
+			transform var(--transition);
+		z-index: 110;
+		position: relative;
+		animation: hamburgerAttention 1.3s ease-in-out 2.5s 3;
+	}
+
+	.navbar__hamburger:hover {
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	.navbar.scrolled .navbar__hamburger:hover {
+		background: rgba(10, 22, 40, 0.08);
+	}
+
+	.hamburger__icon {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 5px;
+		width: 18px;
+	}
+
+	.hamburger__bar {
+		display: block;
+		width: 100%;
+		height: 2px;
+		background: var(--blanco);
+		border-radius: 2px;
+		transition: all var(--transition);
+	}
+
+	.navbar.scrolled .hamburger__bar {
+		background: var(--texto);
+	}
+
+	.hamburger__label {
+		font-family: var(--font-cuerpo);
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	.navbar.scrolled .hamburger__label {
+		color: rgba(10, 22, 40, 0.92);
+	}
+
+	/* Hamburger → X */
+	.navbar__hamburger.open .hamburger__bar:nth-child(1) {
+		transform: translateY(7px) rotate(45deg);
+	}
+	.navbar__hamburger.open .hamburger__bar:nth-child(2) {
+		opacity: 0;
+		transform: scaleX(0);
+	}
+	.navbar__hamburger.open .hamburger__bar:nth-child(3) {
+		transform: translateY(-7px) rotate(-45deg);
+	}
+
+	.navbar__hamburger.open {
+		animation: none;
+	}
+
+	/* Mobile menu abierto */
+	.navbar__links.open {
+		display: flex;
+		flex-direction: column;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: var(--azul-oscuro);
+		padding: 96px 32px 48px;
+		gap: 8px;
+		z-index: 105;
+	}
+
+	.navbar__links.open .navbar__link {
+		font-size: 1.3rem;
+		font-family: var(--font-titulo);
+		font-weight: 700;
+		color: var(--blanco);
+		padding: 16px 20px;
+		border-radius: var(--radius-md);
+	}
+
+	.navbar__links.open .navbar__link:hover {
+		background: rgba(255, 255, 255, 0.08);
+		color: var(--verde-claro);
+	}
+
+	.navbar__cta {
+		flex-shrink: 0;
+		display: none;
+	}
+
+	@media (min-width: 768px) {
+		.navbar__cta {
+			display: inline-flex;
+		}
+		.navbar__hamburger {
+			display: none;
+		}
+		.navbar__links {
+			display: flex;
+		}
+	}
+
+	/* Highlight */
+	.navbar__link--highlight {
+		color: var(--verde-claro) !important;
+		position: relative;
+	}
+	.navbar__link--highlight::after {
+		content: '';
+		position: absolute;
+		bottom: 4px;
+		left: 14px;
+		right: 14px;
+		height: 2px;
+		background: var(--verde-claro);
+		border-radius: 2px;
+		opacity: 0.6;
+	}
+	.navbar.scrolled .navbar__link--highlight {
+		color: var(--verde) !important;
+	}
+	.navbar.scrolled .navbar__link--highlight::after {
+		background: var(--verde);
+	}
+
+	/* Solid Variants */
+	.navbar--solid {
+		background: #fff;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+	}
+
+	.navbar--solid .navbar__logo,
+	.navbar--solid .navbar__link,
+	.navbar--solid .navbar__hamburger {
+		color: var(--texto, #111);
+	}
+
+	.navbar--solid .hamburger__bar {
+		background: var(--texto, #111);
+	}
+
+	@keyframes hamburgerAttention {
+		0%,
+		100% {
+			transform: translateY(0);
+			box-shadow: 0 0 0 0 rgba(100, 223, 223, 0);
+		}
+		45% {
+			transform: translateY(-1px);
+			box-shadow: 0 0 0 4px rgba(100, 223, 223, 0.25);
+		}
+	}
+</style>

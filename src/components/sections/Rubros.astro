@@ -1,0 +1,132 @@
+---
+import { getRubrosItems } from '../../data/rubros';
+import { getWhatsAppUrl } from '../../data/siteConfig';
+
+const allRubros = getRubrosItems();
+---
+
+<section class="section section--gray" id="rubros" aria-labelledby="h2-rubros">
+	<div class="container">
+		<h2 class="section__title fade-up" id="h2-rubros">
+			Creamos páginas web para todo tipo de negocios en Paraguay
+		</h2>
+
+		<p class="section__subtitle fade-up">
+			Desde veterinarias hasta talleres mecánicos, desde panaderías hasta
+			consultorios médicos — si tenés un negocio en Paraguay, nosotros te
+			hacemos la página.
+		</p>
+
+		<ul class="rubros-grid fade-up" role="list">
+			{
+				allRubros.map((item) => {
+					const msg = `Hola Mbarete Digital! Quiero una página web para mi negocio de ${item.business.rubro} 👋`;
+					const href = getWhatsAppUrl(msg);
+
+					return (
+						<li>
+							<a
+								href={href}
+								class="rubro-item"
+								target="_blank"
+								rel="noopener noreferrer"
+								title={`Página web para ${item.business.rubro.toLowerCase()} en Paraguay`}>
+								<span class="rubro-item__icon" aria-hidden="true">
+									{item.business.logoEmoji || '🌐'}
+								</span>
+								<span class="rubro-item__text">{item.business.rubro}</span>
+							</a>
+						</li>
+					);
+				})
+			}
+		</ul>
+
+		<div class="rubros-cta fade-up">
+			<a
+				href={getWhatsAppUrl(
+					'Hola Mbarete Digital! Quiero consultar si pueden hacer una web para mi rubro 👋'
+				)}
+				class="btn btn--primary"
+				target="_blank"
+				rel="noopener noreferrer">
+				¿No ves tu rubro? Consultanos →
+			</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	/* === RUBROS === */
+	.rubros-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+		margin-bottom: 32px;
+	}
+
+	.rubro-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		padding: 14px 8px;
+		background: var(--blanco);
+		border: 1.5px solid var(--gris-medio);
+		border-radius: var(--radius-md);
+		text-align: center;
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: var(--texto);
+		cursor: pointer;
+		transition: all var(--transition);
+		text-decoration: none;
+		height: 100%;
+	}
+
+	.rubro-item:hover, .rubro-item:focus-visible {
+		border-color: var(--verde);
+		background: #f0fdf8;
+		transform: translateY(-3px);
+		box-shadow: var(--shadow-sm);
+		color: var(--verde-hover);
+	}
+
+	.rubro-item__icon {
+		font-size: 1.6rem;
+		line-height: 1;
+	}
+
+	.rubro-item__text {
+		line-height: 1.3;
+	}
+
+	.rubros-cta {
+		text-align: center;
+		margin-top: 16px;
+	}
+
+	@media (min-width: 768px) {
+		.rubros-grid {
+			grid-template-columns: repeat(4, 1fr);
+			gap: 10px;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.rubros-grid {
+			grid-template-columns: repeat(6, 1fr);
+			gap: 12px;
+		}
+
+		.rubro-item {
+			padding: 16px 10px;
+			font-size: 0.8rem;
+		}
+
+		.rubro-item__icon {
+			font-size: 1.8rem;
+		}
+	}
+</style>

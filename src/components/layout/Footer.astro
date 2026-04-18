@@ -1,0 +1,234 @@
+---
+import { siteConfig, getWhatsAppUrl } from '../../data/siteConfig';
+import { getServiceBySlugOrThrow } from '../../data/services';
+
+const creacionWebService = getServiceBySlugOrThrow('creacion-paginas-web');
+const creacionWebPriceInline = creacionWebService.price.replace(
+	/^Desde/i,
+	'desde'
+);
+---
+
+<footer class="footer" id="footer" role="contentinfo">
+	<div class="container">
+		<div class="footer__grid">
+			<div class="footer__brand">
+				<a href="/#inicio" class="footer__logo" aria-label={siteConfig.name}>
+					<span aria-hidden="true">⚡</span>
+					{siteConfig.name}
+				</a>
+				<p class="footer__slogan">Tu negocio, visible en internet.</p>
+				<p class="footer__desc">
+					Agencia de diseño web para PyMEs paraguayas. Páginas web profesionales
+					{creacionWebPriceInline}.
+				</p>
+			</div>
+
+			<nav class="footer__nav" aria-label="Navegación del footer">
+				<h3 class="footer__nav-title">Links rápidos</h3>
+				<ul role="list">
+					<li><a href="/#inicio">Inicio</a></li>
+					<li><a href="/servicios/">Servicios</a></li>
+					<li><a href="/#precios">Precios</a></li>
+					<li><a href="/#faq">FAQ</a></li>
+					<li><a href="/#contacto">Contacto</a></li>
+				</ul>
+			</nav>
+
+			<div class="footer__contact">
+				<h3 class="footer__nav-title">Contacto</h3>
+				<address style="font-style: normal;">
+					<ul role="list">
+						<li>
+							<a
+								href={getWhatsAppUrl()}
+								id="footer-wa"
+								aria-label="WhatsApp"
+								target="_blank"
+								rel="noopener noreferrer">
+								<span aria-hidden="true">📱</span> {siteConfig.phone}
+							</a>
+					</li>
+					<li>
+						<a href={`mailto:${siteConfig.email}`}>
+							<span aria-hidden="true">✉️</span> {siteConfig.email}
+						</a>
+					</li>
+					<li>
+						<a href={siteConfig.url} target="_blank" rel="noopener">
+							<span aria-hidden="true">🌐</span> {siteConfig.url.replace('https://', '')}
+						</a>
+					</li>
+					<li>
+						<span>
+							<span aria-hidden="true">📍</span> {siteConfig.address.city}, {siteConfig.address.country}
+						</span>
+					</li>
+					<li>
+						<span>
+							<span aria-hidden="true">🕐</span> <time>{siteConfig.hours.days} · {siteConfig.hours.time}</time>
+						</span>
+					</li>
+				</ul>
+				</address>
+			</div>
+
+			<div class="footer__social">
+				<h3 class="footer__nav-title">Seguinos</h3>
+				<div class="footer__social-links">
+					<a
+						href={siteConfig.socials.instagram}
+						class="footer__social-btn"
+						aria-label={`Instagram de ${siteConfig.name}`}
+						target="_blank"
+						rel="noopener noreferrer">
+						<span aria-hidden="true">📸</span> Instagram
+					</a>
+
+					<a
+						href={siteConfig.socials.facebook}
+						class="footer__social-btn"
+						aria-label={`Facebook de ${siteConfig.name}`}
+						target="_blank"
+						rel="noopener noreferrer">
+						<span aria-hidden="true">👍</span> Facebook
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer__bottom">
+			<p>
+				© 2025 ⚡{siteConfig.name} · {siteConfig.address.city}, {
+					siteConfig.address.country
+				}
+				· Diseñado con ❤️ en Paraguay 🇵🇾
+			</p>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		background: var(--azul-oscuro);
+		padding: 56px 0 0;
+		border-top: 1px solid rgba(255, 255, 255, 0.06);
+	}
+
+	.footer__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 36px;
+		padding-bottom: 40px;
+	}
+
+	.footer__logo {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-family: var(--font-titulo);
+		font-weight: 700;
+		font-size: 1.2rem;
+		color: var(--blanco);
+		margin-bottom: 10px;
+	}
+
+	.footer__slogan {
+		font-size: 0.9rem;
+		color: var(--verde-claro);
+		font-weight: 600;
+		margin-bottom: 10px;
+	}
+
+	.footer__desc {
+		font-size: 0.85rem;
+		color: rgba(255, 255, 255, 0.5);
+		line-height: 1.65;
+		max-width: 300px;
+	}
+
+	.footer__nav-title {
+		font-family: var(--font-titulo);
+		font-weight: 700;
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.5);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		margin-bottom: 16px;
+	}
+
+	.footer__nav ul,
+	.footer__contact ul {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		list-style: none;
+	}
+
+	.footer__nav a,
+	.footer__contact a,
+	.footer__contact span {
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.7);
+		font-weight: 500;
+		transition: color var(--transition);
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.footer__nav a:hover,
+	.footer__contact a:hover {
+		color: var(--verde-claro);
+	}
+
+	.footer__social-links {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.footer__social-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 10px 18px;
+		background: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: var(--radius-pill);
+		font-size: 0.875rem;
+		font-weight: 700;
+		color: rgba(255, 255, 255, 0.8);
+		transition: all var(--transition);
+	}
+
+	.footer__social-btn:hover {
+		background: rgba(255, 255, 255, 0.12);
+		color: var(--blanco);
+		transform: translateX(4px);
+	}
+
+	.footer__bottom {
+		border-top: 1px solid rgba(255, 255, 255, 0.06);
+		padding: 20px 0;
+		text-align: center;
+	}
+
+	.footer__bottom p {
+		font-size: 0.8rem;
+		color: rgba(255, 255, 255, 0.6);
+		font-weight: 500;
+	}
+
+	@media (min-width: 768px) {
+		.footer__grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.footer__grid {
+			grid-template-columns: 2fr 1fr 1fr 1fr;
+		}
+	}
+</style>

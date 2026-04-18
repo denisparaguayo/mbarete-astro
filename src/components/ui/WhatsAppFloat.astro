@@ -1,5 +1,5 @@
 ---
-import { getWhatsAppUrl } from '../data/siteConfig';
+import { getWhatsAppUrl } from '../../data/siteConfig';
 ---
 
 <a
@@ -22,3 +22,80 @@ import { getWhatsAppUrl } from '../data/siteConfig';
 	</span>
 	<span class="wa-float__text">¡Escribinos!</span>
 </a>
+
+<style>
+	.wa-float {
+		position: fixed;
+		bottom: 24px;
+		right: 20px;
+		z-index: 9999;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		background: var(--verde);
+		color: var(--blanco);
+		border-radius: var(--radius-pill);
+		padding: 14px 14px;
+		box-shadow: 0 4px 24px rgba(5, 150, 105, 0.5);
+		font-weight: 700;
+		font-size: 0.9rem;
+		text-decoration: none;
+		transition:
+			transform var(--transition),
+			box-shadow var(--transition);
+		will-change: transform;
+		animation: waPulse 2.5s infinite;
+		pointer-events: auto;
+	}
+
+	.wa-float * {
+		pointer-events: none;
+	}
+
+	.wa-float:hover {
+		transform: scale(1.06) translateY(-2px);
+		box-shadow: 0 8px 32px rgba(5, 150, 105, 0.65);
+		animation: none;
+	}
+
+	.wa-float__icon {
+		width: 28px;
+		height: 28px;
+		flex-shrink: 0;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.wa-float__icon svg {
+		width: 28px;
+		height: 28px;
+		display: block;
+		fill: currentColor;
+	}
+
+	.wa-float__text {
+		display: none;
+		white-space: nowrap;
+	}
+
+	@keyframes waPulse {
+		0%,
+		100% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.06);
+		}
+	}
+
+	@media (min-width: 480px) {
+		.wa-float {
+			padding: 13px 20px;
+		}
+
+		.wa-float__text {
+			display: block;
+		}
+	}
+</style>

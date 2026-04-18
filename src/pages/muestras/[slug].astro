@@ -1,5 +1,6 @@
-﻿---
+---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 import { getRubrosItems } from '../../data/rubros';
 import { siteConfig, getRubroWhatsApp } from '../../data/siteConfig';
 import { getRubroLiveUrl } from '../../data/websMuestras';
@@ -42,15 +43,13 @@ function toHashtag(term: string) {
 }
 
 const previewImageModules = import.meta.glob(
-	'/src/pages/muestras/images/*.{jpg,jpeg,png,webp,avif,gif,svg}',
+	'/src/assets/images/muestras/*.{jpg,jpeg,png,webp,avif,gif,svg}',
 	{
-		eager: true,
-		query: '?url',
-		import: 'default',
+		eager: true
 	}
-) as Record<string, string>;
+) as Record<string, any>;
 
-const previewImageUrl =
+const previewImage =
 	Object.entries(previewImageModules).find(
 		([path]) =>
 			path.endsWith(`/${item.slug}.jpg`) ||
@@ -60,7 +59,7 @@ const previewImageUrl =
 			path.endsWith(`/${item.slug}.avif`) ||
 			path.endsWith(`/${item.slug}.gif`) ||
 			path.endsWith(`/${item.slug}.svg`)
-	)?.[1] ?? null;
+	)?.[1]?.default ?? null;
 
 function getSocialUrl(
 	value: string | undefined,
@@ -329,16 +328,18 @@ const faqSchema = {
 				<aside class="template-sidebar">
 					<div class="template-preview">
 						{
-							previewImageUrl ? (
+							previewImage ? (
 								<a
 									class="template-preview__shot template-preview__shot--image"
-									href={previewImageUrl}
+									href={previewImage.src}
 									target="_blank"
 									rel="noopener noreferrer"
 									aria-label={`Abrir imagen completa de la vista previa de ${item.business.rubro}`}>
-									<img
-										src={previewImageUrl}
+									<Image
+										src={previewImage}
 										alt={`Vista previa del sitio web para ${item.business.rubro}`}
+										width={600}
+										height={400}
 										loading="lazy"
 										decoding="async"
 									/>

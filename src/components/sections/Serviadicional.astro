@@ -1,0 +1,165 @@
+---
+import { getServiceBySlugOrThrow } from '../../data/services';
+
+const catalogoService = getServiceBySlugOrThrow('catalogo-digital-menu');
+const seoLocalService = getServiceBySlugOrThrow('seo-local-google-maps');
+const redesService = getServiceBySlugOrThrow('manejo-redes-sociales');
+const mantenimientoService = getServiceBySlugOrThrow('mantenimiento-mensual-web');
+const emailService = getServiceBySlugOrThrow('email-profesional');
+
+const catalogoPrice = catalogoService.price;
+const seoLocalPrice = seoLocalService.price;
+const redesPrice = redesService.price;
+const mantenimientoPrice = mantenimientoService.price;
+const emailPrice = emailService.price;
+---
+
+<div class="extra-card fade-up">
+	<div class="extra-card__icon" aria-hidden="true">&#128203;</div>
+	<div class="extra-card__content">
+		<h3 class="extra-card__title">Extra Opcional - Catalogo digital o menu</h3>
+		<p class="extra-card__desc">
+			Para restaurantes, panaderias, carnicerias, ferreterias, ropa. Lista
+			visual de productos con foto, precio y boton "Pedir por WhatsApp". Sin
+			carrito ni pagos online.
+		</p>
+	</div>
+	<div class="extra-card__price">{catalogoPrice}</div>
+</div>
+
+<div class="extras-table-wrap fade-up">
+	<h3 class="extras-table__title">Servicios adicionales</h3>
+	<table class="extras-table" aria-label="Tabla de servicios adicionales">
+		<thead>
+			<tr>
+				<th scope="col">Servicio</th>
+				<th scope="col">Precio</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td>Catalogo digital / menu</td><td>{catalogoPrice}</td></tr>
+			<tr><td>SEO local (Google Maps)</td><td>{seoLocalPrice}</td></tr>
+			<tr><td>Manejo de redes sociales</td><td>{redesPrice}</td></tr>
+			<tr><td>Mantenimiento mensual</td><td>{mantenimientoPrice}</td></tr>
+			<tr><td>Email profesional (info@tunegocio.com)</td><td>{emailPrice}</td></tr>
+		</tbody>
+	</table>
+	<p class="extras-table__note">
+		Los precios incluyen impuestos. Dominio y hosting se renuevan anualmente. Se
+		acepta efectivo, transferencia bancaria o billetera digital.
+	</p>
+</div>
+
+
+<style>
+	/* Extra card */
+	.extra-card {
+		background: var(--azul-card);
+		border: 1.5px dashed rgba(52, 211, 153, 0.4);
+		border-radius: var(--radius-lg);
+		padding: 24px 28px;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 16px;
+		margin-bottom: 32px;
+		transition: transform var(--transition);
+	}
+
+	.extra-card:hover {
+		transform: translateY(-2px);
+	}
+
+	.extra-card__icon {
+		font-size: 2.4rem;
+		flex-shrink: 0;
+	}
+
+	.extra-card__content {
+		flex: 1;
+		min-width: 200px;
+	}
+
+	.extra-card__title {
+		font-family: var(--font-titulo);
+		font-weight: 700;
+		font-size: 1.05rem;
+		color: var(--blanco);
+		margin-bottom: 6px;
+	}
+
+	.extra-card__desc {
+		font-size: 0.875rem;
+		color: rgba(255, 255, 255, 0.65);
+		line-height: 1.55;
+	}
+
+	.extra-card__price {
+		font-family: var(--font-titulo);
+		font-weight: 900;
+		letter-spacing: -0.025em;
+		font-size: 1.4rem;
+		color: var(--verde-claro);
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+
+	/* Tabla extras */
+	.extras-table-wrap {
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+
+	.extras-table__title {
+		font-family: var(--font-titulo);
+		font-weight: 700;
+		font-size: 1.1rem;
+		color: var(--blanco);
+		padding: 20px 24px 12px;
+	}
+
+	.extras-table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	.extras-table thead {
+		background: rgba(255, 255, 255, 0.05);
+	}
+
+	.extras-table th {
+		text-align: left;
+		padding: 10px 24px;
+		font-size: 0.78rem;
+		font-weight: 700;
+		color: rgba(255, 255, 255, 0.5);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.extras-table td {
+		padding: 12px 24px;
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.8);
+		border-top: 1px solid rgba(255, 255, 255, 0.05);
+		font-weight: 500;
+	}
+
+	.extras-table tr:hover td {
+		background: rgba(255, 255, 255, 0.03);
+	}
+
+	.extras-table td:last-child {
+		color: var(--verde-claro);
+		font-weight: 700;
+	}
+
+	.extras-table__note {
+		padding: 14px 24px 20px;
+		font-size: 0.8rem;
+		color: rgba(255, 255, 255, 0.4);
+		line-height: 1.6;
+	}
+</style>

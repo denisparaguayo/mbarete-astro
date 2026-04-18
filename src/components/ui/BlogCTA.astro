@@ -1,0 +1,91 @@
+---
+import { getWhatsAppUrl } from '../../data/siteConfig';
+
+const {
+	title = '¿Querés una web que te genere clientes?',
+	desc = 'Creamos páginas web rápidas, optimizadas y listas para vender desde el día 1.',
+	buttonText = 'Consultar por WhatsApp',
+	message = null,
+	variant = 'primary', // primary | dark
+} = Astro.props;
+
+const waUrl = getWhatsAppUrl(message);
+---
+
+<section class={`blog-cta blog-cta--${variant}`}>
+	<div class="blog-cta__box">
+		<h2 class="blog-cta__title">{title}</h2>
+		<p class="blog-cta__desc">{desc}</p>
+
+		<a
+			href={waUrl}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="btn btn--primary btn--lg blog-cta__btn">
+			{buttonText}
+		</a>
+	</div>
+</section>
+
+<style>
+	.blog-cta {
+		margin: 4rem 0;
+	}
+
+	.blog-cta__box {
+		background: linear-gradient(135deg, var(--azul-oscuro) 0%, #1a3a6b 100%);
+		padding: 3.5rem 2rem;
+		border-radius: var(--radius-2xl);
+		text-align: center;
+		color: var(--blanco);
+		box-shadow: 0 20px 50px rgba(10, 22, 40, 0.2);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.blog-cta__box::before {
+		content: '';
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(
+			circle at center,
+			rgba(5, 150, 105, 0.15) 0%,
+			transparent 50%
+		);
+		pointer-events: none;
+	}
+
+	.blog-cta__title {
+		font-family: var(--font-titulo);
+		font-size: clamp(1.8rem, 4vw, 2.8rem);
+		font-weight: 900;
+		line-height: 1.1;
+		margin-bottom: 1rem;
+		letter-spacing: -0.02em;
+	}
+
+	.blog-cta__desc {
+		font-size: 1.15rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.85);
+		max-width: 600px;
+		margin: 0 auto 2.5rem;
+	}
+
+	.blog-cta__btn {
+		box-shadow: 0 10px 25px rgba(5, 150, 105, 0.3);
+	}
+
+	.blog-cta--dark .blog-cta__box {
+		background: var(--azul-oscuro);
+	}
+
+	@media (max-width: 768px) {
+		.blog-cta__box {
+			padding: 2.5rem 1.5rem;
+		}
+	}
+</style>

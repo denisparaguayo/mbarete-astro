@@ -1,601 +1,1369 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { siteConfig } from '../data/siteConfig';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig, getWhatsAppUrl } from "../data/siteConfig";
 import {
-	getGsAmount,
-	getServiceBySlugOrThrow,
-	getServicePlanBySlugOrThrow,
-} from '../data/services';
-import Rubros from '../components/Rubros.astro';
-import Serviadicional from '../components/Serviadicional.astro';
-import Testimonials from '../components/Testimonials.astro';
-import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+  getGsAmount,
+  getServiceBySlugOrThrow,
+  getServicePlanBySlugOrThrow,
+} from "../data/services";
+import Rubros from "../components/sections/Rubros.astro";
+import Serviadicional from "../components/sections/Serviadicional.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import WhatsAppFloat from "../components/ui/WhatsAppFloat.astro";
 
-const creacionWebService = getServiceBySlugOrThrow('creacion-paginas-web');
-const seoLocalService = getServiceBySlugOrThrow('seo-local-google-maps');
-const planBasico = getServicePlanBySlugOrThrow('basico');
-const planEstandar = getServicePlanBySlugOrThrow('estandar');
-const planPro = getServicePlanBySlugOrThrow('pro');
+const creacionWebService = getServiceBySlugOrThrow("creacion-paginas-web");
+const seoLocalService = getServiceBySlugOrThrow("seo-local-google-maps");
+const planBasico = getServicePlanBySlugOrThrow("basico");
+const planEstandar = getServicePlanBySlugOrThrow("estandar");
+const planPro = getServicePlanBySlugOrThrow("pro");
 
 const creacionWebPrice = creacionWebService.price;
 const seoLocalPrice = seoLocalService.price;
-const creacionWebPriceInline = creacionWebPrice.replace(/^Desde/i, 'desde');
+const creacionWebPriceInline = creacionWebPrice.replace(/^Desde/i, "desde");
 const basicPlanAmount = getGsAmount(planBasico.price);
 const standardPlanAmount = getGsAmount(planEstandar.price);
 const proPlanAmount = getGsAmount(planPro.price);
 
 const faqSchema = {
-	'@context': 'https://schema.org',
-	'@type': 'FAQPage',
-	mainEntity: [
-		{
-			'@type': 'Question',
-			name: '¿Cuánto tarda en estar lista mi página?',
-			acceptedAnswer: {
-				'@type': 'Answer',
-				text: 'El Plan Básico se entrega en 1 a 2 días hábiles desde que recibimos tus datos y el pago. El Plan Estándar tarda 4 a 8 días y el Pro de 7 a 15 días. Son plazos reales, no promesas vacías.',
-			},
-		},
-		{
-			'@type': 'Question',
-			name: '¿Necesito saber algo de tecnología para tener mi página web?',
-			acceptedAnswer: {
-				'@type': 'Answer',
-				text: 'No necesitás saber nada. Vos nos mandás el nombre de tu negocio, los servicios que ofrecés, tu número de WhatsApp y algunas fotos. Nosotros hacemos todo lo demás. Si no tenés fotos, usamos imágenes profesionales gratis.',
-			},
-		},
-		{
-			'@type': 'Question',
-			name: '¿Qué pasa si después quiero cambiar algo en la página?',
-			acceptedAnswer: {
-				'@type': 'Answer',
-				text: 'Todos los planes incluyen cambios por mes: 1 en Básico, 3 en Estándar, ilimitados en Pro. Para cambios urgentes o extras, los cotizamos aparte. Siempre podés escribirnos por WhatsApp.',
-			},
-		},
-		{
-			'@type': 'Question',
-			name: '¿La página va a aparecer en Google?',
-			acceptedAnswer: {
-				'@type': 'Answer',
-				text: `Sí. Cada página que entregamos viene con SEO básico configurado para que Google la encuentre. Si querés aparecer en los primeros resultados cuando alguien busca tu rubro en tu ciudad, tenemos el servicio de SEO local por ${seoLocalPrice}.`,
-			},
-		},
-		{
-			'@type': 'Question',
-			name: '¿Qué necesito para empezar?',
-			acceptedAnswer: {
-				'@type': 'Answer',
-				text: 'Solo tres cosas: el nombre y datos de tu negocio, tu número de WhatsApp y el pago del plan elegido. Con eso ya arrancamos. El formulario de datos te lo mandamos por WhatsApp y lo completás desde el celular en 5 minutos.',
-			},
-		},
-	],
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "¿Cuánto tarda en estar lista mi página?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "El Plan Básico se entrega en 1 a 2 días hábiles desde que recibimos tus datos y el pago. El Plan Estándar tarda 4 a 8 días y el Pro de 7 a 15 días. Son plazos reales, no promesas vacías.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Necesito saber algo de tecnología para tener mi página web?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No necesitás saber nada. Vos nos mandás el nombre de tu negocio, los servicios que ofrecés, tu número de WhatsApp y algunas fotos. Nosotros hacemos todo lo demás. Si no tenés fotos, usamos imágenes profesionales gratis.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Qué pasa si después quiero cambiar algo en la página?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Todos los planes incluyen cambios por mes: 1 en Básico, 3 en Estándar, ilimitados en Pro. Para cambios urgentes o extras, los cotizamos aparte. Siempre podés escribirnos por WhatsApp.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿La página va a aparecer en Google?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: `Sí. Cada página que entregamos viene con SEO básico configurado para que Google la encuentre. Si querés aparecer en los primeros resultados cuando alguien busca tu rubro en tu ciudad, tenemos el servicio de SEO local por ${seoLocalPrice}.`,
+      },
+    },
+    {
+      "@type": "Question",
+      name: "¿Qué necesito para empezar?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Solo tres cosas: el nombre y datos de tu negocio, tu número de WhatsApp y el pago del plan elegido. Con eso ya arrancamos. El formulario de datos te lo mandamos por WhatsApp y lo completás desde el celular en 5 minutos.",
+      },
+    },
+  ],
 };
 ---
 
 <BaseLayout
-	title="Diseño Web en Paraguay | Páginas Web Profesionales"
-	description={`Diseño web en Paraguay ${creacionWebPriceInline}. Creamos páginas web profesionales para negocios en Asunción y todo el país. SEO, WhatsApp y entrega en 1-2 días.`}
-	canonical={siteConfig.url}
-	schema={faqSchema}>
-	<header
-		class="hero"
-		id="inicio"
-		role="banner"
-		aria-label="Presentación principal">
-		<div class="hero__bg-pattern" aria-hidden="true"></div>
-		<div class="container">
-			<div class="hero__badge fade-up">
-				<span class="badge badge--py">🇵🇾 Agencia 100% paraguaya</span>
-				<span class="badge badge--status" id="status-badge">
-					<span class="status-dot" id="status-dot" aria-hidden="true"></span>
-					<span id="status-text">Abierto ahora</span>
-				</span>
-			</div>
+  title="Diseño Web en Paraguay | Páginas Web Profesionales"
+  description={`Diseño web en Paraguay ${creacionWebPriceInline}. Creamos páginas web profesionales para negocios en Asunción y todo el país. SEO, WhatsApp y entrega en 1-2 días.`}
+  canonical={siteConfig.url}
+  schema={faqSchema}
+>
+  <header
+    class="hero"
+    id="inicio"
+    role="banner"
+    aria-label="Presentación principal"
+  >
+    <div class="hero__bg-pattern" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero__badge fade-up">
+        <span class="badge badge--py">🇵🇾 Agencia 100% paraguaya</span>
+        <span class="badge badge--status" id="status-badge">
+          <span class="status-dot" id="status-dot" aria-hidden="true"></span>
+          <span id="status-text">Abierto ahora</span>
+        </span>
+      </div>
 
-			<h1 class="hero__title fade-up">
-				Diseño web en Paraguay<br />
-				<span class="hero__title-accent">que genera clientes.</span>
-			</h1>
+      <h1 class="hero__title fade-up">
+        Diseño web en Paraguay<br />
+        <span class="hero__title-accent">que genera clientes</span>
+      </h1>
 
-			<p class="hero__desc fade-up">
-				Creamos páginas web profesionales para negocios en Asunción y todo
-				Paraguay. Diseño web con SEO incluido, botón WhatsApp y entrega en 1 a 2
-				días {creacionWebPriceInline}.
-			</p>
+      <p class="hero__desc fade-up">
+        Creamos páginas web profesionales para negocios en Asunción y todo
+        Paraguay. Diseño web con SEO incluido, botón WhatsApp y entrega en 1 a 2
+        días {creacionWebPriceInline}.
+      </p>
 
-			<div class="hero__ctas fade-up">
-				<a href="#" class="btn btn--primary btn--lg" id="hero-wa"
-					>Consultá por WhatsApp</a
-				>
-				<a href="#precios" class="btn btn--outline btn--lg"
-					>Ver planes y precios</a
-				>
-			</div>
+      <div class="hero__ctas fade-up">
+        <a
+          href={getWhatsAppUrl(
+            "Hola Mbarete Digital! Quiero consultar sobre una página web para mi negocio 👋",
+          )}
+          class="btn btn--primary btn--lg"
+          id="hero-wa"
+          target="_blank"
+          rel="noopener noreferrer">Consultá por WhatsApp</a
+        >
+        <a href="#precios" class="btn btn--outline btn--lg"
+          >Ver planes y precios</a
+        >
+      </div>
 
-			<div class="hero__stats fade-up">
-				<div class="stat-card">
-					<span class="stat-card__number" data-target="120" data-suffix="+"
-						>0</span
-					>
-					<span class="stat-card__label">negocios atendidos</span>
-				</div>
-				<div class="stat-card">
-					<span class="stat-card__number" data-text="1-2 días">1-2 días</span>
-					<span class="stat-card__label">entrega plan básico</span>
-				</div>
-				<div class="stat-card">
-					<span class="stat-card__number" data-text="5.0★">5.0★</span>
-					<span class="stat-card__label">calificación Google</span>
-				</div>
-			</div>
-		</div>
-	</header>
+      <div class="hero__stats fade-up">
+        <div class="stat-card">
+          <span class="stat-card__number" data-target="120" data-suffix="+"
+            >0</span
+          >
+          <span class="stat-card__label">negocios atendidos</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__number" data-text="1-2 días">1-2 días</span>
+          <span class="stat-card__label">entrega plan básico</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__number" data-text="5.0★">5.0★</span>
+          <span class="stat-card__label">calificación Google</span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-	<section
-		class="section section--white"
-		id="servicios"
-		aria-labelledby="h2-porque">
-		<div class="container">
-			<h2 class="section__title fade-up" id="h2-porque">
-				¿Por qué elegir Mbarete Digital?
-			</h2>
-			<p class="section__subtitle fade-up">
-				Más de 120 negocios en Paraguay ya confían en nosotros.
-			</p>
+  <section
+    class="section section--white"
+    id="servicios"
+    aria-labelledby="h2-porque"
+  >
+    <div class="container">
+      <h2 class="section__title fade-up" id="h2-porque">
+        ¿Por qué elegir Mbarete Digital?
+      </h2>
+      <p class="section__subtitle fade-up">
+        Más de 120 negocios en Paraguay ya confían en nosotros.
+      </p>
 
-			<div class="features-grid">
-				<article class="feature-card fade-up" style="--delay:0">
-					<div class="feature-card__icon" aria-hidden="true">⚡</div>
-					<h3 class="feature-card__title">Entrega rápida</h3>
-					<p class="feature-card__desc">
-						Plan básico listo en 1 a 2 días hábiles. Sin esperas largas ni
-						promesas vacías.
-					</p>
-				</article>
+      <div class="features-grid">
+        <article class="feature-card fade-up" style="--delay:0">
+          <div class="feature-card__icon" aria-hidden="true">⚡</div>
+          <h3 class="feature-card__title">Entrega rápida</h3>
+          <p class="feature-card__desc">
+            Plan básico listo en 1 a 2 días hábiles. Sin esperas largas ni
+            promesas vacías.
+          </p>
+        </article>
 
-				<article class="feature-card fade-up" style="--delay:1">
-					<div class="feature-card__icon" aria-hidden="true">📱</div>
-					<h3 class="feature-card__title">Diseño para celular</h3>
-					<p class="feature-card__desc">
-						Más del 80% te busca desde el celular. Nos aseguramos de que se vea
-						perfecto.
-					</p>
-				</article>
+        <article class="feature-card fade-up" style="--delay:1">
+          <div class="feature-card__icon" aria-hidden="true">📱</div>
+          <h3 class="feature-card__title">Diseño para celular</h3>
+          <p class="feature-card__desc">
+            Más del 80% te busca desde el celular. Nos aseguramos de que se vea
+            perfecto.
+          </p>
+        </article>
 
-				<article class="feature-card fade-up" style="--delay:2">
-					<div class="feature-card__icon" aria-hidden="true">🔍</div>
-					<h3 class="feature-card__title">Aparecés en Google</h3>
-					<p class="feature-card__desc">
-						Cada página sale lista con SEO para que Google la encuentre desde el
-						primer día.
-					</p>
-				</article>
+        <article class="feature-card fade-up" style="--delay:2">
+          <div class="feature-card__icon" aria-hidden="true">🔍</div>
+          <h3 class="feature-card__title">Aparecés en Google</h3>
+          <p class="feature-card__desc">
+            Cada página sale lista con SEO para que Google la encuentre desde el
+            primer día.
+          </p>
+        </article>
 
-				<article class="feature-card fade-up" style="--delay:3">
-					<div class="feature-card__icon" aria-hidden="true">💬</div>
-					<h3 class="feature-card__title">Atención real</h3>
-					<p class="feature-card__desc">
-						Respondemos por WhatsApp. No sos un número, sos un cliente con
-						nombre y negocio.
-					</p>
-				</article>
-			</div>
-		</div>
-	</section>
+        <article class="feature-card fade-up" style="--delay:3">
+          <div class="feature-card__icon" aria-hidden="true">💬</div>
+          <h3 class="feature-card__title">Atención real</h3>
+          <p class="feature-card__desc">
+            Respondemos por WhatsApp. No sos un número, sos un cliente con
+            nombre y negocio.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-	<Rubros />
+  <Rubros />
 
-	<section
-		class="section section--white"
-		id="como-funciona"
-		aria-labelledby="h2-como">
-		<div class="container">
-			<h2 class="section__title fade-up" id="h2-como">¿Cómo funciona?</h2>
-			<p class="section__subtitle fade-up">
-				Tres pasos simples y tu negocio ya está en internet.
-			</p>
+  <section
+    class="section section--white"
+    id="como-funciona"
+    aria-labelledby="h2-como"
+  >
+    <div class="container">
+      <h2 class="section__title fade-up" id="h2-como">¿Cómo funciona?</h2>
+      <p class="section__subtitle fade-up">
+        Tres pasos simples y tu negocio ya está en internet.
+      </p>
 
-			<div class="steps">
-				<article class="step fade-up" style="--delay:0">
-					<div class="step__number" aria-hidden="true">1</div>
-					<div class="step__icon" aria-hidden="true">📋</div>
-					<h3 class="step__title">Completás el formulario</h3>
-					<p class="step__desc">
-						Te mandamos el link. Llena los datos de tu negocio en 5 minutos
-						desde el celular.
-					</p>
-					<div class="step__connector" aria-hidden="true"></div>
-				</article>
+      <div class="steps">
+        <article class="step fade-up" style="--delay:0">
+          <div class="step__number" aria-hidden="true">1</div>
+          <div class="step__icon" aria-hidden="true">📋</div>
+          <h3 class="step__title">Completás el formulario</h3>
+          <p class="step__desc">
+            Te mandamos el link. Llena los datos de tu negocio en 5 minutos
+            desde el celular.
+          </p>
+          <div class="step__connector" aria-hidden="true"></div>
+        </article>
 
-				<article class="step fade-up" style="--delay:1">
-					<div class="step__number" aria-hidden="true">2</div>
-					<div class="step__icon" aria-hidden="true">⚙️</div>
-					<h3 class="step__title">Nosotros armamos todo</h3>
-					<p class="step__desc">
-						Diseñamos tu página con tus colores, fotos y servicios. Vos no tenés
-						que hacer nada técnico.
-					</p>
-					<div class="step__connector" aria-hidden="true"></div>
-				</article>
+        <article class="step fade-up" style="--delay:1">
+          <div class="step__number" aria-hidden="true">2</div>
+          <div class="step__icon" aria-hidden="true">⚙️</div>
+          <h3 class="step__title">Nosotros armamos todo</h3>
+          <p class="step__desc">
+            Diseñamos tu página con tus colores, fotos y servicios. Vos no tenés
+            que hacer nada técnico.
+          </p>
+          <div class="step__connector" aria-hidden="true"></div>
+        </article>
 
-				<article class="step fade-up" style="--delay:2">
-					<div class="step__number" aria-hidden="true">3</div>
-					<div class="step__icon" aria-hidden="true">🚀</div>
-					<h3 class="step__title">Tu negocio en internet</h3>
-					<p class="step__desc">
-						Publicamos la página y te mandamos el link listo para compartir con
-						tus clientes.
-					</p>
-				</article>
-			</div>
-		</div>
-	</section>
+        <article class="step fade-up" style="--delay:2">
+          <div class="step__number" aria-hidden="true">3</div>
+          <div class="step__icon" aria-hidden="true">🚀</div>
+          <h3 class="step__title">Tu negocio en internet</h3>
+          <p class="step__desc">
+            Publicamos la página y te mandamos el link listo para compartir con
+            tus clientes.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-	<section
-		class="section section--gray"
-		id="incluye"
-		aria-labelledby="h2-incluye">
-		<div class="container">
-			<h2 class="section__title fade-up" id="h2-incluye">
-				¿Qué incluye siempre tu página?
-			</h2>
-			<p class="section__subtitle fade-up">
-				Independiente del plan que elijas, esto siempre viene incluido.
-			</p>
+  <section
+    class="section section--gray"
+    id="incluye"
+    aria-labelledby="h2-incluye"
+  >
+    <div class="container">
+      <h2 class="section__title fade-up" id="h2-incluye">
+        ¿Qué incluye siempre tu página?
+      </h2>
+      <p class="section__subtitle fade-up">
+        Independiente del plan que elijas, esto siempre viene incluido.
+      </p>
 
-			<div class="includes-grid">
-				<article class="include-card fade-up" style="--delay:0">
-					<span class="include-card__icon" aria-hidden="true">🎨</span>
-					<h3 class="include-card__title">Diseño personalizado</h3>
-					<p class="include-card__desc">
-						Con los colores y logo de tu negocio.
-					</p>
-				</article>
+      <div class="includes-grid">
+        <article class="include-card fade-up" style="--delay:0">
+          <span class="include-card__icon" aria-hidden="true">🎨</span>
+          <h3 class="include-card__title">Diseño personalizado</h3>
+          <p class="include-card__desc">
+            Con los colores y logo de tu negocio.
+          </p>
+        </article>
 
-				<article class="include-card fade-up" style="--delay:1">
-					<span class="include-card__icon" aria-hidden="true">🔍</span>
-					<h3 class="include-card__title">SEO básico incluido</h3>
-					<p class="include-card__desc">
-						Google puede encontrarte desde el día uno.
-					</p>
-				</article>
+        <article class="include-card fade-up" style="--delay:1">
+          <span class="include-card__icon" aria-hidden="true">🔍</span>
+          <h3 class="include-card__title">SEO básico incluido</h3>
+          <p class="include-card__desc">
+            Google puede encontrarte desde el día uno.
+          </p>
+        </article>
 
-				<article class="include-card fade-up" style="--delay:2">
-					<span class="include-card__icon" aria-hidden="true">💬</span>
-					<h3 class="include-card__title">Botón WhatsApp animado</h3>
-					<p class="include-card__desc">
-						Tus clientes te contactan con un toque.
-					</p>
-				</article>
+        <article class="include-card fade-up" style="--delay:2">
+          <span class="include-card__icon" aria-hidden="true">💬</span>
+          <h3 class="include-card__title">Botón WhatsApp animado</h3>
+          <p class="include-card__desc">
+            Tus clientes te contactan con un toque.
+          </p>
+        </article>
 
-				<article class="include-card fade-up" style="--delay:3">
-					<span class="include-card__icon" aria-hidden="true">📱</span>
-					<h3 class="include-card__title">100% adaptado a celular</h3>
-					<p class="include-card__desc">
-						Se ve perfecto en celular, tablet y desktop.
-					</p>
-				</article>
+        <article class="include-card fade-up" style="--delay:3">
+          <span class="include-card__icon" aria-hidden="true">📱</span>
+          <h3 class="include-card__title">100% adaptado a celular</h3>
+          <p class="include-card__desc">
+            Se ve perfecto en celular, tablet y desktop.
+          </p>
+        </article>
 
-				<article class="include-card fade-up" style="--delay:4">
-					<span class="include-card__icon" aria-hidden="true">📍</span>
-					<h3 class="include-card__title">Mapa de Google</h3>
-					<p class="include-card__desc">
-						Tus clientes te encuentran fácilmente.
-					</p>
-				</article>
+        <article class="include-card fade-up" style="--delay:4">
+          <span class="include-card__icon" aria-hidden="true">📍</span>
+          <h3 class="include-card__title">Mapa de Google</h3>
+          <p class="include-card__desc">
+            Tus clientes te encuentran fácilmente.
+          </p>
+        </article>
 
-				<article class="include-card fade-up" style="--delay:5">
-					<span class="include-card__icon" aria-hidden="true">🔄</span>
-					<h3 class="include-card__title">1 cambio al mes</h3>
-					<p class="include-card__desc">
-						Para mantener tu página siempre actualizada.
-					</p>
-				</article>
-			</div>
-		</div>
-	</section>
+        <article class="include-card fade-up" style="--delay:5">
+          <span class="include-card__icon" aria-hidden="true">🔄</span>
+          <h3 class="include-card__title">1 cambio al mes</h3>
+          <p class="include-card__desc">
+            Para mantener tu página siempre actualizada.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-	<section
-		class="section section--dark"
-		id="precios"
-		aria-labelledby="h2-precios">
-		<div class="container">
-			<h2 class="section__title section__title--light fade-up" id="h2-precios">
-				Planes y precios
-			</h2>
-			<p class="section__subtitle section__subtitle--light fade-up">
-				Elegí el plan ideal para tu negocio en Paraguay.
-			</p>
+  <section
+    class="section section--dark"
+    id="precios"
+    aria-labelledby="h2-precios"
+  >
+    <div class="container">
+      <h2 class="section__title section__title--light fade-up" id="h2-precios">
+        Planes y precios
+      </h2>
+      <p class="section__subtitle section__subtitle--light fade-up">
+        Elegí el plan ideal para tu negocio en Paraguay.
+      </p>
 
-			<div class="plans-grid">
-				<article class="plan-card fade-up" style="--delay:0">
-					<div class="plan-card__header">
-						<h3 class="plan-card__name">Plan Básico</h3>
-						<div class="plan-card__price">
-							<span class="plan-card__currency">Gs.</span>
-							<span class="plan-card__amount">{basicPlanAmount}</span>
-						</div>
-						<p class="plan-card__ideal">
-							Ideal para: Veterinarias, salones de belleza, nail spa,
-							peluquerías, cerrajerías, escuelas de manejo
-						</p>
-					</div>
-					<ul class="plan-card__features" role="list">
-						<li>✅ 1 página completa (landing page)</li>
-						<li>✅ Se ve bien en celular</li>
-						<li>✅ Botón WhatsApp animado</li>
-						<li>✅ SEO básico — aparecés en Google</li>
-						<li>✅ Dominio .com incluido 1 año</li>
-						<li>✅ Hosting 12 meses</li>
-						<li>✅ Mapa de ubicación</li>
-						<li>✅ 1 cambio de contenido/mes</li>
-						<li>✅ Atención por WhatsApp</li>
-					</ul>
-					<div class="plan-card__footer">
-						<div class="plan-card__delivery">
-							⏱ Entrega: <strong>1-2 días hábiles</strong>
-						</div>
-						<a
-							href="#"
-							class="btn btn--primary btn--full"
-							data-plan="Básico"
-							aria-label={`Quiero el Plan Básico — ${planBasico.price}`}
-							>💬 Quiero este plan</a
-						>
-					</div>
-				</article>
+      <div class="plans-grid">
+        <article class="plan-card fade-up" style="--delay:0">
+          <div class="plan-card__header">
+            <h3 class="plan-card__name">Plan Básico</h3>
+            <div class="plan-card__price">
+              <span class="plan-card__currency">Gs.</span>
+              <span class="plan-card__amount">{basicPlanAmount}</span>
+            </div>
+            <p class="plan-card__ideal">
+              Ideal para: Veterinarias, salones de belleza, nail spa,
+              peluquerías, cerrajerías, escuelas de manejo
+            </p>
+          </div>
+          <ul class="plan-card__features" role="list">
+            <li>✅ 1 página completa (landing page)</li>
+            <li>✅ Se ve bien en celular</li>
+            <li>✅ Botón WhatsApp animado</li>
+            <li>✅ SEO básico — aparecés en Google</li>
+            <li>✅ Dominio .com incluido 1 año</li>
+            <li>✅ Hosting 12 meses</li>
+            <li>✅ Mapa de ubicación</li>
+            <li>✅ 1 cambio de contenido/mes</li>
+            <li>✅ Atención por WhatsApp</li>
+          </ul>
+          <div class="plan-card__footer">
+            <div class="plan-card__delivery">
+              ⏱ Entrega: <strong>1-2 días hábiles</strong>
+            </div>
+            <a
+              href={getWhatsAppUrl(
+                "Hola Mbarete Digital! Quiero consultar sobre el Plan Básico para mi negocio 👋",
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--primary btn--full"
+              data-plan="Básico"
+              aria-label={`Contactar por WhatsApp para contratar Plan Básico por ${planBasico.price}`}
+              ><span aria-hidden="true">💬</span> Quiero este plan</a
+            >
+          </div>
+        </article>
 
-				<article
-					class="plan-card plan-card--featured fade-up"
-					style="--delay:1">
-					<div class="plan-card__badge">Más elegido</div>
-					<div class="plan-card__header">
-						<h3 class="plan-card__name">Plan Estándar</h3>
-						<div class="plan-card__price">
-							<span class="plan-card__currency">Gs.</span>
-							<span class="plan-card__amount">{standardPlanAmount}</span>
-						</div>
-						<p class="plan-card__ideal">
-							Ideal para: Restaurantes, farmacias, gimnasios, estudios
-							contables, hoteles, carnicerías
-						</p>
-					</div>
-					<ul class="plan-card__features" role="list">
-						<li>✅ Todo lo del plan Básico</li>
-						<li>✅ Hasta 4 secciones organizadas</li>
-						<li>✅ Diseño a medida completo</li>
-						<li>✅ SEO avanzado</li>
-						<li>✅ Tu negocio en Google Maps</li>
-						<li>✅ Formulario de contacto al email</li>
-						<li>✅ Menú de navegación</li>
-						<li>✅ 3 cambios de contenido/mes</li>
-					</ul>
-					<div class="plan-card__footer">
-						<div class="plan-card__delivery">
-							⏱ Entrega: <strong>4-8 días hábiles</strong>
-						</div>
-						<a
-							href="#"
-							class="btn btn--primary btn--full"
-							data-plan="Estándar"
-							aria-label={`Quiero el Plan Estándar — ${planEstandar.price}`}
-							>💬 Quiero este plan</a
-						>
-					</div>
-				</article>
+        <article
+          class="plan-card plan-card--featured fade-up"
+          style="--delay:1"
+        >
+          <div class="plan-card__badge">Más elegido</div>
+          <div class="plan-card__header">
+            <h3 class="plan-card__name">Plan Estándar</h3>
+            <div class="plan-card__price">
+              <span class="plan-card__currency">Gs.</span>
+              <span class="plan-card__amount">{standardPlanAmount}</span>
+            </div>
+            <p class="plan-card__ideal">
+              Ideal para: Restaurantes, farmacias, gimnasios, estudios
+              contables, hoteles, carnicerías
+            </p>
+          </div>
+          <ul class="plan-card__features" role="list">
+            <li>✅ Todo lo del plan Básico</li>
+            <li>✅ Hasta 4 secciones organizadas</li>
+            <li>✅ Diseño a medida completo</li>
+            <li>✅ SEO avanzado</li>
+            <li>✅ Tu negocio en Google Maps</li>
+            <li>✅ Formulario de contacto al email</li>
+            <li>✅ Menú de navegación</li>
+            <li>✅ 3 cambios de contenido/mes</li>
+          </ul>
+          <div class="plan-card__footer">
+            <div class="plan-card__delivery">
+              ⏱ Entrega: <strong>4-8 días hábiles</strong>
+            </div>
+            <a
+              href={getWhatsAppUrl(
+                "Hola Mbarete Digital! Quiero consultar sobre el Plan Estándar para mi negocio 👋",
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--primary btn--full"
+              data-plan="Estándar"
+              aria-label={`Contactar por WhatsApp para contratar Plan Estándar por ${planEstandar.price}`}
+              ><span aria-hidden="true">💬</span> Quiero este plan</a
+            >
+          </div>
+        </article>
 
-				<article class="plan-card fade-up" style="--delay:2">
-					<div class="plan-card__header">
-						<h3 class="plan-card__name">Plan Pro</h3>
-						<div class="plan-card__price">
-							<span class="plan-card__currency">Gs.</span>
-							<span class="plan-card__amount">{proPlanAmount}</span>
-						</div>
-						<p class="plan-card__ideal">
-							Ideal para: Consultorios, odontologías, inmobiliarias, empresas de
-							tecnología, hoteles con reservas
-						</p>
-					</div>
-					<ul class="plan-card__features" role="list">
-						<li>✅ Todo lo del plan Estándar</li>
-						<li>✅ Páginas internas por servicio</li>
-						<li>✅ Blog o sección de noticias</li>
-						<li>✅ Galería avanzada con categorías</li>
-						<li>✅ Formulario completo personalizado</li>
-						<li>✅ Cambios ilimitados por 12 meses</li>
-						<li>✅ Hosting premium de mayor velocidad</li>
-						<li>✅ Configuración completa Google</li>
-						<li>✅ Atención prioritaria por WhatsApp</li>
-						<li>✅ Se puede pagar en 2 cuotas</li>
-					</ul>
-					<div class="plan-card__footer">
-						<div class="plan-card__delivery">
-							⏱ Entrega: <strong>7-15 días hábiles</strong>
-						</div>
-						<a
-							href="#"
-							class="btn btn--primary btn--full"
-							data-plan="Pro"
-							aria-label={`Quiero el Plan Pro — ${planPro.price}`}
-							>💬 Quiero este plan</a
-						>
-					</div>
-				</article>
-			</div>
+        <article class="plan-card fade-up" style="--delay:2">
+          <div class="plan-card__header">
+            <h3 class="plan-card__name">Plan Pro</h3>
+            <div class="plan-card__price">
+              <span class="plan-card__currency">Gs.</span>
+              <span class="plan-card__amount">{proPlanAmount}</span>
+            </div>
+            <p class="plan-card__ideal">
+              Ideal para: Consultorios, odontologías, inmobiliarias, empresas de
+              tecnología, hoteles con reservas
+            </p>
+          </div>
+          <ul class="plan-card__features" role="list">
+            <li>✅ Todo lo del plan Estándar</li>
+            <li>✅ Páginas internas por servicio</li>
+            <li>✅ Blog o sección de noticias</li>
+            <li>✅ Galería avanzada con categorías</li>
+            <li>✅ Formulario completo personalizado</li>
+            <li>✅ Cambios ilimitados por 12 meses</li>
+            <li>✅ Hosting premium de mayor velocidad</li>
+            <li>✅ Configuración completa Google</li>
+            <li>✅ Atención prioritaria por WhatsApp</li>
+            <li>✅ Se puede pagar en 2 cuotas</li>
+          </ul>
+          <div class="plan-card__footer">
+            <div class="plan-card__delivery">
+              ⏱ Entrega: <strong>7-15 días hábiles</strong>
+            </div>
+            <a
+              href={getWhatsAppUrl(
+                "Hola Mbarete Digital! Quiero consultar sobre el Plan Pro para mi negocio 👋",
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--primary btn--full"
+              data-plan="Pro"
+              aria-label={`Contactar por WhatsApp para contratar Plan Pro por ${planPro.price}`}
+              ><span aria-hidden="true">💬</span> Quiero este plan</a
+            >
+          </div>
+        </article>
+      </div>
 
-			<Serviadicional />
-		</div>
-	</section>
-	<Testimonials />
+      <Serviadicional />
+    </div>
+  </section>
+  <Testimonials />
 
-	<section
-		class="section section--muestras"
-		id="muestras"
-		aria-labelledby="h2-muestras">
-		<div class="container">
-			<div class="muestras-cta fade-up">
-				<div class="muestras-cta__text">
-					<div class="muestras-cta__badge">🎨 Galería de ejemplos</div>
-					<h2 class="muestras-cta__title" id="h2-muestras">
-						¿Querés ver cómo queda antes de decidir?
-					</h2>
-					<p class="muestras-cta__desc">
-						Tenemos páginas de muestra reales para más de 40 rubros.
-						Veterinarias, restaurantes, talleres, salones de belleza y mucho
-						más. Hacé clic y mirá cómo quedará la tuya.
-					</p>
-					<div class="muestras-cta__stats">
-						<span class="muestras-cta__stat"><strong>40+</strong> ejemplos</span
-						>
-						<span class="muestras-cta__stat"
-							><strong>100%</strong> funcionales</span
-						>
-						<span class="muestras-cta__stat"><strong>Mobile</strong> ready</span
-						>
-					</div>
-					<a
-						href="/muestras/"
-						class="btn btn--primary btn--lg muestras-cta__btn">
-						🎨 Ver páginas de muestra
-					</a>
-				</div>
+  <section
+    class="section section--muestras"
+    id="muestras"
+    aria-labelledby="h2-muestras"
+  >
+    <div class="container">
+      <div class="muestras-cta fade-up">
+        <div class="muestras-cta__text">
+          <div class="muestras-cta__badge">🎨 Galería de ejemplos</div>
+          <h2 class="muestras-cta__title" id="h2-muestras">
+            ¿Querés ver cómo queda antes de decidir?
+          </h2>
+          <p class="muestras-cta__desc">
+            Tenemos páginas de muestra reales para más de 40 rubros.
+            Veterinarias, restaurantes, talleres, salones de belleza y mucho
+            más. Hacé clic y mirá cómo quedará la tuya.
+          </p>
+          <div class="muestras-cta__stats">
+            <span class="muestras-cta__stat"><strong>40+</strong> ejemplos</span
+            >
+            <span class="muestras-cta__stat"
+              ><strong>100%</strong> funcionales</span
+            >
+            <span class="muestras-cta__stat"><strong>Mobile</strong> ready</span
+            >
+          </div>
+          <a
+            href="/muestras/"
+            class="btn btn--primary btn--lg muestras-cta__btn"
+          >
+            🎨 Ver páginas de muestra
+          </a>
+        </div>
 
-				<div class="muestras-cta__preview" aria-hidden="true">
-					<div class="muestras-cta__screen muestras-cta__screen--1">
-						🐾 Veterinaria
-					</div>
-					<div class="muestras-cta__screen muestras-cta__screen--2">
-						🍽️ Restaurante
-					</div>
-					<div class="muestras-cta__screen muestras-cta__screen--3">
-						💇 Salón de belleza
-					</div>
-					<div class="muestras-cta__screen muestras-cta__screen--4">
-						🔧 Taller mecánico
-					</div>
-					<div class="muestras-cta__screen muestras-cta__screen--5">
-						🦷 Odontología
-					</div>
-					<div class="muestras-cta__screen muestras-cta__screen--6">
-						💪 Gimnasio
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+        <div class="muestras-cta__preview" aria-hidden="true">
+          <div class="muestras-cta__screen muestras-cta__screen--1">
+            🐾 Veterinaria
+          </div>
+          <div class="muestras-cta__screen muestras-cta__screen--2">
+            🍽️ Restaurante
+          </div>
+          <div class="muestras-cta__screen muestras-cta__screen--3">
+            💇 Salón de belleza
+          </div>
+          <div class="muestras-cta__screen muestras-cta__screen--4">
+            🔧 Taller mecánico
+          </div>
+          <div class="muestras-cta__screen muestras-cta__screen--5">
+            🦷 Odontología
+          </div>
+          <div class="muestras-cta__screen muestras-cta__screen--6">
+            💪 Gimnasio
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<section class="section section--white" id="faq" aria-labelledby="h2-faq">
-		<div class="container container--narrow">
-			<h2 class="section__title fade-up" id="h2-faq">Preguntas frecuentes</h2>
+  <section class="section section--white" id="faq" aria-labelledby="h2-faq">
+    <div class="container container--narrow">
+      <h2 class="section__title fade-up" id="h2-faq">Preguntas frecuentes</h2>
 
-			<div class="faq-list fade-up" role="list">
-				<div class="faq-item" role="listitem">
-					<button
-						class="faq-item__question"
-						aria-expanded="false"
-						aria-controls="faq-1">
-						¿Cuánto tarda en estar lista mi página?
-						<span class="faq-item__chevron" aria-hidden="true">▼</span>
-					</button>
-					<div class="faq-item__answer" id="faq-1" role="region">
-						<p>
-							El Plan Básico se entrega en 1 a 2 días hábiles desde que
-							recibimos tus datos y el pago. El Plan Estándar tarda 4 a 8 días y
-							el Pro de 7 a 15 días. Son plazos reales, no promesas vacías.
-						</p>
-					</div>
-				</div>
+      <div class="faq-list fade-up" role="list">
+        <div class="faq-item" role="listitem">
+          <button
+            class="faq-item__question"
+            aria-expanded="false"
+            aria-controls="faq-1"
+          >
+            ¿Cuánto tarda en estar lista mi página?
+            <span class="faq-item__chevron" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-item__answer" id="faq-1" role="region">
+            <p>
+              El Plan Básico se entrega en 1 a 2 días hábiles desde que
+              recibimos tus datos y el pago. El Plan Estándar tarda 4 a 8 días y
+              el Pro de 7 a 15 días. Son plazos reales, no promesas vacías.
+            </p>
+          </div>
+        </div>
 
-				<div class="faq-item" role="listitem">
-					<button
-						class="faq-item__question"
-						aria-expanded="false"
-						aria-controls="faq-2">
-						¿Necesito saber algo de tecnología?
-						<span class="faq-item__chevron" aria-hidden="true">▼</span>
-					</button>
-					<div class="faq-item__answer" id="faq-2" role="region">
-						<p>
-							No necesitás saber nada. Vos nos mandás el nombre de tu negocio,
-							los servicios que ofrecés, tu número de WhatsApp y algunas fotos.
-							Nosotros hacemos todo lo demás. Si no tenés fotos, usamos imágenes
-							profesionales gratis.
-						</p>
-					</div>
-				</div>
+        <div class="faq-item" role="listitem">
+          <button
+            class="faq-item__question"
+            aria-expanded="false"
+            aria-controls="faq-2"
+          >
+            ¿Necesito saber algo de tecnología?
+            <span class="faq-item__chevron" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-item__answer" id="faq-2" role="region">
+            <p>
+              No necesitás saber nada. Vos nos mandás el nombre de tu negocio,
+              los servicios que ofrecés, tu número de WhatsApp y algunas fotos.
+              Nosotros hacemos todo lo demás. Si no tenés fotos, usamos imágenes
+              profesionales gratis.
+            </p>
+          </div>
+        </div>
 
-				<div class="faq-item" role="listitem">
-					<button
-						class="faq-item__question"
-						aria-expanded="false"
-						aria-controls="faq-3">
-						¿Qué pasa si después quiero cambiar algo en la página?
-						<span class="faq-item__chevron" aria-hidden="true">▼</span>
-					</button>
-					<div class="faq-item__answer" id="faq-3" role="region">
-						<p>
-							Todos los planes incluyen cambios por mes: 1 en Básico, 3 en
-							Estándar, ilimitados en Pro. Para cambios urgentes o extras, los
-							cotizamos aparte. Siempre podés escribirnos por WhatsApp.
-						</p>
-					</div>
-				</div>
+        <div class="faq-item" role="listitem">
+          <button
+            class="faq-item__question"
+            aria-expanded="false"
+            aria-controls="faq-3"
+          >
+            ¿Qué pasa si después quiero cambiar algo en la página?
+            <span class="faq-item__chevron" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-item__answer" id="faq-3" role="region">
+            <p>
+              Todos los planes incluyen cambios por mes: 1 en Básico, 3 en
+              Estándar, ilimitados en Pro. Para cambios urgentes o extras, los
+              cotizamos aparte. Siempre podés escribirnos por WhatsApp.
+            </p>
+          </div>
+        </div>
 
-				<div class="faq-item" role="listitem">
-					<button
-						class="faq-item__question"
-						aria-expanded="false"
-						aria-controls="faq-4">
-						¿La página va a aparecer en Google?
-						<span class="faq-item__chevron" aria-hidden="true">▼</span>
-					</button>
-					<div class="faq-item__answer" id="faq-4" role="region">
-						<p>
-							Sí. Cada página que entregamos viene con SEO básico configurado
-							para que Google la encuentre. Si querés aparecer en los primeros
-							resultados cuando alguien busca tu rubro en tu ciudad, tenemos el
-							servicio de SEO local por {seoLocalPrice} que trabaja eso específicamente.
-						</p>
-					</div>
-				</div>
+        <div class="faq-item" role="listitem">
+          <button
+            class="faq-item__question"
+            aria-expanded="false"
+            aria-controls="faq-4"
+          >
+            ¿La página va a aparecer en Google?
+            <span class="faq-item__chevron" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-item__answer" id="faq-4" role="region">
+            <p>
+              Sí. Cada página que entregamos viene con SEO básico configurado
+              para que Google la encuentre. Si querés aparecer en los primeros
+              resultados cuando alguien busca tu rubro en tu ciudad, tenemos el
+              servicio de SEO local por {seoLocalPrice} que trabaja eso específicamente.
+            </p>
+          </div>
+        </div>
 
-				<div class="faq-item" role="listitem">
-					<button
-						class="faq-item__question"
-						aria-expanded="false"
-						aria-controls="faq-5">
-						¿Qué necesito para empezar?
-						<span class="faq-item__chevron" aria-hidden="true">▼</span>
-					</button>
-					<div class="faq-item__answer" id="faq-5" role="region">
-						<p>
-							Solo tres cosas: el nombre y datos de tu negocio, tu número de
-							WhatsApp y el pago del plan elegido. Con eso ya arrancamos. El
-							formulario de datos te lo mandamos por WhatsApp y lo completás
-							desde el celular en 5 minutos.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+        <div class="faq-item" role="listitem">
+          <button
+            class="faq-item__question"
+            aria-expanded="false"
+            aria-controls="faq-5"
+          >
+            ¿Qué necesito para empezar?
+            <span class="faq-item__chevron" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-item__answer" id="faq-5" role="region">
+            <p>
+              Solo tres cosas: el nombre y datos de tu negocio, tu número de
+              WhatsApp y el pago del plan elegido. Con eso ya arrancamos. El
+              formulario de datos te lo mandamos por WhatsApp y lo completás
+              desde el celular en 5 minutos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<section class="section section--cta" id="contacto" aria-labelledby="h2-cta">
-		<div class="container container--narrow cta-content fade-up">
-			<h2 class="cta__title" id="h2-cta">
-				¿Listo para que te encuentren en Google?
-			</h2>
-			<p class="cta__subtitle">
-				Escribinos hoy y en 48 horas tu negocio ya tiene presencia en internet.
-			</p>
-			<a href="#" class="btn btn--white btn--xl" id="cta-wa"
-				>Escribir a WhatsApp ahora</a
-			>
-			<p class="cta__trust">
-				Respondemos en menos de 2 horas · Lunes a Viernes 08:00–18:00
-			</p>
-		</div>
-	</section>
+  <section class="section section--cta" id="contacto" aria-labelledby="h2-cta">
+    <div class="container container--narrow cta-content fade-up">
+      <h2 class="cta__title" id="h2-cta">
+        ¿Listo para que te encuentren en Google?
+      </h2>
+      <p class="cta__subtitle">
+        Escribinos hoy y en 48 horas tu negocio ya tiene presencia en internet.
+      </p>
+      <a
+        href={getWhatsAppUrl(
+          "Hola Mbarete Digital! Quiero cotizar mi página web hoy mismo 🚀",
+        )}
+        class="btn btn--white btn--xl"
+        id="cta-wa"
+        target="_blank"
+        rel="noopener noreferrer">Escribir a WhatsApp ahora</a
+      >
+      <p class="cta__trust">
+        Respondemos en menos de 2 horas · Lunes a Viernes 08:00–18:00
+      </p>
+    </div>
+  </section>
 
-	<WhatsAppFloat />
+  <WhatsAppFloat />
+
+  <script>
+    // --- STATUS BADGE ---
+    function initStatusBadge() {
+      const badge = document.getElementById("status-badge");
+      const dot = document.getElementById("status-dot");
+      const textEl = document.getElementById("status-text");
+      if (!badge || !dot || !textEl) return;
+
+      // Horarios hardcodeados (L-S 08:00 a 22:00)
+      const config = {
+        horarioDesde: 8,
+        horarioHasta: 22,
+        diasHabiles: [1, 2, 3, 4, 5, 6],
+      };
+
+      const now = new Date();
+      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+      const pyTime = new Date(utc + -4 * 3600000);
+
+      const hora = pyTime.getHours();
+      const minutos = pyTime.getMinutes();
+      const diaSemana = pyTime.getDay();
+
+      const diaHabil = config.diasHabiles.includes(
+        diaSemana === 0 ? 7 : diaSemana,
+      );
+      const horaActualDecimal = hora + minutos / 60;
+
+      const estaAbierto =
+        diaHabil &&
+        horaActualDecimal >= config.horarioDesde &&
+        horaActualDecimal < config.horarioHasta;
+
+      if (estaAbierto) {
+        textEl.textContent = "Abierto ahora";
+        dot.classList.add("active");
+        badge.classList.remove("closed");
+      } else {
+        textEl.textContent = "Fuera de horario";
+        dot.classList.remove("active");
+        badge.classList.add("closed");
+      }
+    }
+
+    // --- COUNTERS ---
+    function animateCounter(el, target, suffix, duration) {
+      const start = performance.now();
+
+      function step(timestamp) {
+        const elapsed = timestamp - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4);
+        const current = Math.round(eased * target);
+        el.textContent = current + (suffix || "");
+
+        if (progress < 1) requestAnimationFrame(step);
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    function initCounters() {
+      const counters = document.querySelectorAll(
+        ".stat-card__number[data-target]",
+      );
+      if (!counters.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            const el = entry.target;
+            const target = parseInt(el.getAttribute("data-target"), 10);
+            const suffix = el.getAttribute("data-suffix") || "";
+
+            animateCounter(el, target, suffix, 1500);
+            observer.unobserve(el);
+          });
+        },
+        { threshold: 0.5 },
+      );
+
+      counters.forEach((el) => observer.observe(el));
+    }
+
+    function initFAQ() {
+      const items = document.querySelectorAll(".faq-item");
+      if (!items.length) return;
+
+      items.forEach((item) => {
+        const btn = item.querySelector(".faq-item__question");
+        const answer = item.querySelector(".faq-item__answer");
+        if (!btn || !answer) return;
+
+        btn.addEventListener("click", () => {
+          const isOpen = btn.getAttribute("aria-expanded") === "true";
+
+          items.forEach((other) => {
+            if (other !== item) {
+              const otherBtn = other.querySelector(".faq-item__question");
+              const otherAnswer = other.querySelector(".faq-item__answer");
+              if (otherBtn) otherBtn.setAttribute("aria-expanded", "false");
+              if (otherAnswer) otherAnswer.classList.remove("open");
+            }
+          });
+
+          const nextState = !isOpen;
+          btn.setAttribute("aria-expanded", String(nextState));
+          answer.classList.toggle("open", nextState);
+        });
+      });
+    }
+
+    initStatusBadge();
+    initCounters();
+    initFAQ();
+  </script>
 </BaseLayout>
+
+<style>
+
+
+  /* --- HERO SECTION --- */
+
+  .hero {
+    position: relative;
+    padding: 9rem 0 5rem;
+    background: linear-gradient(135deg, var(--azul-oscuro) 0%, #0a1628 100%);
+    overflow: hidden;
+    color: var(--blanco);
+  }
+
+  .hero__bg-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(
+        circle at 20% 30%,
+        rgba(5, 150, 105, 0.15) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(100, 223, 223, 0.12) 0%,
+        transparent 50%
+      );
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .hero__badge {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+
+  .hero__title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    line-height: 1.05;
+    font-weight: 900;
+    margin-bottom: 24px;
+    letter-spacing: -0.03em;
+  }
+
+  .hero__title-accent {
+    background: linear-gradient(90deg, var(--verde-claro), #86efac);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+  .hero__desc {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 680px;
+    margin-bottom: 40px;
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  /* --- STAT CARDS --- */
+  .hero__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 800px;
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: transform var(--transition);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .stat-card__number {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--verde-claro);
+    font-family: var(--font-titulo);
+  }
+
+  .stat-card__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* --- FEATURES --- */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .feature-card {
+    background: var(--blanco);
+    padding: 32px;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.05);
+    border: 1px solid rgba(10, 22, 40, 0.03);
+    transition: all var(--transition);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(10, 22, 40, 0.1);
+  }
+
+  .feature-card__icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .feature-card__title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--azul-oscuro);
+  }
+
+  .feature-card__desc {
+    font-size: 1rem;
+    color: var(--texto-muted);
+    line-height: 1.6;
+  }
+
+  /* --- STEPS --- */
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    counter-reset: step;
+  }
+
+  .step {
+    position: relative;
+    padding: 32px;
+    background: #f8fafc;
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(10, 22, 40, 0.04);
+  }
+
+  .step__number {
+    position: absolute;
+    top: -15px;
+    left: 32px;
+    width: 32px;
+    height: 32px;
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
+
+  .step__icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+  }
+
+  .step__title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--azul-oscuro);
+  }
+
+  .step__desc {
+    color: var(--texto-muted);
+    line-height: 1.6;
+  }
+
+  .step__connector {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 50px;
+    height: 2px;
+    background: rgba(10, 22, 40, 0.1);
+  }
+
+  /* --- INCLUDES --- */
+  .includes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .include-card {
+    background: var(--blanco);
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.02);
+  }
+
+  .include-card__icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .include-card__title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--azul-oscuro);
+  }
+
+  .include-card__desc {
+    font-size: 0.85rem;
+    color: var(--texto-muted);
+    line-height: 1.5;
+  }
+
+  /* --- PLANES --- */
+  .plans-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .plan-card {
+    background: var(--azul-card);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-xl);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: all var(--transition);
+  }
+
+  .plan-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .plan-card--featured {
+    background: rgba(5, 150, 105, 0.04);
+    border: 1.5px solid var(--verde);
+    border-radius: var(--radius-2xl);
+    transform: scale(1.02);
+  }
+
+  .plan-card--featured:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(5, 150, 105, 0.06);
+  }
+
+  .plan-card__badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--verde);
+    color: var(--blanco);
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .plan-card__name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--blanco);
+  }
+
+  .plan-card__price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .plan-card__currency {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .plan-card__amount {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--blanco);
+    letter-spacing: -0.02em;
+  }
+
+  .plan-card__ideal {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  .plan-card__features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 40px;
+    flex: 1;
+  }
+
+  .plan-card__features li {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .plan-card__delivery {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .plan-card__delivery strong {
+    color: var(--verde-claro);
+  }
+
+  /* --- MUESTRAS CTA --- */
+  .section--muestras {
+    background: linear-gradient(
+      160deg,
+      var(--azul-oscuro) 0%,
+      var(--azul-medio) 100%
+    );
+    overflow: hidden;
+  }
+
+  .muestras-cta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .muestras-cta__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 16px;
+    letter-spacing: 0.03em;
+  }
+
+  .muestras-cta__title {
+    font-family: var(--font-titulo);
+    font-weight: 900;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--blanco);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .muestras-cta__desc {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.7;
+    font-weight: 500;
+    max-width: 520px;
+    margin-bottom: 24px;
+  }
+
+  .muestras-cta__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .muestras-cta__stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+  }
+
+  .muestras-cta__stat strong {
+    color: var(--verde-claro);
+    font-weight: 800;
+  }
+
+  /* Preview decorativo — pantallitas flotantes */
+  .muestras-cta__preview {
+    position: relative;
+    height: 260px;
+    display: none;
+  }
+
+  .muestras-cta__screen {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.82);
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: floatCard 4s ease-in-out infinite;
+  }
+
+  .muestras-cta__screen--1 { top: 0; left: 0; animation-delay: 0s; }
+  .muestras-cta__screen--2 { top: 30px; left: 130px; animation-delay: 0.4s; }
+  .muestras-cta__screen--3 { top: 80px; left: 20px; animation-delay: 0.8s; }
+  .muestras-cta__screen--4 { top: 130px; left: 150px; animation-delay: 1.2s; }
+  .muestras-cta__screen--5 { top: 175px; left: 10px; animation-delay: 1.6s; }
+  .muestras-cta__screen--6 { top: 210px; left: 140px; animation-delay: 2s; }
+
+  @keyframes floatCard {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-10px) rotate(1deg); }
+  }
+
+  @media (min-width: 768px) {
+    .muestras-cta {
+      grid-template-columns: 1fr 1fr;
+    }
+    .muestras-cta__preview {
+      display: block;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .muestras-cta {
+      grid-template-columns: 3fr 2fr;
+      gap: 60px;
+    }
+    .muestras-cta__preview {
+      height: 300px;
+    }
+  }
+
+  /* --- FAQ INDEX --- */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .faq-item {
+    background: #f8fafc;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(10, 22, 40, 0.04);
+    overflow: hidden;
+    transition: all var(--transition);
+  }
+
+  .faq-item:hover {
+    border-color: rgba(16, 146, 110, 0.3);
+  }
+
+  .faq-item__question {
+    width: 100%;
+    padding: 24px 32px;
+    text-align: left;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-family: var(--font-titulo);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--azul-oscuro);
+    cursor: pointer;
+  }
+
+  .faq-item__chevron {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+    opacity: 0.4;
+    color: var(--verde);
+  }
+
+  .faq-item__question[aria-expanded="true"] .faq-item__chevron {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+
+  .faq-item__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-item__answer.open {
+    max-height: 300px;
+  }
+
+  .faq-item__answer p {
+    padding: 0 32px 32px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--texto-muted);
+  }
+
+  /* --- CTA FINAL --- */
+  .section--cta {
+    background: linear-gradient(135deg, var(--verde), #047857);
+    color: var(--blanco);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cta__title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.05;
+    font-weight: 900;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .cta__subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+  }
+
+  .cta__trust {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 24px;
+    font-weight: 600;
+  }
+
+  /* --- RESPONSIVE ADJUSTMENTS --- */
+  @media (min-width: 768px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps { grid-template-columns: repeat(3, 1fr); }
+    .step__connector { display: block; }
+    .includes-grid { grid-template-columns: repeat(3, 1fr); }
+    .plans-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .plan-card { padding: 40px 24px; }
+  }
+
+  @media (min-width: 1024px) {
+    .muestras-cta { grid-template-columns: 1.2fr 1fr; }
+    .muestras-cta__text { padding: 64px; }
+    .muestras-cta__preview { padding: 64px; }
+    .features-grid { grid-template-columns: repeat(4, 1fr); }
+    .hero { padding: 12rem 0 8rem; }
+    .hero__title { font-size: 5rem; }
+    .hero__stats { gap: 32px; }
+  }
+</style>
