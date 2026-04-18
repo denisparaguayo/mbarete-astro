@@ -86,8 +86,10 @@ const { solid = false } = Astro.props;
 		if (!hamburger || !navLinks) return;
 
 		function toggleMenu(open) {
+			const navbar = document.getElementById('navbar');
 			hamburger.classList.toggle('open', open);
 			navLinks.classList.toggle('open', open);
+			navbar?.classList.toggle('menu-open', open);
 			hamburger.setAttribute('aria-expanded', String(open));
 			document.body.style.overflow = open ? 'hidden' : '';
 		}
@@ -99,6 +101,13 @@ const { solid = false } = Astro.props;
 
 		navLinks.querySelectorAll('a').forEach((link) => {
 			link.addEventListener('click', () => toggleMenu(false));
+		});
+
+		// Cerrar al tocar el fondo/área vacía
+		navLinks.addEventListener('click', (e) => {
+			if (e.target === navLinks) {
+				toggleMenu(false);
+			}
 		});
 
 		document.addEventListener('keydown', (e) => {
@@ -127,13 +136,21 @@ const { solid = false } = Astro.props;
 		top: 0;
 		left: 0;
 		right: 0;
-		z-index: 100;
+		z-index: 1000;
 		padding: 16px 0;
 		background: transparent;
 		transition:
 			background var(--transition),
 			box-shadow var(--transition),
 			padding var(--transition);
+	}
+
+	.navbar.menu-open {
+		z-index: 10000;
+		background: rgba(10, 22, 40, 0.99) !important;
+		backdrop-filter: blur(20px) !important;
+		-webkit-backdrop-filter: blur(20px) !important;
+		height: 100vh;
 	}
 
 	.navbar.scrolled {
@@ -218,13 +235,20 @@ const { solid = false } = Astro.props;
 		transition:
 			background var(--transition),
 			transform var(--transition);
-		z-index: 110;
+		z-index: 10001;
 		position: relative;
 		animation: hamburgerAttention 1.3s ease-in-out 2.5s 3;
 	}
 
 	.navbar__hamburger:hover {
 		background: rgba(255, 255, 255, 0.1);
+	}
+
+	/* Asegurar visibilidad del botón en fondo transparente */
+	.navbar:not(.scrolled) .navbar__hamburger {
+		background: rgba(10, 22, 40, 0.15);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
 	}
 
 	.navbar.scrolled .navbar__hamburger:hover {
@@ -290,10 +314,10 @@ const { solid = false } = Astro.props;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: var(--azul-oscuro);
 		padding: 96px 32px 48px;
 		gap: 8px;
-		z-index: 105;
+		z-index: 10000;
+		overflow-y: auto;
 	}
 
 	.navbar__links.open .navbar__link {
