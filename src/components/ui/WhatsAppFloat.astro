@@ -6,6 +6,7 @@ import { getWhatsAppUrl } from '../../data/siteConfig';
 	href={getWhatsAppUrl()}
 	class="wa-float"
 	aria-label="Contactar por WhatsApp"
+	title="Contactar por WhatsApp"
 	target="_blank"
 	rel="noopener noreferrer">
 	<span class="wa-float__icon" aria-hidden="true">
@@ -35,7 +36,9 @@ import { getWhatsAppUrl } from '../../data/siteConfig';
 		background: var(--verde);
 		color: var(--blanco);
 		border-radius: var(--radius-pill);
-		padding: 14px 14px;
+		padding: 14px;
+		min-width: 56px;
+		min-height: 56px;
 		box-shadow: 0 4px 24px rgba(5, 150, 105, 0.5);
 		font-weight: 700;
 		font-size: 0.9rem;
@@ -77,6 +80,7 @@ import { getWhatsAppUrl } from '../../data/siteConfig';
 	.wa-float__text {
 		display: none;
 		white-space: nowrap;
+		padding-right: 4px;
 	}
 
 	@keyframes waPulse {
@@ -91,7 +95,7 @@ import { getWhatsAppUrl } from '../../data/siteConfig';
 
 	@media (min-width: 480px) {
 		.wa-float {
-			padding: 13px 20px;
+			padding: 13px 24px;
 		}
 
 		.wa-float__text {
