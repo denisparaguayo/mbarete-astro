@@ -1,127 +1,157 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { siteConfig } from '../../data/siteConfig';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { siteConfig } from "../../data/siteConfig";
 import {
-	services,
-	getServiceBySlug,
-	getServiceWhatsAppUrl,
-} from '../../data/services';
+  services,
+  getServiceBySlug,
+  getServiceWhatsAppUrl,
+} from "../../data/services";
 
 export function getStaticPaths() {
-	return services.map((service) => ({
-		params: { slug: service.slug },
-	}));
+  return services.map((service) => ({
+    params: { slug: service.slug },
+  }));
 }
 
 const { slug } = Astro.params;
-const service = getServiceBySlug(slug ?? '');
+const service = getServiceBySlug(slug ?? "");
 
 if (!service) {
-	return Astro.redirect('/servicios/');
+  return Astro.redirect("/servicios/");
 }
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: service.name,
+  description: service.summary,
+  provider: {
+    "@type": "ProfessionalService",
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
+  offers: {
+    "@type": "Offer",
+    price: service.price.replace(/[^\d]/g, ""),
+    priceCurrency: "PYG",
+  },
+};
 ---
 
 <BaseLayout
-	title={service.seoTitle}
-	description={service.seoDescription}
-	canonical={`${siteConfig.url}/servicios/${service.slug}/`}
-	navbarSolid={true}>
-	<section class="section section--white service-detail" aria-labelledby="service-title">
-		<div class="container container--narrow">
-			<a class="service-detail__back" href="/servicios/">← Volver al indice de servicios</a>
-			<h1 class="section__title" id="service-title">{service.name}</h1>
-			<p class="section__subtitle service-detail__summary">{service.summary}</p>
-			<p class="service-detail__price">{service.price}</p>
+  title={service.name}
+  description={service.seoDescription}
+  canonical={`${siteConfig.url}/servicios/${service.slug}/`}
+  navbarSolid={true}
+  schema={serviceSchema}
+  breadcrumbs={[
+    { name: "Inicio", url: "/" },
+    { name: "Servicios", url: "/servicios/" },
+    { name: service.name, url: `/servicios/${service.slug}/` },
+  ]}
+>
+  <section
+    class="section section--white service-detail"
+    aria-labelledby="service-title"
+  >
+    <div class="container container--narrow">
+      <a class="service-detail__back" href="/servicios/"
+        >← Volver al indice de servicios</a
+      >
+      <h1 class="section__title" id="service-title">{service.name}</h1>
+      <p class="section__subtitle service-detail__summary">{service.summary}</p>
+      <p class="service-detail__price">{service.price}</p>
 
-			<div class="service-detail__columns">
-				<div class="service-detail__card">
-					<h2>Beneficios</h2>
-					<ul>
-						{service.benefits.map((benefit) => <li>{benefit}</li>)}
-					</ul>
-				</div>
+      <div class="service-detail__columns">
+        <div class="service-detail__card">
+          <h2>Beneficios</h2>
+          <ul>
+            {service.benefits.map((benefit) => <li>{benefit}</li>)}
+          </ul>
+        </div>
 
-				<div class="service-detail__card">
-					<h2>Que incluye</h2>
-					<ul>
-						{service.deliverables.map((item) => <li>{item}</li>)}
-					</ul>
-				</div>
-			</div>
+        <div class="service-detail__card">
+          <h2>Que incluye</h2>
+          <ul>
+            {service.deliverables.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
 
-			<div class="service-detail__cta">
-				<a
-					href={getServiceWhatsAppUrl(service.name)}
-					class="btn btn--primary btn--lg"
-					target="_blank"
-					rel="noopener noreferrer">
-					Consultar por WhatsApp
-				</a>
-			</div>
-		</div>
-	</section>
+      <div class="service-detail__cta">
+        <a
+          href={getServiceWhatsAppUrl(service.name)}
+          class="btn btn--primary btn--lg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Consultar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-	.service-detail__back {
-		display: inline-flex;
-		margin-bottom: 1rem;
-		font-weight: 700;
-		color: var(--azul-medio);
-	}
+  .service-detail__back {
+    display: inline-flex;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: var(--azul-medio);
+  }
 
-	.service-detail__back:hover {
-		color: var(--verde);
-	}
+  .service-detail__back:hover {
+    color: var(--verde);
+  }
 
-	.service-detail__summary {
-		max-width: 720px;
-	}
+  .service-detail__summary {
+    max-width: 720px;
+  }
 
-	.service-detail__price {
-		font-size: 1.1rem;
-		font-weight: 800;
-		color: var(--verde);
-		margin: 0.5rem 0 1.25rem;
-	}
+  .service-detail__price {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--verde);
+    margin: 0.5rem 0 1.25rem;
+  }
 
-	.service-detail__columns {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1rem;
-	}
+  .service-detail__columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 
-	.service-detail__card {
-		border: 1px solid var(--gris-medio);
-		border-radius: var(--radius-md);
-		padding: 1rem 1.1rem;
-		background: var(--blanco);
-	}
+  .service-detail__card {
+    border: 1px solid var(--gris-medio);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.1rem;
+    background: var(--blanco);
+  }
 
-	.service-detail__card h2 {
-		font-family: var(--font-titulo);
-		font-size: 1.1rem;
-		margin-bottom: 0.6rem;
-		color: var(--azul-oscuro);
-	}
+  .service-detail__card h2 {
+    font-family: var(--font-titulo);
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+    color: var(--azul-oscuro);
+  }
 
-	.service-detail__card ul {
-		list-style: disc;
-		padding-left: 1.1rem;
-		color: var(--texto-muted);
-	}
+  .service-detail__card ul {
+    list-style: disc;
+    padding-left: 1.1rem;
+    color: var(--texto-muted);
+  }
 
-	.service-detail__card li + li {
-		margin-top: 0.45rem;
-	}
+  .service-detail__card li + li {
+    margin-top: 0.45rem;
+  }
 
-	.service-detail__cta {
-		margin-top: 1.25rem;
-	}
+  .service-detail__cta {
+    margin-top: 1.25rem;
+  }
 
-	@media (min-width: 768px) {
-		.service-detail__columns {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-	}
+  @media (min-width: 768px) {
+    .service-detail__columns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
 </style>

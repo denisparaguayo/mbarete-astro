@@ -4,9 +4,24 @@ import { getServicePlanBySlugOrThrow } from '../../data/services';
 
 interface Props {
 	schema?: object | object[];
+	breadcrumbs?: { name: string; url: string }[];
 }
 
-const { schema } = Astro.props;
+const { schema, breadcrumbs } = Astro.props;
+
+// Generar esquema de BreadcrumbList si hay datos
+const breadcrumbSchema = breadcrumbs
+	? {
+			'@context': 'https://schema.org',
+			'@type': 'BreadcrumbList',
+			itemListElement: breadcrumbs.map((crumb, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				name: crumb.name,
+				item: new URL(crumb.url, siteConfig.url).toString(),
+			})),
+		}
+	: null;
 
 const planBasico = getServicePlanBySlugOrThrow('basico');
 const planPro = getServicePlanBySlugOrThrow('pro');
@@ -16,6 +31,8 @@ const professionalServiceSchema = {
 	'@type': 'ProfessionalService',
 	name: siteConfig.name,
 	url: siteConfig.url,
+	logo: `${siteConfig.url}favicon.svg`,
+	image: siteConfig.seo.ogImage,
 	description: siteConfig.seo.defaultDescription,
 	telephone: `+${siteConfig.whatsapp}`,
 	email: siteConfig.email,
@@ -25,19 +42,54 @@ const professionalServiceSchema = {
 		addressLocality: siteConfig.address.city,
 		addressCountry: 'PY',
 	},
+	geo: {
+		'@type': 'GeoCoordinates',
+		latitude: -25.2867, // Asunción
+		longitude: -57.647,
+	},
 	areaServed: {
 		'@type': 'Country',
 		name: 'Paraguay',
 	},
 	openingHoursSpecification: {
 		'@type': 'OpeningHoursSpecification',
-		dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+		dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 		opens: '08:00',
 		closes: '18:00',
 	},
 	sameAs: [siteConfig.socials?.instagram, siteConfig.socials?.facebook].filter(
 		Boolean
 	),
+};
+
+const organizationSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	name: siteConfig.name,
+	url: siteConfig.url,
+	logo: `${siteConfig.url}favicon.svg`,
+	contactPoint: {
+		'@type': 'ContactPoint',
+		telephone: `+${siteConfig.whatsapp}`,
+		contactType: 'customer service',
+		areaServed: 'PY',
+		availableLanguage: 'Spanish',
+	},
+	sameAs: [siteConfig.socials?.instagram, siteConfig.socials?.facebook].filter(
+		Boolean
+	),
+};
+
+const webSiteSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	name: siteConfig.name,
+	url: siteConfig.url,
+	potentialAction: {
+		'@type': 'SearchAction',
+		target: `${siteConfig.url}?q={search_term_string}`,
+		'query-input': 'required name=search_term_string',
+	},
 };
 
 const mainNavigationLinks = [
@@ -57,11 +109,22 @@ const siteNavigationSchema = {
 	),
 };
 
+const baseSchemas = [
+	professionalServiceSchema,
+	organizationSchema,
+	webSiteSchema,
+	siteNavigationSchema,
+];
+
+if (breadcrumbSchema) {
+	baseSchemas.push(breadcrumbSchema);
+}
+
 const schemas = schema
 	? Array.isArray(schema)
-		? [professionalServiceSchema, siteNavigationSchema, ...schema]
-		: [professionalServiceSchema, siteNavigationSchema, schema]
-	: [professionalServiceSchema, siteNavigationSchema];
+		? [...baseSchemas, ...schema]
+		: [...baseSchemas, schema]
+	: baseSchemas;
 ---
 
 {

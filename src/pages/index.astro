@@ -73,7 +73,7 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Diseño Web en Paraguay | Páginas Web Profesionales"
+  title="Diseño Web en Paraguay"
   description={`Diseño web en Paraguay ${creacionWebPriceInline}. Creamos páginas web profesionales para negocios en Asunción y todo el país. SEO, WhatsApp y entrega en 1-2 días.`}
   canonical={siteConfig.url}
   schema={faqSchema}
@@ -758,8 +758,6 @@ const faqSchema = {
 </BaseLayout>
 
 <style>
-
-
   /* --- HERO SECTION --- */
 
   .hero {
@@ -776,7 +774,8 @@ const faqSchema = {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: radial-gradient(
+    background-image:
+      radial-gradient(
         circle at 20% 30%,
         rgba(5, 150, 105, 0.15) 0%,
         transparent 50%
@@ -1228,16 +1227,45 @@ const faqSchema = {
     animation: floatCard 4s ease-in-out infinite;
   }
 
-  .muestras-cta__screen--1 { top: 0; left: 0; animation-delay: 0s; }
-  .muestras-cta__screen--2 { top: 30px; left: 130px; animation-delay: 0.4s; }
-  .muestras-cta__screen--3 { top: 80px; left: 20px; animation-delay: 0.8s; }
-  .muestras-cta__screen--4 { top: 130px; left: 150px; animation-delay: 1.2s; }
-  .muestras-cta__screen--5 { top: 175px; left: 10px; animation-delay: 1.6s; }
-  .muestras-cta__screen--6 { top: 210px; left: 140px; animation-delay: 2s; }
+  .muestras-cta__screen--1 {
+    top: 0;
+    left: 0;
+    animation-delay: 0s;
+  }
+  .muestras-cta__screen--2 {
+    top: 30px;
+    left: 130px;
+    animation-delay: 0.4s;
+  }
+  .muestras-cta__screen--3 {
+    top: 80px;
+    left: 20px;
+    animation-delay: 0.8s;
+  }
+  .muestras-cta__screen--4 {
+    top: 130px;
+    left: 150px;
+    animation-delay: 1.2s;
+  }
+  .muestras-cta__screen--5 {
+    top: 175px;
+    left: 10px;
+    animation-delay: 1.6s;
+  }
+  .muestras-cta__screen--6 {
+    top: 210px;
+    left: 140px;
+    animation-delay: 2s;
+  }
 
   @keyframes floatCard {
-    0%, 100% { transform: translateY(0) rotate(0); }
-    50% { transform: translateY(-10px) rotate(1deg); }
+    0%,
+    100% {
+      transform: translateY(0) rotate(0);
+    }
+    50% {
+      transform: translateY(-10px) rotate(1deg);
+    }
   }
 
   @media (min-width: 768px) {
@@ -1362,21 +1390,48 @@ const faqSchema = {
 
   /* --- RESPONSIVE ADJUSTMENTS --- */
   @media (min-width: 768px) {
-    .features-grid { grid-template-columns: repeat(2, 1fr); }
-    .steps { grid-template-columns: repeat(3, 1fr); }
-    .step__connector { display: block; }
-    .includes-grid { grid-template-columns: repeat(3, 1fr); }
-    .plans-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .plan-card { padding: 40px 24px; }
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .step__connector {
+      display: block;
+    }
+    .includes-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .plans-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .plan-card {
+      padding: 40px 24px;
+    }
   }
 
   @media (min-width: 1024px) {
-    .muestras-cta { grid-template-columns: 1.2fr 1fr; }
-    .muestras-cta__text { padding: 64px; }
-    .muestras-cta__preview { padding: 64px; }
-    .features-grid { grid-template-columns: repeat(4, 1fr); }
-    .hero { padding: 12rem 0 8rem; }
-    .hero__title { font-size: 5rem; }
-    .hero__stats { gap: 32px; }
+    .muestras-cta {
+      grid-template-columns: 1.2fr 1fr;
+    }
+    .muestras-cta__text {
+      padding: 64px;
+    }
+    .muestras-cta__preview {
+      padding: 64px;
+    }
+    .features-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .hero {
+      padding: 12rem 0 8rem;
+    }
+    .hero__title {
+      font-size: 5rem;
+    }
+    .hero__stats {
+      gap: 32px;
+    }
   }
 </style>

@@ -14,6 +14,7 @@ interface Props {
 	noindex?: boolean;
 	type?: 'website' | 'article';
 	schema?: object | object[];
+	breadcrumbs?: { name: string; url: string }[];
 	lang?: string;
 	navbarSolid?: boolean;
 	keepTitleAsIs?: boolean;
@@ -27,6 +28,7 @@ const {
 	noindex = false,
 	type = 'website',
 	schema,
+	breadcrumbs,
 	lang = 'es-PY',
 	navbarSolid = false,
 	keepTitleAsIs = false,
@@ -72,7 +74,7 @@ const robots = noindex ? 'noindex,nofollow' : 'index,follow';
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 
-		<SEO schema={schema} />
+		<SEO schema={schema} breadcrumbs={breadcrumbs} />
 	</head>
 
 	<body

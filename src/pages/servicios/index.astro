@@ -8,7 +8,11 @@ import { services } from '../../data/services';
 	title="Servicios de Mbarete Digital"
 	description="Conoce todos los servicios de Mbarete Digital: web, SEO local, redes, mantenimiento y mas."
 	canonical={`${siteConfig.url}/servicios/`}
-	navbarSolid={true}>
+	navbarSolid={true}
+	breadcrumbs={[
+		{ name: 'Inicio', url: '/' },
+		{ name: 'Servicios', url: '/servicios/' },
+	]}>
 	<section class="section section--white services-index" aria-labelledby="services-title">
 		<div class="container">
 			<div class="services-index__hero fade-up">

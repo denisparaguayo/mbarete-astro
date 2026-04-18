@@ -1,404 +1,442 @@
 ﻿---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getRubrosItems } from '../../data/rubros';
-import { getRubroLiveUrl } from '../../data/websMuestras';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getRubrosItems } from "../../data/rubros";
+import { getRubroLiveUrl } from "../../data/websMuestras";
 
 const rubros = [...getRubrosItems()].sort((a, b) =>
-	a.business.rubro.localeCompare(b.business.rubro, 'es')
+  a.business.rubro.localeCompare(b.business.rubro, "es"),
 );
-const rubrosUnicos = [...new Set(rubros.map((item) => item.business.rubro))].sort((a, b) =>
-	a.localeCompare(b, 'es')
+const rubrosUnicos = [
+  ...new Set(rubros.map((item) => item.business.rubro)),
+].sort((a, b) => a.localeCompare(b, "es"));
+const rubroLiveUrls = new Map(
+  rubros.map((item) => [item.slug, getRubroLiveUrl(item.slug)]),
 );
-const rubroLiveUrls = new Map(rubros.map((item) => [item.slug, getRubroLiveUrl(item.slug)]));
-const canonical = new URL('/muestras/', Astro.site).toString();
+const canonical = new URL("/muestras/", Astro.site).toString();
 
 const itemListSchema = {
-	'@context': 'https://schema.org',
-	'@type': 'ItemList',
-	name: 'Muestras web por rubro',
-	numberOfItems: rubros.length,
-	itemListElement: rubros.map((item, index) => ({
-		'@type': 'ListItem',
-		position: index + 1,
-		name: item.business.nombre,
-		url: new URL(`/muestras/${item.slug}/`, Astro.site).toString(),
-	})),
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Muestras web por rubro",
+  numberOfItems: rubros.length,
+  itemListElement: rubros.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.business.nombre,
+    url: new URL(`/muestras/${item.slug}/`, Astro.site).toString(),
+  })),
 };
 ---
 
 <BaseLayout
-	title="Muestras Web por Rubro | Catalogo"
-	description="Catalogo de muestras web por rubro. Entra al detalle para ver que incluye la opcion basica y abrir la demo en vivo."
-	canonical={canonical}
-	schema={itemListSchema}
-	navbarSolid={true}>
-	<section class="templates-page">
-		<div class="container">
-			<header class="templates-page__hero">
-				<span class="badge badge--blog">Muestras web por rubro</span>
-				<h1>Elegi una muestra web y revisa su contenido</h1>
-				<p>
-					Formato tipo catalogo: entras al rubro, ves que incluye la opcion
-					basica y luego abris tu demo con el boton <strong>Ver en vivo</strong>.
-				</p>
-			</header>
+  title="Muestras Web por Rubro"
+  description="Catalogo de muestras web por rubro. Entra al detalle para ver que incluye la opcion basica y abrir la demo en vivo."
+  canonical={canonical}
+  schema={itemListSchema}
+  navbarSolid={true}
+>
+  <section class="templates-page">
+    <div class="container">
+      <header class="templates-page__hero">
+        <span class="badge badge--blog">Muestras web por rubro</span>
+        <h1>Elegi una muestra web y revisa su contenido</h1>
+        <p>
+          Formato tipo catalogo: entras al rubro, ves que incluye la opcion
+          basica y luego abris tu demo con el boton <strong>Ver en vivo</strong
+          >.
+        </p>
+      </header>
 
-			<div class="templates-filters">
-				<label class="templates-filters__field templates-filters__field--search" for="templates-search">
-					<span>Buscar</span>
-					<div class="templates-filters__input-wrap">
-						<input id="templates-search" type="search" placeholder="Ej: veterinaria, salon, asuncion..." autocomplete="off" />
-					</div>
-				</label>
+      <div class="templates-filters">
+        <label
+          class="templates-filters__field templates-filters__field--search"
+          for="templates-search"
+        >
+          <span>Buscar</span>
+          <div class="templates-filters__input-wrap">
+            <input
+              id="templates-search"
+              type="search"
+              placeholder="Ej: veterinaria, salon, asuncion..."
+              autocomplete="off"
+            />
+          </div>
+        </label>
 
-				<label class="templates-filters__field" for="templates-rubro">
-					<span>Rubro</span>
-					<select id="templates-rubro">
-						<option value="">Todos los rubros</option>
-						{
-							rubrosUnicos.map((rubro) => (
-								<option value={rubro.toLocaleLowerCase('es')}>{rubro}</option>
-							))
-						}
-					</select>
-				</label>
+        <label class="templates-filters__field" for="templates-rubro">
+          <span>Rubro</span>
+          <select id="templates-rubro">
+            <option value="">Todos los rubros</option>
+            {
+              rubrosUnicos.map((rubro) => (
+                <option value={rubro.toLocaleLowerCase("es")}>{rubro}</option>
+              ))
+            }
+          </select>
+        </label>
 
-				<button id="templates-reset" type="button" class="btn btn--outline templates-filters__reset">
-					Restablecer
-				</button>
+        <button
+          id="templates-reset"
+          type="button"
+          class="btn btn--outline templates-filters__reset"
+        >
+          Restablecer
+        </button>
 
-				<p id="templates-count" class="templates-filters__count">{rubros.length} rubros</p>
-			</div>
+        <p id="templates-count" class="templates-filters__count">
+          {rubros.length} rubros
+        </p>
+      </div>
 
-			<ul id="templates-grid" class="templates-grid" role="list">
-				{
-					rubros.map((item) => {
-						const liveUrl = rubroLiveUrls.get(item.slug);
-						const searchText = `${item.business.nombre} ${item.business.rubro} ${item.business.ciudad} ${item.business.descripcion}`.toLocaleLowerCase('es');
-						const rubroValue = item.business.rubro.toLocaleLowerCase('es');
+      <ul id="templates-grid" class="templates-grid" role="list">
+        {
+          rubros.map((item) => {
+            const liveUrl = rubroLiveUrls.get(item.slug);
+            const searchText =
+              `${item.business.nombre} ${item.business.rubro} ${item.business.ciudad} ${item.business.descripcion}`.toLocaleLowerCase(
+                "es",
+              );
+            const rubroValue = item.business.rubro.toLocaleLowerCase("es");
 
-						return (
-						<li data-search={searchText} data-rubro={rubroValue}>
-							<article class="template-card">
-								<a
-									class="template-card__overlay"
-									href={`/muestras/${item.slug}/`}
-									aria-label={`Abrir ficha de ${item.business.nombre}`}>
-								</a>
+            return (
+              <li data-search={searchText} data-rubro={rubroValue}>
+                <article class="template-card">
+                  <a
+                    class="template-card__overlay"
+                    href={`/muestras/${item.slug}/`}
+                    aria-label={`Abrir ficha de ${item.business.nombre}`}
+                  ></a>
 
-								<div
-									class="template-card__thumb"
-									style={`background:linear-gradient(135deg,${item.colores?.oscuro ?? '#1e293b'},${item.colores?.claro ?? '#3b82f6'})`}>
-									<span>{item.business.logoEmoji ?? 'ðŸŒ'}</span>
-									<small>{item.business.rubro}</small>
-								</div>
+                  <div
+                    class="template-card__thumb"
+                    style={`background:linear-gradient(135deg,${item.colores?.oscuro ?? "#1e293b"},${item.colores?.claro ?? "#3b82f6"})`}
+                  >
+                    <span>{item.business.logoEmoji ?? "ðŸŒ"}</span>
+                    <small>{item.business.rubro}</small>
+                  </div>
 
-								<div class="template-card__body">
-									<h2>{item.business.nombre}</h2>
-									<p class="template-card__meta">
-										{item.business.rubro} Â· {item.business.ciudad}
-									</p>
-									<p class="template-card__desc">{item.business.descripcion}</p>
+                  <div class="template-card__body">
+                    <h2>{item.business.nombre}</h2>
+                    <p class="template-card__meta">
+                      {item.business.rubro} Â· {item.business.ciudad}
+                    </p>
+                    <p class="template-card__desc">
+                      {item.business.descripcion}
+                    </p>
 
-							<div class="template-card__actions">
-								<a class="btn btn--primary" href={`/muestras/${item.slug}/`}>
-									Ver ficha
-								</a>
-								{
-									liveUrl && (
-										<a class="btn btn--outline" href={liveUrl} target="_blank" rel="noopener noreferrer">
-											Ver en vivo
-										</a>
-									)
-								}
-							</div>
-								</div>
-							</article>
-						</li>
-					)})
-				}
-			</ul>
-			<p id="templates-empty" class="templates-empty" hidden>No se encontraron rubros con ese filtro.</p>
-		</div>
-	</section>
+                    <div class="template-card__actions">
+                      <a
+                        class="btn btn--primary"
+                        href={`/muestras/${item.slug}/`}
+                      >
+                        Ver ficha
+                      </a>
+                      {liveUrl && (
+                        <a
+                          class="btn btn--outline"
+                          href={liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Ver en vivo
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <p id="templates-empty" class="templates-empty" hidden>
+        No se encontraron rubros con ese filtro.
+      </p>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-	.templates-page {
-		padding: 7rem 0 5rem;
-		background: #f6f8fb;
-	}
+  .templates-page {
+    padding: 7rem 0 5rem;
+    background: #f6f8fb;
+  }
 
-	.templates-page__hero {
-		max-width: 860px;
-		margin: 0 auto 2rem;
-		text-align: center;
-	}
+  .templates-page__hero {
+    max-width: 860px;
+    margin: 0 auto 2rem;
+    text-align: center;
+  }
 
-	.templates-page__hero h1 {
-		font-size: clamp(2rem, 5vw, 3.1rem);
-		line-height: 1.1;
-		margin: 0.9rem 0 0.75rem;
-	}
+  .templates-page__hero h1 {
+    font-size: clamp(2rem, 5vw, 3.1rem);
+    line-height: 1.1;
+    margin: 0.9rem 0 0.75rem;
+  }
 
-	.templates-page__hero p {
-		color: var(--texto-muted);
-		line-height: 1.8;
-	}
+  .templates-page__hero p {
+    color: var(--texto-muted);
+    line-height: 1.8;
+  }
 
-	.templates-grid {
-		list-style: none;
-		display: grid;
-		grid-template-columns: repeat(1, minmax(0, 1fr));
-		gap: 1rem;
-		padding: 0;
-		margin: 0;
-	}
+  .templates-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+  }
 
-	.templates-filters {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.8rem;
-		align-items: end;
-		margin-bottom: 1.2rem;
-		background: linear-gradient(145deg, #f7fbff, #eef4fb);
-		border: 1px solid rgba(10, 22, 40, 0.08);
-		box-shadow: 0 10px 24px rgba(10, 22, 40, 0.07);
-		border-radius: 1rem;
-		padding: 0.95rem;
-	}
+  .templates-filters {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    align-items: end;
+    margin-bottom: 1.2rem;
+    background: linear-gradient(145deg, #f7fbff, #eef4fb);
+    border: 1px solid rgba(10, 22, 40, 0.08);
+    box-shadow: 0 10px 24px rgba(10, 22, 40, 0.07);
+    border-radius: 1rem;
+    padding: 0.95rem;
+  }
 
-	.templates-filters__field {
-		display: grid;
-		gap: 0.35rem;
-	}
+  .templates-filters__field {
+    display: grid;
+    gap: 0.35rem;
+  }
 
-	.templates-filters__field--search {
-		grid-column: 1 / -1;
-	}
+  .templates-filters__field--search {
+    grid-column: 1 / -1;
+  }
 
-	.templates-filters__field span {
-		font-size: 0.84rem;
-		font-weight: 700;
-		color: var(--texto-muted);
-	}
+  .templates-filters__field span {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--texto-muted);
+  }
 
-	.templates-filters__input-wrap {
-		position: relative;
-	}
+  .templates-filters__input-wrap {
+    position: relative;
+  }
 
-	.templates-filters__input-wrap::before {
-		content: '⌕';
-		position: absolute;
-		left: 0.75rem;
-		top: 50%;
-		transform: translateY(-50%);
-		font-size: 0.95rem;
-		color: var(--texto-muted);
-		pointer-events: none;
-	}
+  .templates-filters__input-wrap::before {
+    content: "⌕";
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.95rem;
+    color: var(--texto-muted);
+    pointer-events: none;
+  }
 
-	.templates-filters__field input,
-	.templates-filters__field select {
-		background: var(--blanco);
-		border: 1px solid rgba(10, 22, 40, 0.14);
-		border-radius: 0.7rem;
-		padding: 0.72rem 0.85rem;
-		font: inherit;
-		transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
-	}
+  .templates-filters__field input,
+  .templates-filters__field select {
+    background: var(--blanco);
+    border: 1px solid rgba(10, 22, 40, 0.14);
+    border-radius: 0.7rem;
+    padding: 0.72rem 0.85rem;
+    font: inherit;
+    transition:
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
+  }
 
-	.templates-filters__field input {
-		padding-left: 2rem;
-	}
+  .templates-filters__field input {
+    padding-left: 2rem;
+  }
 
-	.templates-filters__field input:focus,
-	.templates-filters__field select:focus {
-		outline: none;
-		border-color: rgba(16, 146, 110, 0.7);
-		box-shadow: 0 0 0 3px rgba(16, 146, 110, 0.15);
-		transform: translateY(-1px);
-	}
+  .templates-filters__field input:focus,
+  .templates-filters__field select:focus {
+    outline: none;
+    border-color: rgba(16, 146, 110, 0.7);
+    box-shadow: 0 0 0 3px rgba(16, 146, 110, 0.15);
+    transform: translateY(-1px);
+  }
 
-	.templates-filters__reset {
-		height: 44px;
-		align-self: end;
-		justify-self: start;
-	}
+  .templates-filters__reset {
+    height: 44px;
+    align-self: end;
+    justify-self: start;
+  }
 
-	.templates-filters__reset.btn--outline {
-		background: rgba(16, 146, 110, 0.08);
-		color: var(--verde);
-		border-color: rgba(16, 146, 110, 0.55);
-	}
+  .templates-filters__reset.btn--outline {
+    background: rgba(16, 146, 110, 0.08);
+    color: var(--verde);
+    border-color: rgba(16, 146, 110, 0.55);
+  }
 
-	.templates-filters__reset.btn--outline:hover,
-	.templates-filters__reset.btn--outline:focus-visible {
-		background: rgba(16, 146, 110, 0.16);
-		border-color: rgba(16, 146, 110, 0.9);
-	}
+  .templates-filters__reset.btn--outline:hover,
+  .templates-filters__reset.btn--outline:focus-visible {
+    background: rgba(16, 146, 110, 0.16);
+    border-color: rgba(16, 146, 110, 0.9);
+  }
 
-	.templates-filters__count {
-		margin: 0;
-		font-size: 0.92rem;
-		font-weight: 700;
-		color: var(--texto-muted);
-		justify-self: end;
-		align-self: center;
-		text-align: right;
-	}
+  .templates-filters__count {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--texto-muted);
+    justify-self: end;
+    align-self: center;
+    text-align: right;
+  }
 
-	.template-card {
-		position: relative;
-		background: var(--blanco);
-		border-radius: var(--radius-lg);
-		overflow: hidden;
-		border: 1px solid rgba(10, 22, 40, 0.08);
-		box-shadow: 0 8px 28px rgba(10, 22, 40, 0.06);
-	}
+  .template-card {
+    position: relative;
+    background: var(--blanco);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid rgba(10, 22, 40, 0.08);
+    box-shadow: 0 8px 28px rgba(10, 22, 40, 0.06);
+  }
 
-	.template-card__overlay {
-		position: absolute;
-		inset: 0;
-		z-index: 1;
-	}
+  .template-card__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
 
-	.template-card:has(.template-card__overlay:focus-visible) {
-		outline: 2px solid var(--verde);
-		outline-offset: 3px;
-	}
+  .template-card:has(.template-card__overlay:focus-visible) {
+    outline: 2px solid var(--verde);
+    outline-offset: 3px;
+  }
 
-	.template-card__thumb {
-		min-height: 190px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 0.4rem;
-		color: white;
-	}
+  .template-card__thumb {
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    color: white;
+  }
 
-	.template-card__thumb span {
-		font-size: 3rem;
-	}
+  .template-card__thumb span {
+    font-size: 3rem;
+  }
 
-	.template-card__thumb small {
-		font-size: 0.78rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		font-weight: 700;
-	}
+  .template-card__thumb small {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
 
-	.template-card__body {
-		padding: 1rem;
-	}
+  .template-card__body {
+    padding: 1rem;
+  }
 
-	.template-card h2 {
-		font-size: 1.2rem;
-		line-height: 1.3;
-	}
+  .template-card h2 {
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
 
-	.template-card__meta {
-		color: var(--verde);
-		font-weight: 700;
-		font-size: 0.86rem;
-		margin: 0.35rem 0 0.55rem;
-	}
+  .template-card__meta {
+    color: var(--verde);
+    font-weight: 700;
+    font-size: 0.86rem;
+    margin: 0.35rem 0 0.55rem;
+  }
 
-	.template-card__desc {
-		color: var(--texto-muted);
-		font-size: 0.95rem;
-		line-height: 1.7;
-	}
+  .template-card__desc {
+    color: var(--texto-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
 
-	.template-card__actions {
-		position: relative;
-		z-index: 2;
-		margin-top: 0.9rem;
-	}
+  .template-card__actions {
+    position: relative;
+    z-index: 2;
+    margin-top: 0.9rem;
+  }
 
-	.templates-empty {
-		margin-top: 1rem;
-		text-align: center;
-		font-weight: 700;
-		color: var(--texto-muted);
-	}
+  .templates-empty {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 700;
+    color: var(--texto-muted);
+  }
 
-	@media (min-width: 560px) {
-		.templates-filters {
-			grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-			gap: 0.8rem 0.9rem;
-		}
-	}
+  @media (min-width: 560px) {
+    .templates-filters {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 0.8rem 0.9rem;
+    }
+  }
 
-	@media (min-width: 860px) {
-		.templates-filters {
-			grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto auto;
-			gap: 0.9rem;
-		}
+  @media (min-width: 860px) {
+    .templates-filters {
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto auto;
+      gap: 0.9rem;
+    }
 
-		.templates-filters__field--search {
-			grid-column: auto;
-		}
-	}
+    .templates-filters__field--search {
+      grid-column: auto;
+    }
+  }
 
-	@media (min-width: 720px) {
-		.templates-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-	}
+  @media (min-width: 720px) {
+    .templates-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
 
-	@media (min-width: 1120px) {
-		.templates-grid {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
-	}
+  @media (min-width: 1120px) {
+    .templates-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
 </style>
 
 <script>
-	const searchInput = document.querySelector('#templates-search');
-	const rubroSelect = document.querySelector('#templates-rubro');
-	const listItems = Array.from(document.querySelectorAll('#templates-grid > li'));
-	const counter = document.querySelector('#templates-count');
-	const emptyState = document.querySelector('#templates-empty');
-	const resetButton = document.querySelector('#templates-reset');
+  const searchInput = document.querySelector("#templates-search");
+  const rubroSelect = document.querySelector("#templates-rubro");
+  const listItems = Array.from(
+    document.querySelectorAll("#templates-grid > li"),
+  );
+  const counter = document.querySelector("#templates-count");
+  const emptyState = document.querySelector("#templates-empty");
+  const resetButton = document.querySelector("#templates-reset");
 
-	function normalize(value) {
-		return (value ?? '').trim().toLocaleLowerCase('es');
-	}
+  function normalize(value) {
+    return (value ?? "").trim().toLocaleLowerCase("es");
+  }
 
-	function applyFilters() {
-		const query = normalize(searchInput?.value);
-		const selectedRubro = normalize(rubroSelect?.value);
-		let visibleCount = 0;
+  function applyFilters() {
+    const query = normalize(searchInput?.value);
+    const selectedRubro = normalize(rubroSelect?.value);
+    let visibleCount = 0;
 
-		for (const item of listItems) {
-			const searchableText = item.dataset.search ?? '';
-			const itemRubro = item.dataset.rubro ?? '';
-			const matchesQuery = !query || searchableText.includes(query);
-			const matchesRubro = !selectedRubro || itemRubro === selectedRubro;
-			const isVisible = matchesQuery && matchesRubro;
+    for (const item of listItems) {
+      const searchableText = item.dataset.search ?? "";
+      const itemRubro = item.dataset.rubro ?? "";
+      const matchesQuery = !query || searchableText.includes(query);
+      const matchesRubro = !selectedRubro || itemRubro === selectedRubro;
+      const isVisible = matchesQuery && matchesRubro;
 
-			item.hidden = !isVisible;
-			if (isVisible) visibleCount += 1;
-		}
+      item.hidden = !isVisible;
+      if (isVisible) visibleCount += 1;
+    }
 
-		if (counter) {
-			counter.textContent = `${visibleCount} de ${listItems.length} rubros`;
-		}
+    if (counter) {
+      counter.textContent = `${visibleCount} de ${listItems.length} rubros`;
+    }
 
-		if (emptyState) {
-			emptyState.hidden = visibleCount > 0;
-		}
-	}
+    if (emptyState) {
+      emptyState.hidden = visibleCount > 0;
+    }
+  }
 
-	searchInput?.addEventListener('input', applyFilters);
-	rubroSelect?.addEventListener('change', applyFilters);
+  searchInput?.addEventListener("input", applyFilters);
+  rubroSelect?.addEventListener("change", applyFilters);
 
-	resetButton?.addEventListener('click', () => {
-		if (searchInput) searchInput.value = '';
-		if (rubroSelect) rubroSelect.value = '';
-		applyFilters();
-		searchInput?.focus();
-	});
+  resetButton?.addEventListener("click", () => {
+    if (searchInput) searchInput.value = "";
+    if (rubroSelect) rubroSelect.value = "";
+    applyFilters();
+    searchInput?.focus();
+  });
 </script>

@@ -1,91 +1,107 @@
-# Mbarete Astro
+# ⚡ Mbarete Digital - Premium Web Platform
 
-Sitio web de **Mbarete Digital** construido con [Astro](https://astro.build/).
-Incluye landing principal, paginas de servicios, seccion de muestras y blog SEO.
+Plataforma web de alto rendimiento construida para **Mbarete Digital** utilizando [Astro](https://astro.build/). Este proyecto ha evolucionado de un sitio estático básico a una aplicación de marketing optimizada con diseño Tier 1, arquitectura modular y rendimiento crítico.
 
-## Requisitos
+---
 
-- Node.js `>= 22.12.0`
-- npm (incluido con Node)
+## 🚀 Características Principales
 
-## Inicio rapido
+- **Arquitectura Modular**: Estilos encapsulados por componente para evitar regresiones visuales.
+- **Glassmorphism UI**: Diseño premium con efectos de desenfoque de fondo, transparencias y sombras dinámicas.
+- **SEO Tier 1**: Inyección de esquemas JSON-LD, metadatos dinámicos y jerarquía semántica completa.
+- **Performance de Élite**: Inlining automático de CSS crítico para eliminar bloqueos de renderizado (FCP/LCP).
+- **Blog Content Experience**: Tipografía curada para lectura prolongada con acentos visuales y listas personalizadas.
+- **Interactive Lead Generation**: Quiz interactivo integrado para captura de leads cualificados.
 
-```bash
-npm install
-npm run dev
-```
+---
 
-El entorno local queda en `http://localhost:4321`.
+## 🛠️ Stack Tecnológico
 
-## Scripts
+- **Core**: Astro v6 (Static Build).
+- **Logic**: Modern JavaScript (Vanilla).
+- **Styling**: Vanilla CSS Modularizado (CSS-in-JS pattern en componentes Astro).
+- **Content**: Markdown con colecciones de contenido (Astro Content Collections).
+- **Optimization**: Vite para el empaquetado y procesamiento de assets.
 
-- `npm run dev`: levanta el entorno de desarrollo.
-- `npm run build`: genera `dist/` y luego crea `dist/sitemap.xml` como alias de `dist/sitemap-index.xml`.
-- `npm run preview`: sirve el build local para validación.
-- `npm run sync:webs-muestras-assets`: sincroniza assets desde `src/pages/muestras/webs-muestras` hacia `public/muestras/webs-muestras` y ajusta `<base href>` de los `index.html` de cada muestra.
-- `npm run astro -- --help`: ayuda del CLI de Astro.
+---
 
-## Estructura del proyecto
+## 📁 Estructura del Proyecto
 
 ```text
 .
-|-- public/                         # assets publicos (incluye muestras sincronizadas)
-|-- scripts/                        # utilidades de build/sync
-|-- src/
-|   |-- components/                 # componentes UI
-|   |-- content/blog/               # articulos markdown del blog
-|   |-- data/                       # configuraciones y datos del sitio
-|   |-- layouts/                    # layouts Astro
-|   |-- pages/                      # rutas del sitio
-|   `-- styles/                     # estilos globales
-|-- astro.config.mjs
-`-- package.json
+├── public/                 # Assets estáticos (imágenes, robots.txt, llms.txt)
+├── scripts/                # Scripts de automatización (syncing, post-build)
+├── src/
+│   ├── components/
+│   │   ├── blog/          # Componentes específicos del sistema de blog (BlogGrid, FeaturedPost)
+│   │   ├── layout/        # Estructura (Navbar, Footer, WhatsAppFloat)
+│   │   ├── ui/            # Elementos de interfaz reutilizables (SEO, BlogCTA)
+│   │   └── forms/         # Sistemas de captura (InteractiveLeadQuiz)
+│   ├── content/
+│   │   └── blog/          # Artículos del blog (.md)
+│   ├── data/               # Configuración centralizada y constantes del negocio
+│   ├── layouts/            # Plantillas BaseLayout y Wrappers
+│   ├── pages/              # Rutas basadas en archivos (Home, Blog, Muestras, FAQ)
+│   └── styles/             # CSS Global (Resets, Variables, Utilidades)
+├── astro.config.mjs        # Configuración de Astro (Optimization & Build)
+└── package.json            # Scripts y dependencias
 ```
 
-## Donde editar cada cosa
-
-- Configuracion global (nombre, contacto, SEO, redes): `src/data/siteConfig.js`
-- Home y paginas principales: `src/pages/index.astro`, `src/pages/faq.astro`, `src/pages/servicios/*`
-- Blog:
-  - entradas: `src/content/blog/*.md`
-  - schema/frontmatter: `src/content.config.ts`
-  - rutas: `src/pages/blog/*`
-- Rubros y servicios:
-  - datos: `src/data/rubros.ts`, `src/data/services.ts`
-  - vistas: `src/pages/muestras/*`, `src/pages/servicios/*`
-
-## Crear un nuevo post del blog
-
-Crear un archivo `.md` en `src/content/blog/` con frontmatter compatible con el schema actual:
-
-```md
----
-title: 'Titulo del post'
-description: 'Resumen corto'
-pubDate: 2026-04-12
-updatedDate: 2026-04-12
-draft: false
-featured: false
-category: 'SEO'
-categorySlug: 'seo'
-tags: ['seo', 'paraguay']
-heroImage: '/blog/mi-imagen.jpg'
 ---
 
-Contenido del articulo...
+## 👨‍💻 Desarrollo
+
+### Instalación
+```bash
+npm install
 ```
 
-Campos obligatorios: `title`, `description`, `pubDate`.
+### Ejecución Local
+```bash
+npm run dev
+```
+Acceso en: `http://localhost:4321` (o el puerto que asigne Astro).
 
-## Build y deploy
+### Comandos de Utilidad
+- `npm run build`: Genera la versión de producción en `dist/`.
+- `npm run preview`: Sirve la carpeta `dist/` localmente para auditorías visuales finales.
+- `npm run sync:webs-muestras-assets`: Sincroniza los assets de las demos interactivas (Muestras). **Esencial antes de publicar.**
 
-1. Ejecutar `npm run build`.
-2. Verificar salida en `dist/`.
-3. Validar localmente con `npm run preview`.
+---
 
-`astro.config.mjs` usa `siteConfig.url` (`https://mbarete.online/`) para sitemap y URLs absolutas.
+## 📝 Guía de Contenido (Blog)
 
-## Notas operativas
+Para crear un nuevo post, añade un archivo `.md` en `src/content/blog/`. 
 
-- El script `sync:webs-muestras-assets` elimina y vuelve a crear `public/muestras/webs-muestras` en cada corrida.
-- Si agregas nuevas muestras HTML, corre ese script antes de probar o publicar.
+### Frontmatter Sugerido para SEO Premium:
+```yaml
+---
+title: 'Cómo potenciar tu negocio en Paraguay'
+description: 'Resumen optimizado para buscadores que incite al clic'
+pubDate: 2026-04-18
+category: 'Estrategia'
+categorySlug: 'estrategia'
+tags: ['web', 'ventas', 'paraguay']
+featured: true # Si es true, aparecerá destacado en el home del blog
+heroImage: '/og-image.jpg' # Imagen principal (1200x630 recomendado)
+---
+```
+
+---
+
+## ⚡ Optimizaciones de Rendimiento
+
+El sitio está configurado para alcanzar puntuaciones de 90+ en Lighthouse:
+- **Critical Path**: Los estilos pequeños se inyectan directamente en el HTML (`inlineStylesheets: 'always'`).
+- **Lazy Loading**: Imágenes optimizadas automáticamente mediante el componente de imagen de Astro.
+- **Z-Index System**: Capas organizadas para evitar solapamientos en menús móviles y elementos flotantes.
+
+---
+
+## 📌 Notas de Mantenimiento
+
+- **Estilos**: Al crear nuevos componentes, prefiere usar un bloque `<style>` local. Reserva `global.css` solo para variables y tokens globales.
+- **Sitemap**: El script de post-build garantiza que `sitemap.xml` siempre dirija correctamente al índice indexado.
+
+---
+© 2026 Mbarete Digital. Built with ⚡ in Paraguay.
