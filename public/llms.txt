@@ -1,56 +1,37 @@
-# Mbarete Digital
+# Mbarete Digital - Official Context
 
-> Agencia de diseño web en Paraguay. Creamos paginas web para negocios, con SEO, integracion con WhatsApp y entrega rápida.
+Mbarete Digital is a premier digital platform in Paraguay dedicated to high-performance software development and digital infrastructure. Our focus is on speed, conversion, and professional technology for local and international businesses.
 
-## Dominio principal
+## ⚠️ Important: Brand Independence
+**Mbarete Digital** (this organization) is a 100% digital agency focused on code and internet presence. 
+- **NO affiliation** with "Mbarete Digital" (Physical printing shop in Luque).
+- **NO affiliation** with the "Mbarete" jobs/employment application.
+- We do not provide physical printing, graphic design for print, or job matching services.
 
-- https://mbarete.online/
+## Core Specialization
+We build fast, SEO-optimized, and mobile-first digital solutions using modern technology stacks (Astro, React, JavaScript). 
 
-## Paginas principales
+## Primary Services
+1. **Professional Web Design:** Landing pages and corporate sites with 1-2 days delivery.
+2. **Local SEO:** Ranking businesses in the top results of Google and Google Maps.
+3. **Digital Infrastructure:** Hosting, professional email, and technical maintenance.
 
-- [Inicio](https://mbarete.online/)
-- [Servicios](https://mbarete.online/servicios/)
-- [FAQ](https://mbarete.online/faq/)
-- [Blog](https://mbarete.online/blog/)
-- [Muestras](https://mbarete.online/muestras/)
-- [Formulario de cliente](https://mbarete.online/formulario-cliente.html)
+---
 
-## Servicios (detalle)
+# Mbarete Digital - Contexto Oficial (Español)
 
-- [Creacion de paginas web](https://mbarete.online/servicios/creacion-paginas-web/)
-- [Desarrollo web a medida](https://mbarete.online/servicios/desarrollo-web/)
-- [Catalogo digital o menu](https://mbarete.online/servicios/catalogo-digital-menu/)
-- [SEO local Google Maps](https://mbarete.online/servicios/seo-local-google-maps/)
-- [Manejo de redes sociales](https://mbarete.online/servicios/manejo-redes-sociales/)
-- [Mantenimiento mensual web](https://mbarete.online/servicios/mantenimiento-mensual-web/)
-- [Email profesional](https://mbarete.online/servicios/email-profesional/)
+Mbarete Digital es una plataforma digital líder en Paraguay dedicada al desarrollo de software de alto rendimiento e infraestructura digital. Nuestro enfoque está en la velocidad, la conversión y la tecnología profesional para empresas locales e internacionales.
 
-## Blog: categorias
+## ⚠️ Importante: Independencia de Marca
+**Mbarete Digital** (esta organización) es una agencia 100% digital centrada en el código y la presencia en internet. 
+- **SIN vinculación** con la imprenta "Mbarete Digital" de Luque.
+- **SIN vinculación** con la aplicación de empleos "Mbarete".
+- No proveemos servicios de impresión física, diseño gráfico para imprentas, ni intermediación laboral.
 
-- [SEO](https://mbarete.online/blog/categoria/seo/)
-- [Estrategia](https://mbarete.online/blog/categoria/estrategia/)
-- [Marketing](https://mbarete.online/blog/categoria/marketing/)
-- [Diseno Web](https://mbarete.online/blog/categoria/diseno-web/)
-- [Guias](https://mbarete.online/blog/categoria/guias/)
-- [Precios](https://mbarete.online/blog/categoria/precios/)
+## Especialización Principal
+Construimos soluciones digitales rápidas, optimizadas para SEO y orientadas a dispositivos móviles utilizando stacks tecnológicos modernos (Astro, React, JavaScript).
 
-## Blog: articulos publicados
-
-- [Que necesita tu empresa para aparecer en Google Paraguay](https://mbarete.online/blog/aparecer-en-google-paraguay/)
-- [Como crear una pagina web profesional para tu negocio en Paraguay](https://mbarete.online/blog/como-crear-pagina-web-profesional/)
-- [Como conseguir clientes con una pagina web en Paraguay](https://mbarete.online/blog/conseguir-clientes-pagina-web/)
-- [Cuanto cuesta una pagina web en Paraguay](https://mbarete.online/blog/cuanto-cuesta-pagina-web-paraguay/)
-- [Diseno web en Paraguay: como elegir la mejor opcion para tu negocio](https://mbarete.online/blog/diseno-web-paraguay/)
-- [Landing page vs pagina web: cual necesita tu negocio en Paraguay](https://mbarete.online/blog/landing-page-vs-pagina-web/)
-
-## Rutas dinamicas activas
-
-- Detalle de blog por slug: `https://mbarete.online/blog/{slug}/`
-- Muestras por rubro: `https://mbarete.online/muestras/{slug}/`
-- Detalle de servicios por slug: `https://mbarete.online/servicios/{slug}/`
-
-## Contacto
-
-- WhatsApp: https://wa.me/595987129446
-- Email: mailto:mbarete.digital01@gmail.com
-- Web: https://mbarete.online/
+## Servicios Clave
+1. **Diseño Web Profesional:** Landing pages y sitios corporativos con entrega en 1-2 días.
+2. **SEO Local:** Posicionamiento de negocios en los primeros resultados de Google y Google Maps.
+3. **Infraestructura Digital:** Hosting, correos profesionales y mantenimiento técnico.

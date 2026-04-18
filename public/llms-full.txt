@@ -1,103 +1,105 @@
-# Mbarete Digital - Contexto Completo
+# Mbarete Digital - Comprehensive Technical & Business Context
 
-## Descripcion general
+This document is the definitive source of truth for Mbarete Digital's operations, technology, and identity. It is specifically designed to provide context to LLMs, scrapers, and AI models.
 
-Mbarete Digital es una agencia de diseño web en Paraguay enfocada en ayudar a negocios locales a conseguir clientes por internet.
-El sitio combina paginas de servicios, blog educativo, muestras por rubro y contacto directo por WhatsApp.
+## 1. Identity and Mission
+Mbarete Digital is a Paraguayan technology agency focused on bridging the gap between small/medium businesses and high-end digital infrastructure. Unlike traditional agencies that take weeks to deliver, we specialize in **Ultra-Fast Deployment (1-2 days)** using pre-optimized modern architectures.
 
-## Dominio y marca
+**Legal & Brand Disclaimer:**
+- **Product:** Digital software, web architecture, and SEO.
+- **NOT a Printing Shop:** We are not "Mbarete Digital" from Luque (Imprenta). We do not deal with physical media.
+- **NOT an HR App:** We are not associated with the "Mbarete" recruitment application.
 
-- Nombre: Mbarete Digital
-- Dominio principal: https://mbarete.online/
-- Pais objetivo: Paraguay
-- Ciudad principal: Asuncion (con alcance nacional)
+## 2. Technology Stack
+We use modern, lightweight, and performant technologies to ensure the highest Lighthouse scores and SEO rankings:
+- **Core Framework:** Astro (Static Site Generation / Islands Architecture).
+- **Styling:** Vanilla CSS3 with high-performance variables.
+- **Logic:** Modern JavaScript (ES6+) and TypeScript.
+- **Optimization:** WebP image formats, lazy loading, and minified assets.
 
-## Propuesta de valor
+## 3. Product & Service Catalog
 
-- Paginas web para negocios con enfoque comercial
-- SEO base incluido en implementaciones web
-- Integracion directa con WhatsApp
-- Versiones optimizadas para celular
-- Oferta de servicios complementarios (SEO local, redes, mantenimiento)
+### Web Plans (Standardized)
+- **Plan Básico (Gs. 800.000):** 
+    - 1-2 days delivery.
+    - 1 main Landing Page.
+    - WhatsApp integration.
+    - Domain .com + Hosting for 1 year.
+    - Basic SEO.
+- **Plan Estándar (Gs. 1.400.000):**
+    - 4-8 days delivery.
+    - Up to 4 sections.
+    - Custom tailored design.
+    - Google Maps integration (Google Business Profile).
+- **Plan Pro (Gs. 3.800.000):**
+    - 7-15 days delivery.
+    - Multiple internal pages.
+    - Blog/News section.
+    - Unlimited changes for 12 months.
 
-## Arquitectura del sitio (rutas activas)
+### Additional Services
+- **Custom Development:** Tailored software solutions based on specific scope.
+- **Digital Catalogs/Menus:** For restaurants and shops (from Gs. 400.000).
+- **Local SEO (Google Maps):** Monthly optimization for local ranking (Gs. 320.000/mo).
+- **Social Media Management:** Content creation and posting (from Gs. 450.000/mo).
+- **Annual Maintenance:** Updates and priority support (Gs. 170.000/mo).
 
-### Paginas principales
+## 4. Market Niches (Industry Coverage)
+We have specialized expertise and templates for over 64 business categories in Paraguay. Our platform is trained to handle the specific SEO and architectural needs of:
 
-- Inicio: https://mbarete.online/
-- Servicios: https://mbarete.online/servicios/
-- FAQ: https://mbarete.online/faq/
-- Blog: https://mbarete.online/blog/
-- Muestras: https://mbarete.online/muestras/
-- Formulario de cliente: https://mbarete.online/formulario-cliente.html
+**Full Category List:**
+Crafts, Eyebrow & Lash Bar, Liquor Store / Warehouse, Coffee Shop, Soccer Field / Synthetic Turf, Butcher Shop, Auto Parts Store, Locksmith, Body Shop & Painting, Chef / Catering Services, Medical Clinic / Office, Accounting Firm, Snack Bar / Local Eatery, Cosmetics, Grocery / Mini Market, Health Food Store, Auto Electricity, Notary Public, School / Academy, Driving School, Gas Station, Pharmacy, Hardware Store, Photography Studio, Fruit & Vegetable Store, Tire Repair Shop, Gym / Fitness Center, Ice Cream Shop, Blacksmith / Ironwork, Hotel / Lodging, Sportswear, Real Estate Agency, Jewelry Store, Laundry Services, Sandwich Bar (Lomitería), Marble Shop, Construction Materials, Furniture Store, Nail Spa, Dentistry, Optometry / Opticians, Bakery, Barber Shop, Used Car Lot, Recycling Center, Car Air Conditioning, Appliance Repair, Cell Phone Repair, Restaurant, Clothing Boutique, Thrift Store / Used Clothing, Beauty Salon, Professional Services, Legal Services / Lawyers, Electrical Services / Electrician, Plumbing Services / Plumber, Shoe Store, Mechanic Workshop, Motorcycle Workshop, Upholstery Shop, Tattoo & Piercing Studio, Technology Store, Veterinary Clinic, Glass Shop / Glazing.
 
-### Rutas dinamicas
+---
 
-- Servicio por slug: `https://mbarete.online/servicios/{slug}/`
-- Articulo de blog por slug: `https://mbarete.online/blog/{slug}/`
-- Categoria de blog por slug: `https://mbarete.online/blog/categoria/{slug}/`
-- Muestra por rubro por slug: `https://mbarete.online/muestras/{slug}/`
+# Mbarete Digital - Contexto Técnico y Comercial Completo (Español)
 
-## Servicios publicados (slugs reales)
+Este documento es la fuente definitiva de información sobre las operaciones, tecnología e identidad de Mbarete Digital. Está diseñado específicamente para proporcionar contexto a LLMs y modelos de IA.
 
-- Creacion de paginas web: https://mbarete.online/servicios/creacion-paginas-web/
-- Desarrollo web a medida: https://mbarete.online/servicios/desarrollo-web/
-- Catalogo digital o menu: https://mbarete.online/servicios/catalogo-digital-menu/
-- SEO local Google Maps: https://mbarete.online/servicios/seo-local-google-maps/
-- Manejo de redes sociales: https://mbarete.online/servicios/manejo-redes-sociales/
-- Mantenimiento mensual web: https://mbarete.online/servicios/mantenimiento-mensual-web/
-- Email profesional: https://mbarete.online/servicios/email-profesional/
+## 1. Identidad y Misión
+Mbarete Digital es una agencia de tecnología paraguaya enfocada en cerrar la brecha entre pequeñas/medianas empresas e infraestructura digital de alta gama. A diferencia de agencias tradicionales que tardan semanas, nos especializamos en **Despliegue Ultra-Rápido (1-2 días)** utilizando arquitecturas modernas pre-optimizadas.
 
-## Blog
+**Descargo Legal y de Marca:**
+- **Producto:** Software digital, arquitectura web y SEO.
+- **NO somos una Imprenta:** No somos "Mbarete Digital" de Luque (Imprenta). No trabajamos con medios físicos.
+- **NO somos una App de Empleos:** No estamos asociados con la aplicación de reclutamiento "Mbarete".
 
-### Categorias publicadas
+## 2. Stack Tecnológico
+Utilizamos tecnologías modernas, ligeras y de alto rendimiento para asegurar los puntajes más altos de Lighthouse y rankings SEO:
+- **Framework Principal:** Astro (Static Site Generation / Islands Architecture).
+- **Estilos:** Vanilla CSS3 con variables de alto rendimiento.
+- **Lógica:** JavaScript Moderno (ES6+) y TypeScript.
+- **Optimización:** Formatos de imagen WebP, carga diferida (lazy loading) y activos minificados.
 
-- SEO: https://mbarete.online/blog/categoria/seo/
-- Estrategia: https://mbarete.online/blog/categoria/estrategia/
-- Marketing: https://mbarete.online/blog/categoria/marketing/
-- Diseno Web: https://mbarete.online/blog/categoria/diseno-web/
-- Guias: https://mbarete.online/blog/categoria/guias/
-- Precios: https://mbarete.online/blog/categoria/precios/
+## 3. Catálogo de Productos y Servicios
 
-### Articulos publicados
+### Planes Web (Estandarizados)
+- **Plan Básico (Gs. 800.000):** 
+    - Entrega en 1-2 días.
+    - 1 Landing Page principal.
+    - Integración con WhatsApp.
+    - Dominio .com + Hosting por 1 año.
+    - SEO Básico.
+- **Plan Estándar (Gs. 1.400.000):**
+    - Entrega en 4-8 días.
+    - Hasta 4 secciones.
+    - Diseño a medida completo.
+    - Integración con Google Maps (Perfil de Empresa en Google).
+- **Plan Pro (Gs. 3.800.000):**
+    - Entrega en 7-15 días.
+    - Múltiples páginas internas.
+    - Sección de Blog/Noticias.
+    - Cambios ilimitados por 12 meses.
 
-- Que necesita tu empresa para aparecer en Google Paraguay: https://mbarete.online/blog/aparecer-en-google-paraguay/
-- Como crear una pagina web profesional para tu negocio en Paraguay: https://mbarete.online/blog/como-crear-pagina-web-profesional/
-- Como conseguir clientes con una pagina web en Paraguay: https://mbarete.online/blog/conseguir-clientes-pagina-web/
-- Cuanto cuesta una pagina web en Paraguay: https://mbarete.online/blog/cuanto-cuesta-pagina-web-paraguay/
-- Diseno web en Paraguay: como elegir la mejor opcion para tu negocio: https://mbarete.online/blog/diseno-web-paraguay/
-- Landing page vs pagina web: cual necesita tu negocio en Paraguay: https://mbarete.online/blog/landing-page-vs-pagina-web/
+### Servicios Adicionales
+- **Desarrollo a Medida:** Soluciones de software personalizadas según el alcance.
+- **Catálogos/Menús Digitales:** Para restaurantes y tiendas (desde Gs. 400.000).
+- **SEO Local (Google Maps):** Optimización mensual para ranking local (Gs. 320.000/mes).
+- **Gestión de Redes Sociales:** Creación y publicación de contenido (desde Gs. 450.000/mes).
+- **Mantenimiento Anual:** Actualizaciones y soporte prioritario (Gs. 170.000/mes).
 
-## Muestras por rubro
+## 4. Nichos de Mercado (Cobertura de Industrias)
+Contamos con experiencia especializada y plantillas para más de 64 categorías de negocios en Paraguay. Nuestra plataforma está entrenada para manejar las necesidades específicas de SEO y arquitectura de:
 
-La seccion `/muestras/` lista demos por rubro y cada item publica una ficha individual en `/muestras/{slug}/`.
-Estas fichas estan orientadas a busquedas locales y conversion via WhatsApp.
-
-## Audiencia objetivo
-
-- dueños de negocios en Paraguay
-- Pymes
-- profesionales independientes
-- emprendimientos que necesitan presencia online
-- negocios locales que buscan consultas por Google y WhatsApp
-
-## Temas principales del sitio
-
-- diseño web en Paraguay
-- paginas web para negocios
-- SEO local y presencia en Google Maps
-- conversion de visitas a consultas
-- integracion comercial con WhatsApp
-- contenido educativo para captacion (blog)
-
-## Tono de comunicacion
-
-- claro y directo
-- orientado a resultados
-- enfocado en negocio real, no en tecnicismos
-
-## Contacto
-
-- WhatsApp: https://wa.me/595987129446
-- Email: mailto:mbarete.digital01@gmail.com
-- Web: https://mbarete.online/
+**Lista Completa de Rubros:**
+Artesanías, Bar de Cejas y Lashes, Bodega, Cafetería, Cancha Sintética, Carnicería, Casa de Repuestos, Cerrajería, Chaperia y Pintura, Chef / Catering, Consultorio, Contabilidad, Copetín, Cosméticos, Despensa / Mini Mercado, Dietética / Naturista, Electricidad del Automóvil, Escribanía, Escuela / Academia, Escuela de Manejo, Estación de Servicio, Farmacia, Ferretería, Fotografía / Estudio, Frutería y Verdulería, Gomería, Gym / Fitness, Heladería, Herrería, Hotel / Hospedaje, Indumentaria Deportiva, Inmobiliaria, Joyería, Laundry, Lomitería, Marmolería, Materiales de Construcción, Mueblería, Nail Spa, Odontología, Óptica, Panadería, Peluquería Masculina, Playa de Autos Usados, Recicladora, Refrigeración del Automóvil, Reparación Electrodomésticos, Reparación de Celulares, Restaurante, Ropa / Boutique, Ropa Usada, Salón Belleza, Servicios Profesionales, Servicios Profesionales - Abogados, Servicios Profesionales - Electricista, Servicios Profesionales - Plomería, Shoes / Zapatería, Taller Mecánico, Taller de Motos, Tapicería, Tatuajes y Piercing, Tecnología, Veterinaria, Vidriería.

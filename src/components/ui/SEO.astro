@@ -33,7 +33,14 @@ const professionalServiceSchema = {
 	url: siteConfig.url,
 	logo: `${siteConfig.url}favicon.svg`,
 	image: siteConfig.seo.ogImage,
-	description: siteConfig.seo.defaultDescription,
+	description:
+		'Plataforma de desarrollo de software e infraestructura digital en Paraguay. Especialistas en creación de sitios web, SEO local y soluciones tecnológicas profesionales.',
+	serviceType: [
+		'Software Development',
+		'Web Design',
+		'Local SEO',
+		'Digital Infrastructure',
+	],
 	telephone: `+${siteConfig.whatsapp}`,
 	email: siteConfig.email,
 	priceRange: `${planBasico.price} - ${planPro.price}`,
@@ -53,7 +60,14 @@ const professionalServiceSchema = {
 	},
 	openingHoursSpecification: {
 		'@type': 'OpeningHoursSpecification',
-		dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+		dayOfWeek: [
+			'Monday',
+			'Tuesday',
+			'Wednesday',
+			'Thursday',
+			'Friday',
+			'Saturday',
+		],
 		opens: '08:00',
 		closes: '18:00',
 	},
@@ -68,6 +82,8 @@ const organizationSchema = {
 	name: siteConfig.name,
 	url: siteConfig.url,
 	logo: `${siteConfig.url}favicon.svg`,
+	description:
+		'Agencia paraguaya de soluciones web y desarrollo de software. Líder en infraestructura digital rápida para PYMES y empresas.',
 	contactPoint: {
 		'@type': 'ContactPoint',
 		telephone: `+${siteConfig.whatsapp}`,
