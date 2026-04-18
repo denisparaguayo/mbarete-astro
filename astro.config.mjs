@@ -7,4 +7,7 @@ import { siteConfig } from './src/data/siteConfig.js';
 export default defineConfig({
 	site: siteConfig.url,
 	integrations: [sitemap()],
+	build: {
+		inlineStylesheets: 'always',
+	},
 });
