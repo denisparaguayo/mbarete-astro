@@ -1,0 +1,352 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig, getWhatsAppUrl } from "../data/siteConfig";
+import { getServicePlanBySlugOrThrow, getGsAmount } from "../data/services";
+
+const planBasico = getServicePlanBySlugOrThrow("basico");
+const planEstandar = getServicePlanBySlugOrThrow("estandar");
+const planPro = getServicePlanBySlugOrThrow("pro");
+
+const basicAmount = getGsAmount(planBasico.price);
+const standardAmount = getGsAmount(planEstandar.price);
+const proAmount = getGsAmount(planPro.price);
+
+const comparisonFeatures = [
+  {
+    name: "Páginas/Secciones",
+    basico: "1 (Landing Page)",
+    estandar: "Hasta 4",
+    pro: "Ilimitadas",
+  },
+  {
+    name: "Entrega Estimada",
+    basico: "1-2 días",
+    estandar: "4-8 días",
+    pro: "7-15 días",
+  },
+  {
+    name: "Dominio .com (1er año)",
+    basico: "✅ Sí",
+    estandar: "✅ Sí",
+    pro: "✅ Sí",
+  },
+  {
+    name: "Hosting (12 meses)",
+    basico: "✅ Sí",
+    estandar: "✅ Sí",
+    pro: "✅ Sí",
+  },
+  {
+    name: "Botón WhatsApp Animado",
+    basico: "✅ Sí",
+    estandar: "✅ Sí",
+    pro: "✅ Sí",
+  },
+  {
+    name: "SEO Inicial / Indexación",
+    basico: "✅ Básico",
+    estandar: "✅ Avanzado",
+    pro: "✅ Total",
+  },
+  {
+    name: "Google Maps / Business",
+    basico: "❌ No",
+    estandar: "✅ Sí",
+    pro: "✅ Sí",
+  },
+  { name: "Cambios Mensuales", basico: "1", estandar: "3", pro: "Ilimitados" },
+  {
+    name: "Formulario a Email",
+    basico: "❌ No",
+    estandar: "✅ Sí",
+    pro: "✅ Sí",
+  },
+  {
+    name: "Soporte Prioritario",
+    basico: "Normal",
+    estandar: "Normal",
+    pro: "✅ Prioritario",
+  },
+];
+
+const seoTitle = "Planes y Precios de Diseño Web | Mbarete Digital";
+const seoDescription =
+  "Comparativa detallada de nuestros planes de diseño web en Paraguay. Desde Gs. 800.000, con dominio, hosting y WhatsApp incluido.";
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  canonical={`${siteConfig.url}/planes/`}
+>
+  <section class="planes-hero section--dark">
+    <div class="container">
+      <div class="planes-hero__content fade-up">
+        <span class="badge badge--py">Inversión transparente</span>
+        <h1>Elegí el plan que impulsará tu negocio</h1>
+        <p>
+          Precios claros, sin costos ocultos. Todos nuestros planes incluyen lo
+          necesario para estar en internet hoy mismo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" id="precios-cards">
+    <div class="container">
+      <div class="plans-grid">
+        <article class="plan-card fade-up" style="--delay:0">
+          <div class="plan-card__header">
+            <h3 class="plan-card__name">Plan Básico</h3>
+            <div class="plan-card__price">
+              <span class="plan-card__currency">Gs.</span>
+              <span class="plan-card__amount">{basicAmount}</span>
+            </div>
+          </div>
+          <ul class="plan-card__features" role="list">
+            <li>✅ 1 página (Landing Page)</li>
+            <li>✅ Entrega en 24-48hs</li>
+            <li>✅ WhatsApp y SEO Básico</li>
+          </ul>
+          <a
+            href={getWhatsAppUrl("Hola! Me interesa el Plan Básico")}
+            class="btn btn--primary btn--full">Elegir Básico</a
+          >
+        </article>
+
+        <article
+          class="plan-card plan-card--featured fade-up"
+          style="--delay:1"
+        >
+          <div class="plan-card__badge">Más popular</div>
+          <div class="plan-card__header">
+            <h3 class="plan-card__name">Plan Estándar</h3>
+            <div class="plan-card__price">
+              <span class="plan-card__currency">Gs.</span>
+              <span class="plan-card__amount">{standardAmount}</span>
+            </div>
+          </div>
+          <ul class="plan-card__features" role="list">
+            <li>✅ Hasta 4 secciones</li>
+            <li>✅ Google Maps incluido</li>
+            <li>✅ Formulario de contacto</li>
+          </ul>
+          <a
+            href={getWhatsAppUrl("Hola! Me interesa el Plan Estándar")}
+            class="btn btn--primary btn--full">Elegir Estándar</a
+          >
+        </article>
+
+        <article class="plan-card fade-up" style="--delay:2">
+          <div class="plan-card__header">
+            <h3 class="plan-card__name">Plan Pro</h3>
+            <div class="plan-card__price">
+              <span class="plan-card__currency">Gs.</span>
+              <span class="plan-card__amount">{proAmount}</span>
+            </div>
+          </div>
+          <ul class="plan-card__features" role="list">
+            <li>✅ Multidepto/Servicios</li>
+            <li>✅ Cambios Ilimitados</li>
+            <li>✅ Hosting Premium</li>
+          </ul>
+          <a
+            href={getWhatsAppUrl("Hola! Me interesa el Plan Pro")}
+            class="btn btn--primary btn--full">Elegir Pro</a
+          >
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container">
+      <h2 class="section__title fade-up">Comparativa Detallada</h2>
+      <p class="section__subtitle fade-up">
+        Revisá punto por punto qué incluye cada opción para tomar la mejor
+        decisión.
+      </p>
+
+      <div class="table-container fade-up">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Característica</th>
+              <th>Básico</th>
+              <th>Estandar</th>
+              <th>Pro</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              comparisonFeatures.map((f) => (
+                <tr>
+                  <td>
+                    <strong>{f.name}</strong>
+                  </td>
+                  <td>{f.basico}</td>
+                  <td>{f.estandar}</td>
+                  <td>{f.pro}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cta">
+    <div class="container container--narrow text-center flex-centered">
+      <h2 class="section__title section__title--light">
+        ¿Tenés dudas sobre qué plan elegir?
+      </h2>
+      <p class="section__subtitle section__subtitle--light">
+        Escribinos y te asesoramos sin compromiso sobre cuál es la mejor opción
+        para tu rubro.
+      </p>
+      <a
+        href={getWhatsAppUrl("Hola! Tengo dudas sobre los planes comerciales")}
+        class="btn btn--white btn--xl">Chatear con un asesor</a
+      >
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .planes-hero {
+    padding: 10rem 0 6rem;
+    background: radial-gradient(
+      circle at center,
+      #0f172a 0%,
+      var(--azul-oscuro) 100%
+    );
+    text-align: center;
+  }
+  .planes-hero .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .planes-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin: 1.5rem 0;
+    line-height: 1.1;
+    font-weight: 900;
+    color: var(--blanco);
+  }
+  .planes-hero p {
+    font-size: 1.25rem;
+    color: var(--texto-light);
+
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  /* Plan cards style overrides from index for this page context */
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: -2rem;
+  }
+  .plan-card {
+    background: var(--blanco);
+    border: 1px solid var(--gris-medio);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-md);
+  }
+  .plan-card--featured {
+    border: 2px solid var(--verde);
+    position: relative;
+    transform: scale(1.05);
+    z-index: 2;
+  }
+  .plan-card__badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--verde);
+    color: var(--blanco);
+    padding: 4px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .plan-card__name {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .plan-card__price {
+    margin-bottom: 1.5rem;
+  }
+  .plan-card__amount {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--azul-oscuro);
+  }
+  .plan-card__features {
+    margin: 1.5rem 0 2rem;
+    flex: 1;
+  }
+  .plan-card__features li {
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  /* Table styling */
+  .table-container {
+    overflow-x: auto;
+    background: var(--blanco);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+  }
+  .comparison-table th,
+  .comparison-table td {
+    padding: 1.2rem;
+    text-align: left;
+    border-bottom: 1px solid var(--gris-medio);
+  }
+  .comparison-table th {
+    background: var(--gris-claro);
+    font-weight: 700;
+    color: var(--azul-oscuro);
+  }
+  .comparison-table tr:hover {
+    background: #fbfdff;
+  }
+  .comparison-table td:not(:first-child) {
+    text-align: center;
+  }
+  .text-center {
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .plan-card--featured {
+      transform: none;
+    }
+    .plans-grid {
+      margin-top: 2rem;
+    }
+  }
+
+  .flex-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

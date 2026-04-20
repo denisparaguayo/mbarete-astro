@@ -1,0 +1,201 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig, getWhatsAppUrl } from "../data/siteConfig";
+import { getServiceBySlugOrThrow } from "../data/services";
+import Testimonials from "../components/sections/Testimonials.astro";
+
+const seoService = getServiceBySlugOrThrow("seo-local-google-maps");
+
+const seoTitle = "Aparecer en Google Maps y SEO Local | Mbarete Digital";
+const seoDescription = "Mejorá la visibilidad de tu negocio en Google Maps. Atraé clientes locales en Paraguay con nuestro servicio de SEO mensual. Gs. 320.000 / mes.";
+---
+
+<BaseLayout title={seoTitle} description={seoDescription} canonical={`${siteConfig.url}/seo-google-negocios/`}>
+  <section class="seo-hero section--dark">
+    <div class="container text-center fade-up">
+      <span class="badge badge--status">📍 Dominá tu zona</span>
+      <h1>Aparecé primero en <span class="text-highlight">Google Maps</span></h1>
+      <p>Hacemos que tus clientes te encuentren cuando buscan lo que ofrecés en su zona. Optimizamos tu ficha de Google Business y tu web para el éxito local.</p>
+      <div class="pricing-badge">
+        Solo <strong>{seoService.price}</strong>
+      </div>
+      <a href={getWhatsAppUrl("Hola! Me interesa el servicio de SEO Local para mi negocio")} class="btn btn--primary btn--xl">Activar mi SEO Local</a>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="container">
+      <h2 class="section__title fade-up">¿Por qué invertir en SEO Local?</h2>
+      <p class="section__subtitle fade-up">El 46% de todas las búsquedas en Google tienen una intención local.</p>
+      
+      <div class="seo-benefits">
+        <div class="seo-card fade-up">
+          <div class="seo-card__icon">🗺️</div>
+          <h3>Visibilidad en el Mapa</h3>
+          <p>Tu negocio aparecerá en el "Local Pack" de Google cuando busquen servicios en tu área.</p>
+        </div>
+        <div class="seo-card fade-up" style="--delay:1">
+          <div class="seo-card__icon">⭐</div>
+          <h3>Gestión de Reputación</h3>
+          <p>Ayudamos a potenciar tus reseñas y mejorar la confianza de los nuevos clientes.</p>
+        </div>
+        <div class="seo-card fade-up" style="--delay:2">
+          <div class="seo-card__icon">📈</div>
+          <h3>Tráfico Calificado</h3>
+          <p>Recibirás llamadas, visitas y mensajes de personas que están listas para comprar ahora.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container">
+      <div class="seo-explainer fade-up">
+        <div class="explainer-content">
+          <h2>¿Qué incluye el servicio mensual?</h2>
+          <ul class="check-list">
+            <li>✅ Optimización de Perfil de Negocio en Google (ex-MyBusiness).</li>
+            <li>✅ Investigación de palabras clave locales por ciudad.</li>
+            <li>✅ Auditoría y ajustes de SEO en tu sitio web.</li>
+            <li>✅ Publicaciones semanales en tu ficha de Google.</li>
+            <li>✅ Reporte mensual de llamadas y clics recibidos.</li>
+          </ul>
+        </div>
+        <div class="explainer-visual">
+          <div class="maps-mockup">
+             <div class="mockup-header">Asunción, PY · Cerca mío</div>
+             <div class="mockup-item active">⚡ Mbarete Digital - Rank #1</div>
+             <div class="mockup-item">Competencia A</div>
+             <div class="mockup-item">Competencia B</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <section class="section section--white">
+    <div class="container text-center flex-centered">
+      <h2 class="section__title">Empezá a recibir más llamadas hoy</h2>
+      <p class="section__subtitle">El SEO es una inversión a largo plazo, pero los ajustes locales dan resultados en semanas.</p>
+      <a href={getWhatsAppUrl("Hola! Quiero empezar con el plan de SEO Mensual")} class="btn btn--primary btn--lg">Contratar Plan SEO</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .seo-hero {
+    padding: 10rem 0 6rem;
+    background: radial-gradient(circle at center, #0f172a 0%, var(--azul-oscuro) 100%);
+    text-align: center;
+  }
+  .seo-hero .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .seo-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin: 1.5rem 0;
+    line-height: 1.1;
+    font-weight: 900;
+    color: var(--blanco);
+  }
+  .text-highlight { color: var(--verde-claro); }
+  .seo-hero p {
+    font-size: 1.2rem;
+    color: var(--texto-light);
+    max-width: 700px;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+  .pricing-badge {
+    background: rgba(255, 255, 255, 0.05);
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--texto-light);
+  }
+  .pricing-badge strong { color: var(--verde-claro); font-size: 1.4rem; }
+  .seo-hero .btn {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .seo-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .seo-card {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: var(--radius-xl);
+    background: var(--gris-claro);
+    transition: background var(--transition);
+  }
+  .seo-card:hover { background: #f1f5f9; }
+  .seo-card__icon { font-size: 3rem; margin-bottom: 1.5rem; }
+
+  .seo-explainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (min-width: 992px) {
+    .seo-explainer { grid-template-columns: 1fr 1fr; }
+  }
+
+  .check-list {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1rem;
+  }
+  .check-list li {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .maps-mockup {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--gris-medio);
+  }
+  .mockup-header {
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+  .mockup-item {
+    padding: 15px;
+    border-bottom: 1px solid var(--gris-claro);
+    font-weight: 500;
+  }
+  .mockup-item.active {
+    background: #f0fdf4;
+    color: var(--verde);
+    font-weight: 700;
+    border-radius: 8px;
+    border: 1px solid var(--verde-claro);
+  }
+
+  .flex-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

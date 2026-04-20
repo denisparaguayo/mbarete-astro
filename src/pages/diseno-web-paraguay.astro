@@ -1,0 +1,196 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig, getWhatsAppUrl } from "../data/siteConfig";
+import Rubros from "../components/sections/Rubros.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+
+const seoTitle = "Diseño Web Profesional en Paraguay | Mbarete Digital";
+const seoDescription = "Diseño web profesional para negocios en Paraguay. Páginas rápidas, optimizadas para SEO y listas para vender por WhatsApp. Entrega en 24-48 horas.";
+---
+
+<BaseLayout title={seoTitle} description={seoDescription} canonical={`${siteConfig.url}/diseno-web-paraguay/`}>
+  <section class="local-hero section--dark">
+    <div class="container grid-hero">
+      <div class="local-hero__text fade-up">
+        <span class="badge badge--blog">🇵🇾 Líderes en Paraguay</span>
+        <h1>Diseño web paraguayo que <span class="text-gradient">genera ventas</span></h1>
+        <p>No solo hacemos páginas bonitas, construimos herramientas comerciales que posicionan tu negocio en Asunción, Luque, CDE y todo el país.</p>
+        <div class="hero-actions">
+          <a href={getWhatsAppUrl("Hola! Me interesa diseño web para mi negocio en Paraguay")} class="btn btn--primary btn--lg">Solicitar Presupuesto Gratis</a>
+          <a href="/muestras/" class="btn btn--outline-white btn--lg">Ver ejemplos por rubro</a>
+        </div>
+      </div>
+      <div class="local-hero__visual fade-up" style="--delay:2">
+        <div class="stats-float">
+          <div class="stat-bubble">
+            <strong>120+</strong>
+            <small>Negocios locales</small>
+          </div>
+          <div class="stat-bubble">
+            <strong>24hs</strong>
+            <small>Entrega mínima</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container">
+      <div class="benefits-grid">
+        <div class="benefit-card fade-up">
+          <span class="benefit-icon">📍</span>
+          <h3>SEO Local Incluido</h3>
+          <p>Configuramos tu sitio para que aparezcas cuando alguien busca tu rubro en tu ciudad específica.</p>
+        </div>
+        <div class="benefit-card fade-up" style="--delay:1">
+          <span class="benefit-icon">⚡</span>
+          <h3>Velocidad Mbarete</h3>
+          <p>Sitios ultra-rápidos que cargan al instante en celulares con redes 4G/5G de Paraguay.</p>
+        </div>
+        <div class="benefit-card fade-up" style="--delay:2">
+          <span class="benefit-icon">🤝</span>
+          <h3>Atención en Español y Guaraní</h3>
+          <p>Entendemos el mercado local. Te asesoramos en tu idioma para que el mensaje llegue a tus clientes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Rubros />
+
+  <section class="section section--white">
+    <div class="container">
+      <h2 class="section__title fade-up">Presencia en las principales ciudades</h2>
+      <p class="section__subtitle fade-up">Trabajamos de forma remota para todo el país, asegurando que tu negocio brille sin importar dónde estés.</p>
+      <div class="cities-grid fade-up">
+        {["Asunción", "Luque", "San Lorenzo", "Ciudad del Este", "Encarnación", "Lambaré", "Mariano Roque Alonso", "Fernando de la Mora"].map((city) => (
+          <div class="city-tag">{city}</div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <section class="section section--cta">
+    <div class="container text-center">
+      <h2 class="section__title section__title--light">Tu competencia ya está en internet</h2>
+      <p class="section__subtitle section__subtitle--light">No te quedes atrás. Creamos tu página profesional hoy mismo.</p>
+      <a href={getWhatsAppUrl("Hola! Quiero iniciar mi proyecto web en Paraguay")} class="btn btn--white btn--xl">¡Empezar ahora!</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .local-hero {
+    padding: 10rem 0 6rem;
+    overflow: hidden;
+  }
+  .grid-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 992px) {
+    .grid-hero { grid-template-columns: 1.2fr 0.8fr; }
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--verde-claro), #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .local-hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin: 1.5rem 0;
+    line-height: 1.1;
+    font-weight: 900;
+    color: var(--blanco);
+  }
+
+  .local-hero p {
+    font-size: 1.25rem;
+    color: var(--texto-light);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .btn--outline-white {
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: var(--blanco);
+  }
+  .btn--outline-white:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--blanco);
+  }
+
+  .local-hero__visual {
+    position: relative;
+    height: 400px;
+    background: radial-gradient(circle at center, rgba(5, 150, 105, 0.15) 0%, transparent 70%);
+    border-radius: var(--radius-2xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stats-float {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .stat-bubble {
+    background: var(--blanco);
+    padding: 1.5rem 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    border: 1px solid var(--gris-medio);
+  }
+  .stat-bubble strong { font-size: 2rem; display: block; color: var(--verde); }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .benefit-card {
+    background: var(--blanco);
+    padding: 2.5rem;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition);
+  }
+  .benefit-card:hover { transform: translateY(-5px); }
+  .benefit-icon { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+
+  .cities-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .city-tag {
+    background: var(--blanco);
+    border: 1px solid var(--gris-medio);
+    padding: 8px 20px;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    color: var(--texto-muted);
+  }
+
+  .text-center { text-align: center; }
+</style>
