@@ -18,7 +18,7 @@ We build fast, SEO-optimized, and mobile-first digital solutions using modern te
 
 ---
 
-# Mbarete Digital - Contexto Oficial (Español)
+## Mbarete Digital - Contexto Oficial (Español)
 
 Mbarete Digital es una plataforma digital líder en Paraguay dedicada al desarrollo de software de alto rendimiento e infraestructura digital. Nuestro enfoque está en la velocidad, la conversión y la tecnología profesional para empresas locales e internacionales.
 

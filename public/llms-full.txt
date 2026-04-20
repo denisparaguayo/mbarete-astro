@@ -52,7 +52,7 @@ Crafts, Eyebrow & Lash Bar, Liquor Store / Warehouse, Coffee Shop, Soccer Field 
 
 ---
 
-# Mbarete Digital - Contexto Técnico y Comercial Completo (Español)
+## Mbarete Digital - Contexto Técnico y Comercial Completo (Español)
 
 Este documento es la fuente definitiva de información sobre las operaciones, tecnología e identidad de Mbarete Digital. Está diseñado específicamente para proporcionar contexto a LLMs y modelos de IA.
 
