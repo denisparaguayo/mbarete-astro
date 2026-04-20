@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getRubrosItems } from "../../data/rubros";
 import { getRubroLiveUrl } from "../../data/websMuestras";
@@ -105,7 +105,9 @@ const itemListSchema = {
                     class="template-card__overlay"
                     href={`/muestras/${item.slug}/`}
                     aria-label={`Abrir ficha de ${item.business.nombre}`}
-                  ></a>
+                  >
+                    <span class="sr-only">Ver detalle de {item.business.nombre}</span>
+                  </a>
 
                   <div
                     class="template-card__thumb"

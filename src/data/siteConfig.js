@@ -1,6 +1,6 @@
-﻿export const siteConfig = {
+export const siteConfig = {
 	name: 'Mbarete Digital',
-	url: 'https://mbarete.online/',
+	url: 'https://mbarete.online',
 
 	// CONTACTO
 	email: 'mbarete.digital01@gmail.com',

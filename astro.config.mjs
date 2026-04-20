@@ -6,6 +6,7 @@ import { siteConfig } from './src/data/siteConfig.js';
 // https://astro.build/config
 export default defineConfig({
 	site: siteConfig.url,
+	trailingSlash: 'always',
 	integrations: [sitemap()],
 	build: {
 		inlineStylesheets: 'always',

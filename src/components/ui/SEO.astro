@@ -23,15 +23,21 @@ const breadcrumbSchema = breadcrumbs
 		}
 	: null;
 
+const isHomePage = Astro.url.pathname === '/' || Astro.url.pathname === '';
+
 const planBasico = getServicePlanBySlugOrThrow('basico');
 const planPro = getServicePlanBySlugOrThrow('pro');
+
+const cleanPrice = (price: string) => price.replace(/[^\d]/g, '');
+const priceBasico = cleanPrice(planBasico.price);
+const pricePro = cleanPrice(planPro.price);
 
 const professionalServiceSchema = {
 	'@context': 'https://schema.org',
 	'@type': 'ProfessionalService',
 	name: siteConfig.name,
 	url: siteConfig.url,
-	logo: `${siteConfig.url}favicon.svg`,
+	logo: new URL('/favicon.svg', siteConfig.url).toString(),
 	image: siteConfig.seo.ogImage,
 	description:
 		'Plataforma de desarrollo de software e infraestructura digital en Paraguay. Especialistas en creación de sitios web, SEO local y soluciones tecnológicas profesionales.',
@@ -43,7 +49,7 @@ const professionalServiceSchema = {
 	],
 	telephone: `+${siteConfig.whatsapp}`,
 	email: siteConfig.email,
-	priceRange: `${planBasico.price} - ${planPro.price}`,
+	priceRange: `PYG ${priceBasico} - ${pricePro}`,
 	address: {
 		'@type': 'PostalAddress',
 		addressLocality: siteConfig.address.city,
@@ -81,7 +87,7 @@ const organizationSchema = {
 	'@type': 'Organization',
 	name: siteConfig.name,
 	url: siteConfig.url,
-	logo: `${siteConfig.url}favicon.svg`,
+	logo: new URL('/favicon.svg', siteConfig.url).toString(),
 	description:
 		'Agencia paraguaya de soluciones web y desarrollo de software. Líder en infraestructura digital rápida para PYMES y empresas.',
 	contactPoint: {
@@ -103,7 +109,7 @@ const webSiteSchema = {
 	url: siteConfig.url,
 	potentialAction: {
 		'@type': 'SearchAction',
-		target: `${siteConfig.url}?q={search_term_string}`,
+		target: `${siteConfig.url}/?q={search_term_string}`,
 		'query-input': 'required name=search_term_string',
 	},
 };
@@ -125,12 +131,13 @@ const siteNavigationSchema = {
 	),
 };
 
-const baseSchemas = [
-	professionalServiceSchema,
-	organizationSchema,
-	webSiteSchema,
-	siteNavigationSchema,
-];
+// Construir lista de esquemas dinámicamente
+const baseSchemas = [professionalServiceSchema, siteNavigationSchema];
+
+if (isHomePage) {
+	baseSchemas.push(organizationSchema);
+	baseSchemas.push(webSiteSchema);
+}
 
 if (breadcrumbSchema) {
 	baseSchemas.push(breadcrumbSchema);
